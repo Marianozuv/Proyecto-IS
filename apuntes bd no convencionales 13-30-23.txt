@@ -1,0 +1,149 @@
+
+
+MODELADO DE DATOS CON MONGODB ORIENTADO A DOCUMENTOS
+
+Es un sistema de bases de datos NoSQL, orientado a documentos y de codigo abierto
+En lugar de guardar los datos en tablas, tal y como se hace en las bases de datos relacionales, MongoDB guarda estructuras de datos BSON (una especificacion similar a JSON) con un esquema dinamico, haciendo que la integracion de los datos en ciertas aplicaciones sea mas facil y rapida
+
+MongoDb es una base de datos adecuada para su uso en produccion y con multiples funcionalidades. Esta base de datos se utiliza mucho en la industria, contando con implementaciones en empresas como MTV Network, Craiglist, Foursquare
+
+MongoDB tiene una version bajo licencia Apache, que incluye funciones avanzadas como (como integracion SAGL, LGDAP, Kerberos, Simple Network Manager Protocol)
+
+CARACTERISTICAS PRINCIPALES
+
+Consultas ad hoc: MongoDB soporta la busqueda por campos, consultas de rangos y expresiones regulares. Las consultas pueden devolver  un campo especifico del documento pero tambien pueede ser una funcion definida por el usuario para su mejor ocupacion
+
+Indexacion: Cualquier campo en un documento de MongoDB puede ser indexado, al igual que es posible hacer indices secundarios. El concepto de indices en MongoDB es similar al empleado en base de datos relacionales
+
+Replicacion: MongoDB soporta el tipo de replicacion primario-secundario. Cada grupo de primario y sus secundarios se denomina replica set
+
+El primario puede ejecutar comandos de lectura y escritura. Los secundarios replican los datos del primario y solo se pueden usar para lectura o para copia de seguridad, pero no se pueden realiar escrituras
+
+Los secundarios tienen la habilidad de poder elegir un nuevo primario en caso de que el primario actual deje de responder
+
+Balanceo de carga: MongoDB puede escalar de forma horizontal usando el concepto de shard. El desarrollador elige una clave de sharding, la cual determina como seran distribuidos los datos de una colección. Los datos son divididos en rangos,(basado en la clave de sharding) y distribuidos a traves de multiples shard
+
+MongoDB tiene la capacidad de ejecutarse en multiples servidores, balanceando la carga y/o replicando los datos para poder mantener el sistema funcionando en caso de que exista un fallo de hardware
+
+Sharding es un metodo o una forma para poder distribuir datos entre varias maquinas. MongoDB usa fragmentacion para admitir implementaciones con conjuntos de datos muy grandes y operaciones de alto rendimiento.
+
+FRAGMENTACION (SHARDING)
+
+Si estas desarrollando un servicio que se va haciendo popular o los niveles de acceso a base de datos son cada vez mas altos, empezaras a notar que tu base de datos esta siendo atacada por un trafico creciente y tu servidor este sufriendo por los altos niveles de estrés y te podrias ver en la necesidad de actualizar tu infraestructura para soportar la demanda
+
+Aquí entra en juego el sharding, es el modo en el que hacemos nuestra base de datos escalable. En lugar de tener una colección en una base de datos, la pondriamos en varias bases de datos distribuidas, de modo que a la hora de consultar los datos de dicha colección, los recuperemos como si de una unica base de datos se tratase. Mongo se encargara de averiguar de manera transparente en que base de datos se encuentran los datos
+
+Almacenamiento en archivos: MongoDB puede ser utilizado como un sistema de archivos aprovechando la capacidad de MongoDB para el balanceo de carga y la replicacion de datos en multiples servidores. Esta funcionalidad, llamada GridFS e incluida en la distribucion oficial, implementa sobre los drivers, no sobre el servidor, una serie de funciones y metodos para manipular archivos y contenido
+
+Agregacion: MongoDB proporciona un framework de agregacion que permite realizar operaciones similares al "GROUP BY" de SQL. El framework de agregacion esta construido como un pipeline en el que los datos van pasando a traves de diferentes etapas en los cuales los datos son modificados, agregados, filtrados y formateados hasta obtener el resutlado deseado
+
+Ejecucion de JavaScript del lado del servidor: MongoDB tiene la capacidad de realizar consultas utilizando JavaScript, haciendo que estas sean enviadas directamente a la base de datos apra ser ejecutads.
+
+PRINCIPALES LIMITACIONES
+
+Implementacion d epropiedades ACID multidocumento: MongoDB solo garantizaba ACID dentro del mismo documento. El no implementar las propiedades ACID generaba que la base de datos no aseguraran la furabilidad, la integridad, la consistencia y el aislamiento requeridos obligatoriamente en las transacciones. El soporte para transacciones ACID de multiples documentos agrego a MongoDB en la version 4.0
+
+Problemas de consistencia: en versiones anteriores de la base de datos las lecturas estrictamente consistentes ven versiones obsoletas de documentos, tambien pueden devolver datos incorrectos de lecturas que nunca deberian haber ocurrido. Este problema se considera solucionado a partir de la version 3.4
+
+Bloqueo a nivel de documento: MongoDB bloquea la base de datos a nivel de documento ante cada operación de escritura. Solo se podrian hacer operaciones de escritura concurrentes entre distintos documentos
+
+Las escrituras no son durables ni verificables: MongoDB retorna cuando todavia no se ha escrito la informacion en el espacio de almacenamiento permanente, lo que puede ocasionar perdidas de informacion
+
+Problemas de escalabilidad: Tiene problemas de rendimiento cuando el volumen de datos supera los 100GB
+
+ 
+ELEMENTOS BASICOS
+
+Mongo Server: manejador de la base de datos
+Mongosh: Cliente de linea de comandas para la admon de base de datos
+MongoDB Compass: Cliente grafico para la administracion de DB
+
+
+
+OPERACIONES BASICAS EN MONGODB CON MOGOSH
+
+Para crear, usar o cambiar una base de datos usamos el comando use seguido del nombre de la base de datos, usemiBase
+
+Para ver todas las bases de datos que existen se usa show dbs
+
+Para ver la base de datos que estamos usando se puese usar db
+
+
+
+CREACION
+
+La creacion de colecciones se puede hacer de dos formas
+Puede crear una colección utilizando el createCollection(), db.createCollection("posts")
+Tambien puede crear una colección durante el proceso de insercion db.posts.insertOne(Object)     Object puede ser cualquier cosa
+
+
+INSERTAR
+Para insertar un solo documento, utilice el metodo insertOne()
+
+db.posts.insertOne
+	({
+	title: "Post Title 1",
+	body: "Body of post",
+	category: "News",
+	likes: 1, tags: ["news", "events]",
+	date:Date() 
+	})
+	
+
+
+Para insertar varios elementos en un documento, utilice el metodo insertMany()
+
+Db.posts.insertMany
+([
+           {
+	title: "Post Title 2",
+	body: "Body of post",
+	category: "Event",
+	likes: 2, tags: ["news", "events]",
+	date:Date() 
+	}
+	{
+	title: "Post Title 3",
+	Body: "Body of post",
+	category: "Technology",
+	likes: 3, tags: ["news", "events]",
+	date:Date() 
+	}
+])
+
+
+
+ACTUALIZAR
+Para actuializar un documento existente podemos usar los metodos updateOne() o updateMany()
+
+Utiliza dos parametros, el primer parametro es un objeto de consulta para definir que documento o documentos deben actualizarse,el segundo parametro es un objeto que define los datos actualizados
+
+db.posts.updateOne({title: "Post Title 1" }, {$set: {likes : 2}})
+
+
+
+Si desea insertar el documento en caso de que no se encuentre, puede utilizar la opcion upsert
+
+db.posts.updateOne(
+	{title: "Post Title 5"},
+	
+	{$set: { 
+	title: "Post Title 5", body: "Body of post.", category: "Event", likes: 5: tags: ["news", "events"], date: Date()} },
+	
+	{upsert: true} )
+	
+El metodo updateMany() actualizara todos los documentos que coincidn con la consulta proporcionada
+
+db.posts.updateMany( {},
+	{ $inc: {likes: 1}}
+)
+
+
+
+ELIMINAR
+Podemos eliminar documentos utilizando los metodos deleteOne() o deleteMany(), estos metodos aceptan un objeto de consulta.
+
+db.posts.deleteOne ({ title: "Post Title 5" })
+
+db.posts.deleteMany({ category: "Technology" })
+
