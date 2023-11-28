@@ -17,7 +17,7 @@ import org.apache.ibatis.session.SqlSession;
  */
 public class AutenticacionDAO {
     
-    public static RespuestaLoginEscritorio verificarSesionEscritorio(String email, String password) {
+    public static RespuestaLoginEscritorio verificarSesionEscritorio(String username, String password) {
         RespuestaLoginEscritorio respuesta = new RespuestaLoginEscritorio();
         respuesta.setError(true);
         
@@ -27,7 +27,7 @@ public class AutenticacionDAO {
              
             try {
                 HashMap<String, String> parametros = new HashMap<>();
-                parametros.put("email", email);
+                parametros.put("username", username);
                 parametros.put("password", password);
                 
                 Usuario usuario = dbSqlSession.selectOne("autenticacion.loginEscritorio", parametros);

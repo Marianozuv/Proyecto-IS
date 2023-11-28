@@ -24,6 +24,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     
     
     <mappers>
+        
+        <mapper resource="mybatis/mapper/AutenticacionMapper.xml"/>
 
     </mappers>
     

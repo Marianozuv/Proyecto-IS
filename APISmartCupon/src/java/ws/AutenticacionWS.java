@@ -21,8 +21,10 @@ import modelo.pojo.RespuestaLoginEscritorio;
  *
  * @author mateo
  */
+@Path("autenticacion")
 public class AutenticacionWS {
-        @Context
+       
+    @Context
     private UriInfo context;
 
     /**
@@ -34,11 +36,11 @@ public class AutenticacionWS {
     @POST
     @Path("loginEscritorio")
     @Produces(MediaType.APPLICATION_JSON)
-    public RespuestaLoginEscritorio inicarSesionEscritorio(@FormParam("email") String email,
+    public RespuestaLoginEscritorio inicarSesionEscritorio(@FormParam("username") String username,
             @FormParam("password") String password) {
         RespuestaLoginEscritorio respuesta = null;
-        if (!email.isEmpty() && !password.isEmpty()) {
-            respuesta = AutenticacionDAO.verificarSesionEscritorio(email, password);
+        if (!username.isEmpty() && !password.isEmpty()) {
+            respuesta = AutenticacionDAO.verificarSesionEscritorio(username, password);
         } else {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
