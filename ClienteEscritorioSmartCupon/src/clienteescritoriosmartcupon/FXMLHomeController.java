@@ -8,6 +8,7 @@ package clienteescritoriosmartcupon;
 import clienteescritoriosmartcupon.modelo.pojo.Usuario;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -34,6 +35,26 @@ public class FXMLHomeController implements Initializable {
     public void inicializarHome(Usuario usuarioSesion) {  
         this.usuarioSesion = usuarioSesion;
         lbUsuario.setText(usuarioSesion.getNombre()+ " "+usuarioSesion.getApellidoPaterno());
+    }
+
+    @FXML
+    private void btModuloEmpresas(ActionEvent event) {
+    }
+
+    @FXML
+    private void btModuloSucursales(ActionEvent event) {
+    }
+
+    @FXML
+    private void btModuloCupones(ActionEvent event) {
+    }
+
+    @FXML
+    private void btModuloUsuarios(ActionEvent event) {
+    }
+
+    @FXML
+    private void btModuloPromociones(ActionEvent event) {
     }
     
 }

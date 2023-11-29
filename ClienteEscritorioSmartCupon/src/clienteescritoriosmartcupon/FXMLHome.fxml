@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriosmartcupon.FXMLHomeController">
    <children>
@@ -17,6 +21,156 @@
       <Label fx:id="lbUsuario" layoutX="21.0" layoutY="14.0" text="Nombre" textFill="WHITE">
          <font>
             <Font size="37.0" />
+         </font>
+      </Label>
+      <Pane layoutX="58.0" layoutY="134.0" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 15px;">
+         <children>
+            <VBox layoutX="13.0" prefHeight="150.0" prefWidth="178.0">
+               <children>
+                  <Label text="Empresas">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextArea prefHeight="56.0" prefWidth="178.0" text="Lorem ipsum dolor sit amet,&#10; consectetur adipiscing elit&#10;">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </TextArea>
+               </children>
+            </VBox>
+            <Button layoutX="98.0" layoutY="108.0" mnemonicParsing="false" onAction="#btModuloEmpresas" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Administrar" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Pane layoutX="302.0" layoutY="134.0" prefHeight="150.0" prefWidth="209.0" style="-fx-background-color: white; -fx-background-radius: 15px;">
+         <children>
+            <VBox layoutX="14.0" prefHeight="150.0" prefWidth="185.0">
+               <children>
+                  <Label text="Sucursales">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <TextArea prefHeight="56.0" prefWidth="178.0" text="Lorem ipsum dolor sit amet,&#10; consectetur adipiscing elit&#10;">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </TextArea>
+               </children>
+            </VBox>
+            <Button layoutX="107.0" layoutY="108.0" mnemonicParsing="false" onAction="#btModuloSucursales" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Administrar" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Pane layoutX="58.0" layoutY="336.0" prefHeight="150.0" prefWidth="324.0" style="-fx-background-color: white; -fx-background-radius: 15px;">
+         <children>
+            <VBox layoutX="14.0" prefHeight="150.0" prefWidth="296.0">
+               <children>
+                  <Label text="Cupones">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextArea prefHeight="56.0" prefWidth="178.0" text="Lorem ipsum dolor sit amet,&#10; consectetur adipiscing elit&#10;">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </TextArea>
+               </children>
+            </VBox>
+            <Button layoutX="219.0" layoutY="108.0" mnemonicParsing="false" onAction="#btModuloCupones" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Administrar" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Pane layoutX="416.0" layoutY="337.0" prefHeight="150.0" prefWidth="335.0" style="-fx-background-color: white; -fx-background-radius: 15px;">
+         <children>
+            <VBox layoutX="14.0" prefHeight="150.0" prefWidth="307.0">
+               <children>
+                  <Label text="Usuarios">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <TextArea prefHeight="56.0" prefWidth="178.0" text="Lorem ipsum dolor sit amet,&#10; consectetur adipiscing elit&#10;">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </TextArea>
+               </children>
+            </VBox>
+            <Button layoutX="230.0" layoutY="107.0" mnemonicParsing="false" onAction="#btModuloUsuarios" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Administrar" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Pane layoutX="551.0" layoutY="134.0" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 15px;">
+         <children>
+            <VBox layoutX="14.0" prefHeight="150.0" prefWidth="176.0">
+               <children>
+                  <Label text="Promociones">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets top="7.0" />
+                     </padding>
+                  </Label>
+                  <TextArea prefHeight="56.0" prefWidth="178.0" text="Lorem ipsum dolor sit amet,&#10; consectetur adipiscing elit&#10;">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="6.0" />
+                     </VBox.margin>
+                  </TextArea>
+               </children>
+            </VBox>
+            <Button layoutX="97.0" layoutY="108.0" mnemonicParsing="false" onAction="#btModuloPromociones" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Administrar" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Label layoutX="59.0" layoutY="98.0" text="Modulos" textFill="WHITE">
+         <font>
+            <Font size="21.0" />
          </font>
       </Label>
    </children>
