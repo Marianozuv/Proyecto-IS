@@ -104,7 +104,7 @@ public class FXMLLoginController implements Initializable {
 
             FXMLHomeController controladorHome = loadVista.getController();
             controladorHome.inicializarHome(usuarioSesion);
-
+            
             Scene scene = new Scene(vista);
             stagePrincipal.setTitle("Inicio");
             stagePrincipal.setScene(scene);
