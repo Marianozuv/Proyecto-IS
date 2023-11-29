@@ -21,29 +21,44 @@
       </ImageView>
       <Pane layoutX="483.0" layoutY="3.0" prefHeight="550.0" prefWidth="335.0">
          <children>
-            <VBox layoutX="52.0" layoutY="131.0" prefHeight="272.0" prefWidth="200.0">
+            <VBox layoutX="14.0" layoutY="132.0" prefHeight="272.0" prefWidth="240.0">
                <children>
                   <Label text="Inicio de sesión" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="31.0" />
+                        <Font name="System Bold" size="37.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="30.0" prefWidth="200.0" promptText="Usuario" style="-fx-background-color: white;">
+                  <TextField fx:id="tfUsuario" prefHeight="30.0" prefWidth="200.0" promptText="Usuario" style="-fx-border-radius: 15 px; -fx-background-radius: 15px;">
                      <VBox.margin>
-                        <Insets top="30.0" />
+                        <Insets top="20.0" />
                      </VBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
                   </TextField>
-                  <Label alignment="TOP_RIGHT" text="Label" />
-                  <PasswordField prefHeight="30.0" prefWidth="200.0" promptText="Contraseña">
+                  <Label fx:id="lbErrorUsuario" alignment="TOP_RIGHT" text="Label" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets left="10.0" top="5.0" />
+                     </VBox.margin></Label>
+                  <PasswordField fx:id="tfPassword" prefHeight="30.0" prefWidth="200.0" promptText="Contraseña" style="-fx-background-radius: 15px; -fx-border-radius: 15px;">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
                   </PasswordField>
-                  <Label alignment="TOP_RIGHT" text="Label" />
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: green;" text="Iniciar sesión " textFill="WHITE">
+                  <Label fx:id="lbErrorPassword" alignment="TOP_RIGHT" text="Label" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets left="10.0" top="5.0" />
+                     </VBox.margin></Label>
+                  <Button mnemonicParsing="false" onAction="#btLogin" prefHeight="39.0" prefWidth="248.0" style="-fx-background-color: green; -fx-border-radius: 15px; -fx-background-radius: 15px; -fx-border-color: white;" text="Iniciar sesión " textFill="WHITE">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
                   </Button>
                </children>
             </VBox>
