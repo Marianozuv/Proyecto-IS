@@ -22,7 +22,7 @@ public class Empresa {
     private  String ciudad;
     private  String telefono;
     private  String paginaWeb;
-    private  String rfc;
+    private  String RFC;
     private  String estatus;
 
     public Empresa() {
@@ -40,7 +40,7 @@ public class Empresa {
         this.ciudad = ciudad;
         this.telefono = telefono;
         this.paginaWeb = paginaWeb;
-        this.rfc = rfc;
+        this.RFC = rfc;
         this.estatus = estatus;
     }
 
@@ -133,11 +133,11 @@ public class Empresa {
     }
 
     public String getRfc() {
-        return rfc;
+        return RFC;
     }
 
     public void setRfc(String rfc) {
-        this.rfc = rfc;
+        this.RFC = rfc;
     }
 
     public String getEstatus() {
