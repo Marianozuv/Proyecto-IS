@@ -25,4 +25,8 @@ public class MyBatisUtil {
         }
         return session;
     }
+
+    public static SqlSession getSesion() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
