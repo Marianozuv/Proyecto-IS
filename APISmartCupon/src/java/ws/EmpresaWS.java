@@ -48,5 +48,21 @@ public class EmpresaWS {
         }
 
     }
+    
+    public static void editarEmpresa(String[] args) {
+        
+    }
+    
+    public static void eliminarEmpresa(String[] args) {
+        
+    }
+    
+    public static void obtenerEmpresa(String[] args) {
+        
+    }
+    
+    public static void obtenerEmpresas(String[] args) {
+        
+    }
 
 }
