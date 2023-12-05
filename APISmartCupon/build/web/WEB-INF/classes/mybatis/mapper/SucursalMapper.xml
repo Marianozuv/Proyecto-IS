@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "sucursal">
+    
+    <select id = "obtenerPorId" resultType = "modelo.pojo.Sucursal" parameterType = "int">
+        SELECT * FROM sucursal WHERE idSucursal = #{idSucursal}
+    </select>
+    
+    <select id = "obtenerPorIdEmpresa" resultType = "modelo.pojo.Sucursal" parameterType = "int">
+        SELECT * FROM sucursal WHERE idEmpresa = #{idEmpresa}
+    </select>
+    
+    <insert id = "registrar" parameterType = "modelo.pojo.Sucursal">
+        INSERT INTO sucursal(idEmpresa, nombreSucursal, direccion, codigoPostal, colonia, ciudad, telefono, latitud, longitud, nombreEncargado)
+        VALUES (#{idEmpresa}, #{nombreSucursal}, #{direccion}, #{codigoPostal}, #{colonia}, #{ciudad}, #{telefono}, #{latitud}, #{longitud}, #{nombreEncargado})
+    </insert>
+    
+    <update id = "editar" parameterType = "map">
+        UPDATE sucursal SET idEmpresa = #{idEmpresa}, nombreSucursal = #{nombreSucursal}, direccion = #{direccion}, codigoPosta = #{codigoPostal},
+                            colonia = #{colonia}, ciudad = #{ciudad}, telefono = #{telefono}, latitud = #{latitud}, longitud = #{longitud}, nombreEncargado = #{nombreEncargado}
+        WHERE idSucursal = #{idSucursal}
+    </update>
+    
+    <delete id="eliminar" parameterType="int">
+        DELETE FROM sucursal WHERE idSucursal = #{idSucursal}
+    </delete>
+</mapper>
