@@ -9,16 +9,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="registrarEmpresa" parameterType="modelo.pojo.Empresa">
         
         INSERT INTO empresa (nombre, nombreComercial, nombreRepresentanteLegal, email,
-                             direccion, codigoPostal, ciudad, telefono, paginaWeb, RFC, estatus)
+        direccion, codigoPostal, ciudad, telefono, paginaWeb, RFC, estatus)
         VALUES (#{nombre}, #{nombreComercial}, #{nombreRepresentanteLegal},
-                #{email}, #{direccion}, #{codigoPostal}, #{ciudad}, #{telefono}, #{paginaWeb}, #{RFC}, #{estatus})
+        #{email}, #{direccion}, #{codigoPostal}, #{ciudad}, #{telefono}, #{paginaWeb}, #{RFC}, #{estatus})
         
     </insert>
     
-    <select id="obtenerEmpresas" resultType="modelo.pojo.Empresa" parameterType="map">
+    <select id="obtenerEmpresas" resultType="modelo.pojo.Empresa">
 
-        
-        
+        SELECT idEmpresa, nombre, nombreComercial, nombreRepresentanteLegal, email,
+        direccion,  codigoPostal, ciudad, telefono, paginaWeb, RFC, estatus
+        FROM empresa
+    
     </select>
+    
+    <select id="obtenerEmpresaById" parameterType="int" resultType="modelo.pojo.Empresa">
+
+        SELECT idEmpresa, nombre, nombreComercial, nombreRepresentanteLegal, email,
+        direccion,  codigoPostal, ciudad, telefono, paginaWeb, RFC, estatus
+        FROM empresa
+        WHERE idEmpresa = #{idEmpresa}
+    
+    </select>
+    
+    <delete id="eliminarEmpresaById" parameterType="int">
+        
+        DELETE FROM empresa WHERE idEmpresa = #{idEmpresa}
+        
+    </delete>
+    
+    <update id="editarEmpresa" parameterType="modelo.pojo.Empresa">
+        
+        UPDATE empresa
+        SET nombre = #{nombre},
+            nombreComercial = #{nombreComercial},
+            nombreRepresentanteLegal = #{nombreRepresentanteLegal},
+            email = #{email},
+            direccion = #{direccion},
+            codigoPostal = #{codigoPostal},
+            ciudad = #{ciudad},
+            telefono = #{telefono},
+            paginaWeb = #{paginaWeb},
+            RFC = #{RFC}
+        WHERE idEmpresa = #{idEmpresa}
+        
+    </update>
+    
     
 </mapper>

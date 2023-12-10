@@ -6,9 +6,14 @@
 package ws;
 
 import com.google.gson.Gson;
+import java.util.List;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
@@ -49,19 +54,61 @@ public class EmpresaWS {
 
     }
     
-    public static void editarEmpresa(String[] args) {
+    @PUT
+    @Path("editarEmpresa")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje editarEmpresa(String json) {
+        
+        Gson gson = new Gson();
+        Empresa empresa = gson.fromJson(json, Empresa.class);
+        
+        if(empresa != null){
+            
+            return EmpresaDAO.editarEmpresa(empresa);
+            
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_GATEWAY);
+        }
         
     }
     
-    public static void eliminarEmpresa(String[] args) {
+    @DELETE
+    @Path("eliminarEmpresa/{idEmpresa}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje eliminarEmpresa(@PathParam("idEmpresa") Integer idEmpresa) {
+        
+        
+        if(idEmpresa > 0 && idEmpresa != null){
+            
+            return EmpresaDAO.eliminarEmpresa(idEmpresa);
+            
+        }else{
+            throw  new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+       
         
     }
     
-    public static void obtenerEmpresa(String[] args) {
-        
+    @GET
+    @Path("obtenerEmpresaById/{idEmpresa}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje obtenerEmpresaById(@PathParam("idEmpresa") Integer idEmpresa) {
+
+        return null;
     }
     
-    public static void obtenerEmpresas(String[] args) {
+    
+    @GET
+    @Path("obtenerEmpresas")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Empresa> obtenerEmpresas() {
+       
+        List<Empresa> empresas = null;
+        
+        empresas = EmpresaDAO.obtenerEmpresas();
+        
+       return  empresas;
         
     }
 
