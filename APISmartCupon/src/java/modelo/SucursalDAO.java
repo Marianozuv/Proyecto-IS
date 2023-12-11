@@ -19,7 +19,7 @@ import org.apache.ibatis.session.SqlSession;
 public class SucursalDAO {
     public List<Sucursal> obtenerSucursalPorIdEmpresa(Integer idEmpresa) {
         List<Sucursal> sucursal = null;
-        SqlSession conexionDB = MyBatisUtil.getSesion();
+        SqlSession conexionDB = MyBatisUtil.getSession();
 
         if (conexionDB != null) {
             try {
@@ -36,7 +36,7 @@ public class SucursalDAO {
     public Mensaje registrar(Sucursal sucursal){
          
         Mensaje msj = new Mensaje();
-        SqlSession conexionDB = MyBatisUtil.getSesion();
+        SqlSession conexionDB = MyBatisUtil.getSession();
         
         if (conexionDB != null) {
             try {
@@ -67,7 +67,7 @@ public class SucursalDAO {
 
         Mensaje response = new Mensaje();
         HashMap<String, Object> parametros = toparam(sucursal);
-        SqlSession conn = MyBatisUtil.getSesion();
+        SqlSession conn = MyBatisUtil.getSession();
         response.setMensaje("OK");
 
         if (conn != null) {
@@ -101,7 +101,7 @@ public class SucursalDAO {
     public Mensaje eliminar(Integer idSucursal) {
 
         Mensaje msj = new Mensaje();
-        SqlSession conexionDB = MyBatisUtil.getSesion();
+        SqlSession conexionDB = MyBatisUtil.getSession();
 
         if (conexionDB != null) {
             try {
