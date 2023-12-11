@@ -5,6 +5,7 @@
  */
 package modelo;
 
+import java.util.List;
 import modelo.pojo.Empresa;
 import modelo.pojo.Mensaje;
 import mybatis.MyBatisUtil;
@@ -52,4 +53,100 @@ public class EmpresaDAO {
         return mensaje;
     }
     
+    public static Mensaje editarEmpresa(Empresa empresa) {
+        Mensaje mensaje = new Mensaje();
+        mensaje.setError(true);
+        
+        
+        SqlSession sqlSession = MyBatisUtil.getSession();
+        
+        if(sqlSession != null){
+            
+            try {
+                
+                int filasAfectadas = sqlSession.update("empresas.editarEmpresa", empresa);
+                sqlSession.commit();
+                
+                if(filasAfectadas > 0){
+                    mensaje.setError(false);
+                    mensaje.setMensaje("La empresa ha sido editada");
+                }else{
+                    mensaje.setMensaje("No se pudo editar la empresa");
+                }
+                
+                
+                
+            } catch (Exception e) {
+            }
+            
+        }else{
+            mensaje.setMensaje("No hay conexión a la base de datos");
+        }
+        
+        return mensaje;
+        
+    }
+    
+    public static Empresa obtenerEmpresa(String[] args) {
+        return null;
+    }
+    
+    public static List<Empresa> obtenerEmpresas() {
+        List<Empresa> empresas = null;
+        
+        SqlSession sqlSession = MyBatisUtil.getSession();
+        
+        if(sqlSession != null){
+            try {
+                
+                empresas = sqlSession.selectList("empresas.obtenerEmpresas");
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally{
+                sqlSession.close();
+            }
+        }else{
+            System.out.println("No hay conexión a la base de datos");
+        }
+        
+        
+        
+        return  empresas;
+    }
+    
+    public static Mensaje eliminarEmpresa(int idEmpresa) {
+        
+        Mensaje mensaje = new Mensaje();
+        mensaje.setError(true);
+        SqlSession sqlSession = MyBatisUtil.getSession();
+        
+        if(sqlSession != null){
+            
+            try {
+                
+                int filasAfectadas = sqlSession.delete("empresas.eliminarEmpresaById", idEmpresa);
+                
+                if(filasAfectadas > 0){
+                    sqlSession.commit();
+                    mensaje.setError(false);
+                    mensaje.setMensaje("La empresa ha sido eliminada");
+                    
+                }else{
+                   mensaje.setMensaje("No se pudo eliminar la empresa");
+                }
+                
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally{
+                sqlSession.close();
+            }
+            
+        }else{
+            mensaje.setMensaje("Error en la conexión de la base de datos");
+        }
+        
+        return mensaje;
+    }
 }
