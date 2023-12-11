@@ -17,7 +17,7 @@ public class Usuario {
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
-    private String curp;
+    private String CURP;
     private String email;
     private String username;
     private String password;
@@ -25,14 +25,14 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(Integer idUsuario, Integer idRol, Integer idEmpresa, String nombre, String apellidoPaterno, String apellidoMaterno, String curp, String email, String username, String password) {
+    public Usuario(Integer idUsuario, Integer idRol, Integer idEmpresa, String nombre, String apellidoPaterno, String apellidoMaterno, String CURP, String email, String username, String password) {
         this.idUsuario = idUsuario;
         this.idRol = idRol;
         this.idEmpresa = idEmpresa;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
-        this.curp = curp;
+        this.CURP = CURP;
         this.email = email;
         this.username = username;
         this.password = password;
@@ -86,12 +86,12 @@ public class Usuario {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    public String getCurp() {
-        return curp;
+    public String getCURP() {
+        return CURP;
     }
 
-    public void setCurp(String curp) {
-        this.curp = curp;
+    public void setCURP(String CURP) {
+        this.CURP = CURP;
     }
 
     public String getEmail() {
@@ -117,6 +117,7 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
+
     
     
     
