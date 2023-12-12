@@ -2,23 +2,34 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group/>
+        <group/>
         <group>
-            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/modelo/EmpresaDAO.java</file>
-            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/mybatis/mapper/SucursalMapper.xml</file>
-            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/ws/UsuarioWS.java</file>
-            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/modelo/pojo/Mensaje.java</file>
-            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/mybatis/mapper/EmpresaMapper.xml</file>
-            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/ws/ApplicationConfig.java</file>
             <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/mybatis/mybatis-config.xml</file>
-            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/ws/EmpresaWS.java</file>
-            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/ws/SucursalWS.java</file>
-            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/modelo/pojo/Sucursal.java</file>
-            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/mybatis/mapper/UsuarioMapper.xml</file>
+            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/mybatis/mapper/ClienteMapper.xml</file>
+            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/modelo/EmpresaDAO.java</file>
+            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/ws/AutenticacionWS.java</file>
+            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/ws/ApplicationConfig.java</file>
+            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/mybatis/mapper/SucursalMapper.xml</file>
+            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/modelo/SucursalDAO.java</file>
+            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/mybatis/mapper/EmpresaMapper.xml</file>
             <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/modelo/UsuarioDAO.java</file>
+            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/modelo/pojo/Mensaje.java</file>
+            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/ws/UsuarioWS.java</file>
+            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/mybatis/mapper/UsuarioMapper.xml</file>
+            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/mybatis/MyBatisUtil.java</file>
+            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/mybatis/mapper/AutenticacionMapper.xml</file>
+            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/modelo/pojo/Cliente.java</file>
+            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/ws/ClienteWS.java</file>
+            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/modelo/pojo/Sucursal.java</file>
+            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/ws/SucursalWS.java</file>
+            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/ws/EmpresaWS.java</file>
+            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/modelo/ClienteDAO.java</file>
         </group>
         <group>
             <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/modelo/pojo/Mensaje.java</file>
             <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/mybatis/mapper/EmpresaMapper.xml</file>
+            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/ws/AutenticacionWS.java</file>
             <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/modelo/EmpresaDAO.java</file>
             <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/mybatis/mapper/SucursalMapper.xml</file>
             <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/mybatis/MyBatisUtil.java</file>
@@ -29,10 +40,9 @@
             <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/ws/EmpresaWS.java</file>
             <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/ws/SucursalWS.java</file>
             <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/modelo/pojo/Sucursal.java</file>
+            <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/ws/ClienteWS.java</file>
             <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/mybatis/mapper/UsuarioMapper.xml</file>
             <file>file:/Users/mateo/Desktop/Repositorios/Proyecto-IS/APISmartCupon/src/java/modelo/UsuarioDAO.java</file>
         </group>
-        <group/>
-        <group/>
     </open-files>
 </project-private>
