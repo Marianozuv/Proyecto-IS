@@ -22,6 +22,10 @@ public class SucursalValidator {
         Mensaje response = new Mensaje();
         response.setError(false);
         response.setMensaje("OK");
+        
+        if (isNullOrEmpty("" + sucursal.getIdEmpresa())) {
+            response.setMensaje("ID Medico");
+        }
 
         if (isNullOrEmpty(sucursal.getNombreSucursal())) {
             response.setMensaje("Nombre Sucursal");

@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
     
     <update id = "editar" parameterType = "map">
-        UPDATE sucursal SET idEmpresa = #{idEmpresa}, nombreSucursal = #{nombreSucursal}, direccion = #{direccion}, codigoPosta = #{codigoPostal},
+        UPDATE sucursal SET idEmpresa = #{idEmpresa}, nombreSucursal = #{nombreSucursal}, direccion = #{direccion}, codigoPostal = #{codigoPostal},
                             colonia = #{colonia}, ciudad = #{ciudad}, telefono = #{telefono}, latitud = #{latitud}, longitud = #{longitud}, nombreEncargado = #{nombreEncargado}
         WHERE idSucursal = #{idSucursal}
     </update>

@@ -63,6 +63,23 @@ public class SucursalDAO {
         return msj;
     }
     
+    private HashMap<String, Object> toparam(Sucursal sucursal) {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("idSucursal", sucursal.getIdSucursal());
+        parametros.put("idEmpresa", sucursal.getIdEmpresa());
+        parametros.put("nombreSucursal", sucursal.getNombreSucursal());
+        parametros.put("direccion", sucursal.getDireccion());
+        parametros.put("codigoPostal", sucursal.getCodigoPostal());
+        parametros.put("colonia", sucursal.getColonia());
+        parametros.put("ciudad", sucursal.getCiudad());
+        parametros.put("telefono", sucursal.getTelefono());
+        parametros.put("latitud", sucursal.getLatitud());
+        parametros.put("longitud", sucursal.getLongitud());
+        parametros.put("nombreEncargado", sucursal.getNombreEncargado());
+
+        return parametros;
+    }
+    
     public Mensaje editar(Sucursal sucursal) {
 
         Mensaje response = new Mensaje();
@@ -126,22 +143,5 @@ public class SucursalDAO {
         }
 
         return msj;
-    }
-    
-    private HashMap<String, Object> toparam(Sucursal sucursal) {
-        HashMap<String, Object> parametros = new HashMap<>();
-        parametros.put("idSucursal", sucursal.getIdSucursal());
-        parametros.put("idEmpresa", sucursal.getIdEmpresa());
-        parametros.put("nombreSucursal", sucursal.getNombreSucursal());
-        parametros.put("direccion", sucursal.getDireccion());
-        parametros.put("codigoPostal", sucursal.getCodigoPostal());
-        parametros.put("colonia", sucursal.getColonia());
-        parametros.put("ciudad", sucursal.getCiudad());
-        parametros.put("telefono", sucursal.getTelefono());
-        parametros.put("latitud", sucursal.getLatitud());
-        parametros.put("longitud", sucursal.getLongitud());
-        parametros.put("nombreEncargado", sucursal.getNombreEncargado());
-
-        return parametros;
     }
 }
