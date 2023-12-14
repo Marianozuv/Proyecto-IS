@@ -6,17 +6,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="usuarios">
     
-    <insert id="registrarUsuario" parameterType="modelo.pojo.Usuario">
-        
-        INSERT INTO usuario (idRol, idEmpresa, nombre, apellidoPaterno,
-        apellidoMaterno, CURP, email, username, password)
-        VALUES (#{idRol}, #{idEmpresa}, #{nombre},
-        #{apellidoPaterno}, #{apellidoMaterno}, #{CURP}, #{email}, 
-        #{username}, #{password})
-        
+    <select id="obtenerUsuarios" parameterType="int" resultType="modelo.pojo.Usuario">
+        SELECT * FROM usuario
+    </select>
+    
+    <select id="obtenerUsuarioById" parameterType="int" resultType="modelo.pojo.Usuario">
+        SELECT * FROM usuario WHERE idUsuario = #{idUsuario}
+    </select>
+    
+    <select id="obtenerUsuarioByEmpresa" parameterType="int" resultType="modelo.pojo.Usuario">
+        SELECT * FROM usuario WHERE idEmpresa = #{idEmpresa}
+    </select>
+    
+    <insert id="registrar" parameterType="modelo.pojo.Usuario">
+        INSERT INTO usuario (idRol, idEmpresa, nombre, apellidoPaterno, apellidoMaterno, CURP, email, username, password)
+        VALUES (#{idRol}, #{idEmpresa}, #{nombre}, #{apellidoPaterno}, #{apellidoMaterno}, #{CURP}, #{email}, #{username}, #{password})
     </insert>
     
-    <update id="editarUsuario" parameterType="modelo.pojo.Usuario">
+    <update id="editar" parameterType="modelo.pojo.Usuario">
         UPDATE usuario
         SET
         idRol = #{idRol},
@@ -32,30 +39,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
     
     
-    <delete id="eliminarUsuarioById" parameterType="int">
-        
+    <delete id="eliminarUsuarioById" parameterType="int">    
         DELETE FROM usuario WHERE idUsuario = #{idUsuario}
-        
     </delete>
-    
-    <select id="obtenerUsuarioById" parameterType="int" resultType="modelo.pojo.Usuario">
-        SELECT
-            idUsuario,
-            idRol,
-            idEmpresa,
-            nombre,
-            apellidoPaterno,
-            apellidoMaterno,
-            CURP,
-            email,
-            username,
-            password
-            FROM usuario
-        WHERE idUsuario = #{idUsuario}
-    </select>
 
-    
-
-
-    
 </mapper>

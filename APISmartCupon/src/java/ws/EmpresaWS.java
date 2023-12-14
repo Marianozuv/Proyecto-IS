@@ -23,6 +23,7 @@ import javax.ws.rs.core.UriInfo;
 import modelo.EmpresaDAO;
 import modelo.pojo.Empresa;
 import modelo.pojo.Mensaje;
+import validator.EmpresaValidator;
 
 /**
  *
@@ -37,79 +38,53 @@ public class EmpresaWS {
     public EmpresaWS() {
     }
 
+    @Path("listaEmpresas")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Empresa> obtenerListaEmpresas() {
+        EmpresaDAO dao = new EmpresaDAO();
+        return dao.obtenerListaEmpresas();
+    }
+    
+    @GET
+    @Path("obtenerEmpresaPorId/{idEmpresa}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Empresa> obtenerEmpresaPorId(@PathParam("idEmpresa") Integer idEmpresa){
+      EmpresaDAO dao = new EmpresaDAO();
+      return dao.obtenerEmpresaById(idEmpresa);
+    }
+    
     @POST
     @Path("registrar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public static Mensaje registrarEmpresa(String json) {
-
-        Gson gson = new Gson();
-        Empresa empresa = gson.fromJson(json, Empresa.class);
-
-        if (empresa != null) {
-            return EmpresaDAO.registrarEmpresa(empresa);
-        } else {
-            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+    public Mensaje registrar(Empresa empresa){
+        Mensaje mensaje = EmpresaValidator.isValid(empresa);
+        if(mensaje.isError()) {
+            return mensaje;
         }
-
+        EmpresaDAO dao = new EmpresaDAO();
+        return dao.registrar(empresa);
     }
     
     @PUT
-    @Path("editarEmpresa")
+    @Path("editar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Mensaje editarEmpresa(String json) {
-        
-        Gson gson = new Gson();
-        Empresa empresa = gson.fromJson(json, Empresa.class);
-        
-        if(empresa != null){
-            
-            return EmpresaDAO.editarEmpresa(empresa);
-            
-        }else{
-            throw new WebApplicationException(Response.Status.BAD_GATEWAY);
+    public Mensaje editar(Empresa empresa){
+        Mensaje mensaje = EmpresaValidator.isValid(empresa);
+        if(mensaje.isError()) {
+            return mensaje;
         }
-        
+        EmpresaDAO dao = new EmpresaDAO();
+        return dao.editar(empresa);
     }
     
     @DELETE
-    @Path("eliminarEmpresa/{idEmpresa}")
+    @Path("eliminar/{idEmpresa}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Mensaje eliminarEmpresa(@PathParam("idEmpresa") Integer idEmpresa) {
-        
-        
-        if(idEmpresa > 0 && idEmpresa != null){
-            
-            return EmpresaDAO.eliminarEmpresa(idEmpresa);
-            
-        }else{
-            throw  new WebApplicationException(Response.Status.BAD_REQUEST);
-        }
-       
-        
+    public Mensaje eliminar(@PathParam("idEmpresa") Integer idEmpresa){
+        EmpresaDAO dao = new EmpresaDAO();
+        return dao.eliminar(idEmpresa);
     }
-    
-    @GET
-    @Path("obtenerEmpresaById/{idEmpresa}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Mensaje obtenerEmpresaById(@PathParam("idEmpresa") Integer idEmpresa) {
-
-        return null;
-    }
-    
-    
-    @GET
-    @Path("obtenerEmpresas")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Empresa> obtenerEmpresas() {
-       
-        List<Empresa> empresas = null;
-        
-        empresas = EmpresaDAO.obtenerEmpresas();
-        
-       return  empresas;
-        
-    }
-
 }

@@ -6,6 +6,7 @@
 package ws;
 
 import com.google.gson.Gson;
+import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -22,83 +23,66 @@ import javax.ws.rs.core.UriInfo;
 import modelo.UsuarioDAO;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Usuario;
+import validator.UsuarioValidator;
 
 /**
  *
  * @author mateo
  */
 
-@Path("usuarios")
+@Path("usuario")
 public class UsuarioWS {
     
     @Context
     private UriInfo context;
     
-    
-    
-    @POST
-    @Path("registrarUsuario")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("lista")
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Mensaje registrarUsuario(String json) {
-        
-        Gson gson = new Gson();
-        Usuario usuario = gson.fromJson(json, Usuario.class);
-        
-        if(usuario != null){
-            
-            return UsuarioDAO.registrarUsuario(usuario);
-            
-        }else{
-            
-            throw new WebApplicationException(Response.Status.BAD_REQUEST);
-            
-        }
-        
-    }
-    
-    @PUT
-    @Path("editarUsuario")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public static Mensaje editarUsuarioById(String json) {
-        
-        Gson gson = new Gson();
-        Usuario usuario = gson.fromJson(json, Usuario.class);
-        
-        if(usuario != null){
-            return UsuarioDAO.editarUsuario(usuario);
-        }else{
-            throw new WebApplicationException(Response.Status.BAD_REQUEST);
-        }
-       
+    public List<Usuario> obtenerListausuario() {
+        UsuarioDAO dao = new UsuarioDAO();
+        return dao.obtenerListaUsuarios();
     }
     
     @GET
-    @Path("obtenerUsuario/{idUsuario}")
+    @Path("obtenerUsuarioPorIdEmpresa/{idEmpresa}")
     @Produces(MediaType.APPLICATION_JSON)
-    public static Usuario obtenerUsuarioById(@PathParam("idUsuario") Integer idUsuario) {
-        
-        if(idUsuario != null){
-            return UsuarioDAO.obtenerUsuarioById(idUsuario);
-        }else{
-            throw new WebApplicationException(Response.Status.BAD_REQUEST);
-        }
-        
+    public List<Usuario> obtenerUsuarioPorIdEmpresa(@PathParam("idEmpresa") Integer idEmpresa){
+      UsuarioDAO dao = new UsuarioDAO();
+      return dao.obtenerUsuarioPorIdEmpresa(idEmpresa);
     }
     
+    @POST
+    @Path("registrar")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje agregar(Usuario usuario){
+        Mensaje mensaje = UsuarioValidator.isValid(usuario);
+        if(mensaje.isError()) {
+            return mensaje;
+        }
+        UsuarioDAO dao = new UsuarioDAO();
+        return dao.registrar(usuario);
+    }
+    
+    @PUT
+    @Path("editar")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje editar(Usuario usuario){
+        Mensaje mensaje = UsuarioValidator.isValid(usuario);
+        if(mensaje.isError()) {
+            return mensaje;
+        }
+        UsuarioDAO dao = new UsuarioDAO();
+        return dao.editar(usuario);
+    }
     
     @DELETE
-    @Path("eliminarUsuario/{idUsuario}")
+    @Path("eliminar/{idUsuario}")
     @Produces(MediaType.APPLICATION_JSON)
-    public static Mensaje eliminarUsuarioById(@PathParam("idUsuario") Integer idUsuario) {
-        
-        if(idUsuario != null){
-            return UsuarioDAO.eliminarUsuario(idUsuario);
-        }else{
-            throw new WebApplicationException(Response.Status.BAD_REQUEST);
-        }
-        
-        
+    public Mensaje eliminarPaciente(@PathParam("idUsuario") Integer idUsuario){
+        UsuarioDAO dao = new UsuarioDAO();
+        return dao.eliminar(idUsuario);
     }
 }

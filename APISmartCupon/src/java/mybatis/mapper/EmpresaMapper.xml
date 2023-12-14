@@ -4,41 +4,22 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="empresas">
-    
-    <insert id="registrarEmpresa" parameterType="modelo.pojo.Empresa">
-        
-        INSERT INTO empresa (nombre, nombreComercial, nombreRepresentanteLegal, email,
-        direccion, codigoPostal, ciudad, telefono, paginaWeb, RFC, estatus)
-        VALUES (#{nombre}, #{nombreComercial}, #{nombreRepresentanteLegal},
-        #{email}, #{direccion}, #{codigoPostal}, #{ciudad}, #{telefono}, #{paginaWeb}, #{RFC}, #{estatus})
-        
-    </insert>
-    
-    <select id="obtenerEmpresas" resultType="modelo.pojo.Empresa">
+<mapper namespace="empresa">
 
-        SELECT idEmpresa, nombre, nombreComercial, nombreRepresentanteLegal, email,
-        direccion,  codigoPostal, ciudad, telefono, paginaWeb, RFC, estatus
-        FROM empresa
-    
+    <select id="obtenerEmpresas" resultType="modelo.pojo.Empresa">
+        SELECT * FROM empresa
     </select>
     
     <select id="obtenerEmpresaById" parameterType="int" resultType="modelo.pojo.Empresa">
-
-        SELECT idEmpresa, nombre, nombreComercial, nombreRepresentanteLegal, email,
-        direccion,  codigoPostal, ciudad, telefono, paginaWeb, RFC, estatus
-        FROM empresa
-        WHERE idEmpresa = #{idEmpresa}
-    
+        SELECT * FROM empresa WHERE idEmpresa = #{idEmpresa}
     </select>
     
-    <delete id="eliminarEmpresaById" parameterType="int">
-        
-        DELETE FROM empresa WHERE idEmpresa = #{idEmpresa}
-        
-    </delete>
+    <insert id="registrar" parameterType="modelo.pojo.Empresa">     
+        INSERT INTO empresa (nombre, nombreComercial, nombreRepresentanteLegal, email, direccion, codigoPostal, ciudad, telefono, paginaWeb, RFC)
+        VALUES (#{nombre}, #{nombreComercial}, #{nombreRepresentanteLegal}, #{email}, #{direccion}, #{codigoPostal}, #{ciudad}, #{telefono}, #{paginaWeb}, #{RFC})
+    </insert>
     
-    <update id="editarEmpresa" parameterType="modelo.pojo.Empresa">
+    <update id="editar" parameterType="modelo.pojo.Empresa">
         
         UPDATE empresa
         SET nombre = #{nombre},
@@ -55,5 +36,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         
     </update>
     
-    
+    <delete id="eliminar" parameterType="int">
+        DELETE FROM empresa WHERE idEmpresa = #{idEmpresa}
+    </delete>
+
 </mapper>

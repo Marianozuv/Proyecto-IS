@@ -10,28 +10,30 @@ package modelo.pojo;
  * @author mateo
  */
 public class Empresa {
-    
-    private  Integer idEmpresa;
-    private  String nombre;
-    private  String nombreComercial;
-    private  String logoEmpresaBase64;
-    private  String nombreRepresentanteLegal;
-    private  String email;
-    private  String direccion;
-    private  String codigoPostal;
-    private  String ciudad;
-    private  String telefono;
-    private  String paginaWeb;
-    private  String RFC;
-    private  String estatus;
+
+    private Integer idEmpresa;
+    private String nombre;
+    private String nombreComercial;
+    private byte[] logoEmpresa;
+    private String logoEmpresaBase64;
+    private String nombreRepresentanteLegal;
+    private String email;
+    private String direccion;
+    private String codigoPostal;
+    private String ciudad;
+    private String telefono;
+    private String paginaWeb;
+    private String RFC;
+    private String estatus;
 
     public Empresa() {
     }
 
-    public Empresa(Integer idEmpresa, String nombre, String nombreComercial, String logoEmpresaBase64, String nombreRepresentanteLegal, String email, String direccion, String codigoPostal, String ciudad, String telefono, String paginaWeb, String rfc, String estatus) {
+    public Empresa(Integer idEmpresa, String nombre, String nombreComercial, byte[] logoEmpresa, String logoEmpresaBase64, String nombreRepresentanteLegal, String email, String direccion, String codigoPostal, String ciudad, String telefono, String paginaWeb, String RFC, String estatus) {
         this.idEmpresa = idEmpresa;
         this.nombre = nombre;
         this.nombreComercial = nombreComercial;
+        this.logoEmpresa = logoEmpresa;
         this.logoEmpresaBase64 = logoEmpresaBase64;
         this.nombreRepresentanteLegal = nombreRepresentanteLegal;
         this.email = email;
@@ -40,7 +42,7 @@ public class Empresa {
         this.ciudad = ciudad;
         this.telefono = telefono;
         this.paginaWeb = paginaWeb;
-        this.RFC = rfc;
+        this.RFC = RFC;
         this.estatus = estatus;
     }
 
@@ -66,6 +68,14 @@ public class Empresa {
 
     public void setNombreComercial(String nombreComercial) {
         this.nombreComercial = nombreComercial;
+    }
+
+    public byte[] getLogoEmpresa() {
+        return logoEmpresa;
+    }
+
+    public void setLogoEmpresa(byte[] logoEmpresa) {
+        this.logoEmpresa = logoEmpresa;
     }
 
     public String getLogoEmpresaBase64() {
@@ -132,12 +142,12 @@ public class Empresa {
         this.paginaWeb = paginaWeb;
     }
 
-    public String getRfc() {
+    public String getRFC() {
         return RFC;
     }
 
-    public void setRfc(String rfc) {
-        this.RFC = rfc;
+    public void setRFC(String RFC) {
+        this.RFC = RFC;
     }
 
     public String getEstatus() {
@@ -147,7 +157,4 @@ public class Empresa {
     public void setEstatus(String estatus) {
         this.estatus = estatus;
     }
-    
-    
-    
 }
