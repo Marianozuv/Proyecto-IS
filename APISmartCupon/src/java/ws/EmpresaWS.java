@@ -29,7 +29,7 @@ import validator.EmpresaValidator;
  *
  * @author mateo
  */
-@Path("empresas")
+@Path("empresa")
 public class EmpresaWS {
 
     @Context
@@ -38,7 +38,7 @@ public class EmpresaWS {
     public EmpresaWS() {
     }
 
-    @Path("listaEmpresas")
+    @Path("lista")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Empresa> obtenerListaEmpresas() {
@@ -86,5 +86,32 @@ public class EmpresaWS {
     public Mensaje eliminar(@PathParam("idEmpresa") Integer idEmpresa){
         EmpresaDAO dao = new EmpresaDAO();
         return dao.eliminar(idEmpresa);
+    }
+    
+    @Path("registrarLogo/{idEmpresa}")
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje registrarLogo(@PathParam("idEmpresa") Integer idEmpresa, byte[] logo){
+        Mensaje msj = null;
+        if (idEmpresa != null && idEmpresa > 0 && logo != null) {
+            msj = EmpresaDAO.subirLogoEmpresa(idEmpresa, logo);
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+        return msj;
+    }
+    
+    @Path("obtenerLogo/{idEmpresa}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Empresa obtenerLogo(@PathParam("idEmpresa") Integer idEmpresa){
+        Empresa empresa = null;
+        
+        if (idEmpresa != null && idEmpresa > 0 ) {
+            empresa = EmpresaDAO.obtenerLogo(idEmpresa);
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+        return empresa;
     }
 }

@@ -31,10 +31,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             ciudad = #{ciudad},
             telefono = #{telefono},
             paginaWeb = #{paginaWeb},
-            RFC = #{RFC}
+            RFC = #{RFC} 
         WHERE idEmpresa = #{idEmpresa}
         
     </update>
+    
+    <update id="subirLogo" parameterType = "modelo.pojo.Empresa">
+        UPDATE empresa SET logoEmpresa = #{logoEmpresa} WHERE idEmpresa = #{idEmpresa}
+    </update>
+    
+    <select id="obtenerLogo" parameterType="int" resultType="modelo.pojo.Empresa">
+        SELECT idEmpresa, nombre, nombreComercial, nombreRepresentanteLegal, TO_BASE64(logoEmpresa) AS 'logoEmpresaBase64' FROM empresa WHERE idEmpresa = #{idEmpresa}
+    </select>
     
     <delete id="eliminar" parameterType="int">
         DELETE FROM empresa WHERE idEmpresa = #{idEmpresa}

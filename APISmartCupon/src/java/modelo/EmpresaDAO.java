@@ -110,14 +110,14 @@ public class EmpresaDAO {
                 if (empresa.getIdEmpresa()== 0) {
                     response.setMensaje("ID necesario para actualizar");
                 }
-                Empresa found = conn.selectOne("paciente.obtenerPacientePorId", empresa.getIdEmpresa());
+                Empresa found = conn.selectOne("empresa.obtenerEmpresaById", empresa.getIdEmpresa());
                 if (found != null) {
-                    int count = conn.update("paciente.editarPaciente", parametros);
+                    int count = conn.update("empresa.editar", parametros);
                     conn.commit();
                     if (count > 0) {
-                        response.setMensaje("Paciente actualizado con éxito.");
+                        response.setMensaje("Empresa actualizada con éxito.");
                     } else {
-                        response.setMensaje("Lo sentimos, no se pudo actualizar la información del Paciente.");
+                        response.setMensaje("Lo sentimos, no se pudo actualizar la información de la Empresa.");
                     }
                 }
             } catch (Exception e) {
@@ -140,7 +140,7 @@ public class EmpresaDAO {
 
         if (conexionDB != null) {
             try {
-                int numeroFilasAfectadas = conexionDB.delete("paciente.eliminarPaciente", (idEmpresa));
+                int numeroFilasAfectadas = conexionDB.delete("empresa.eliminar", (idEmpresa));
                 conexionDB.commit();
                 if (numeroFilasAfectadas > 0) {
                     msj.setError(false);
@@ -161,5 +161,53 @@ public class EmpresaDAO {
         }
 
         return msj;
+    }
+    
+    public static Mensaje subirLogoEmpresa(int idEmpresa, byte[] logo) {
+        Mensaje msj = new Mensaje();
+        msj.setError(true);
+        SqlSession conexionDB = MyBatisUtil.getSession();
+
+        if (conexionDB != null) {
+            try {
+                Empresa empresaLogo = new Empresa();
+                empresaLogo.setIdEmpresa(idEmpresa);
+                empresaLogo.setLogoEmpresa(logo);
+                int numeroFilasAfectadas = conexionDB.update("empresa.subirLogo", empresaLogo);
+                conexionDB.commit();
+
+                if (numeroFilasAfectadas > 0) {
+                    msj.setError(false);
+                    msj.setMensaje("Logo de la Empresa guardado con éxito");
+                } else {
+                    msj.setError(true);
+                    msj.setMensaje("Lo sentimos, no se pudo guardar el Logo de la Empresa, revisa la imagen.");
+                }
+
+            } catch (Exception e) {
+                msj.setMensaje("Error: " + e.getMessage());
+            } finally {
+                conexionDB.close();
+            }
+        } else {
+            msj.setMensaje("Lo sentimos no hay conexion para guardar la fotografia del paciente.");
+        }
+        return msj;
+    }
+    
+    public static Empresa obtenerLogo(int idEmpresa){
+        Empresa empresa = null;
+        SqlSession conexionDB = MyBatisUtil.getSession();
+        
+        if (conexionDB != null){
+            try {
+                empresa = conexionDB.selectOne("empresa.obtenerLogo", idEmpresa);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally{
+                conexionDB.close();
+            }
+        }
+        return empresa;
     }
 }
