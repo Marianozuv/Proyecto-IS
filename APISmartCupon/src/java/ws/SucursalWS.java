@@ -31,11 +31,16 @@ public class SucursalWS {
     @Context
     private UriInfo context;
     
-    /*@Inject
-    private PacienteDAO pacienteDAO;*/
+    @Path("lista")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Sucursal> obtenerLista() {
+        SucursalDAO dao = new SucursalDAO();
+        return dao.obtenerLista();
+    }
 
     @GET
-    @Path("obtenerPorEmpresa/{idEMpresa}")
+    @Path("obtenerPorEmpresa/{idEmpresa}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Sucursal> obtenerSucursalPorIdEmpresa(@PathParam("idEmpresa") Integer idEmpresa){
       SucursalDAO dao = new SucursalDAO();

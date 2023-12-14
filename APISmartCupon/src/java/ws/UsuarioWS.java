@@ -39,7 +39,7 @@ public class UsuarioWS {
     @Path("lista")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Usuario> obtenerListausuario() {
+    public List<Usuario> obtenerLista() {
         UsuarioDAO dao = new UsuarioDAO();
         return dao.obtenerListaUsuarios();
     }

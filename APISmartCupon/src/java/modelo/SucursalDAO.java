@@ -17,6 +17,23 @@ import org.apache.ibatis.session.SqlSession;
  * @author andre
  */
 public class SucursalDAO {
+    
+    public List<Sucursal> obtenerLista() {
+        List<Sucursal> usuario = null;
+        SqlSession conexionDB = MyBatisUtil.getSession();
+
+        if (conexionDB != null) {
+            try {
+                usuario = conexionDB.selectList("sucursal.obtenerLista");
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                conexionDB.close();
+            }
+        }
+        return usuario;
+    }
+    
     public List<Sucursal> obtenerSucursalPorIdEmpresa(Integer idEmpresa) {
         List<Sucursal> sucursal = null;
         SqlSession conexionDB = MyBatisUtil.getSession();

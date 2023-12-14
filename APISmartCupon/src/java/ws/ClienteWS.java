@@ -6,6 +6,7 @@
 package ws;
 
 import com.google.gson.Gson;
+import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -22,6 +23,7 @@ import javax.ws.rs.core.UriInfo;
 import modelo.ClienteDAO;
 import modelo.pojo.Cliente;
 import modelo.pojo.Mensaje;
+import validator.ClienteValidator;
 
 /**
  *
@@ -29,74 +31,59 @@ import modelo.pojo.Mensaje;
  * 
  */
 
-@Path("clientes")
+@Path("cliente")
 public class ClienteWS {
     
-    @Context
-    private UriInfo context;
-    
-    
-    @POST
-    @Path("registrarCliente")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("lista")
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public static Mensaje registrarCliente(String json) {
-        
-        Gson gson = new Gson();
-        Cliente cliente = gson.fromJson(json, Cliente.class);
-        
-        if(cliente != null){
-            return ClienteDAO.registrarCliente(cliente);
-        }else{
-            throw new WebApplicationException(Response.Status.BAD_REQUEST);
-        }
-        
-        
+    public List<Cliente> obtenerLista() {
+        ClienteDAO dao = new ClienteDAO();
+        return dao.obtenerLista();
     }
     
-    
+    @Path("obtener/{idCliente}")
     @GET
-    @Path("obtenerCliente/{idCliente}")
     @Produces(MediaType.APPLICATION_JSON)
-    public static Cliente obtenerClienteById(@PathParam("idCliente")Integer idCliente) {
-        
-        if(idCliente > 0 && idCliente != null){
+    public Cliente obtenerCliente(@PathParam ("idCliente") Integer idCliente) {
+        if(idCliente != null && idCliente > 0){
             return ClienteDAO.obtenerCliente(idCliente);
         }else{
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
-        
     }
     
-    
-    @PUT
-    @Path("editarCliente")
+    @POST
+    @Path("registrar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public static Mensaje editarCliente(String json) {
-        
-        Gson gson = new Gson();
-        Cliente cliente = gson.fromJson(json, Cliente.class);
-        
-        if (cliente != null) {
-            return ClienteDAO.editarCliente(cliente);
-        }else{
-            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+    public Mensaje agregar(Cliente cliente){
+        Mensaje mensaje = ClienteValidator.isValid(cliente);
+        if(mensaje.isError()) {
+            return mensaje;
         }
-        
+        ClienteDAO dao = new ClienteDAO();
+        return dao.registrar(cliente);
+    }
+    
+    @PUT
+    @Path("editar")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje editar(Cliente cliente){
+        Mensaje mensaje = ClienteValidator.isValid(cliente);
+        if(mensaje.isError()) {
+            return mensaje;
+        }
+        ClienteDAO dao = new ClienteDAO();
+        return dao.editar(cliente);
     }
     
     @DELETE
-    @Path("eliminarCliente/{idCliente}")
+    @Path("eliminar/{idCliente}")
     @Produces(MediaType.APPLICATION_JSON)
-    public static Mensaje eliminarClienteById(@PathParam("idCliente")Integer idCliente) {
-        
-        if(idCliente > 0 && idCliente != null){
-            return ClienteDAO.eliminarCliente(idCliente);
-        }else{
-            throw new WebApplicationException(Response.Status.BAD_REQUEST);
-        }
-        
+    public Mensaje eliminar(@PathParam("idCliente") Integer idCliente){
+        ClienteDAO dao = new ClienteDAO();
+        return dao.eliminar(idCliente);
     }
-    
 }
