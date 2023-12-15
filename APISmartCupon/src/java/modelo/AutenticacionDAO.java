@@ -7,6 +7,7 @@ package modelo;
 
 import java.util.HashMap;
 import modelo.pojo.RespuestaLoginEscritorio;
+import modelo.pojo.Rol;
 import modelo.pojo.Usuario;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
@@ -31,11 +32,18 @@ public class AutenticacionDAO {
                 parametros.put("password", password);
                 
                 Usuario usuario = dbSqlSession.selectOne("autenticacion.loginEscritorio", parametros);
-                
-                if(usuario != null){
-                    respuesta.setError(false);
-                    respuesta.setContenido("Bienvenido al sistema "+ usuario.getNombre());
-                    respuesta.setUsuarioSesion(usuario);
+                if(usuario != null && usuario.getIdRol() != null){
+                    if(usuario.getIdRol() == 1){
+                        respuesta.setError(false);
+                        respuesta.setContenido("Bienvenido " + usuario.getNombre() + "al sistema de Administración General");
+                        respuesta.setUsuarioSesion(usuario);
+                    }
+                    
+                    if(usuario.getIdRol() == 2){
+                        respuesta.setError(false);
+                        respuesta.setContenido("Bienvenido " + usuario.getNombre() + "al sistema de Administración Comercial");
+                        respuesta.setUsuarioSesion(usuario);
+                    }
                 }else{
                     respuesta.setContenido("Email y/o contraseña incorrectos");
                 }
@@ -53,5 +61,4 @@ public class AutenticacionDAO {
         
         return  respuesta;
     }
-    
 }
