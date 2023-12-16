@@ -98,22 +98,36 @@ public class FXMLLoginController implements Initializable {
 
         try {
             Stage stagePrincipal = (Stage) tfUsuario.getScene().getWindow();
-
-            FXMLLoader loadVista = new FXMLLoader(getClass().getResource("FXMLHome.fxml"));
-            Parent vista = loadVista.load();
-
-            FXMLHomeController controladorHome = loadVista.getController();
-            controladorHome.inicializarHome(usuarioSesion);
             
-            Scene scene = new Scene(vista);
-            stagePrincipal.setTitle("Inicio");
-            stagePrincipal.setScene(scene);
-            stagePrincipal.show();
+            if(usuarioSesion.getIdRol() == 1){
+                FXMLLoader loadVista = new FXMLLoader(getClass().getResource("FXMLHome.fxml"));
+                Parent vista = loadVista.load();
+
+                FXMLHomeController controladorHome = loadVista.getController();
+                controladorHome.inicializarHome(usuarioSesion);
+
+                Scene scene = new Scene(vista);
+                stagePrincipal.setTitle("Inicio Administrador General");
+                stagePrincipal.setScene(scene);
+                stagePrincipal.show();
+            }
+            
+            if(usuarioSesion.getIdRol() == 2){
+                FXMLLoader loadVista = new FXMLLoader(getClass().getResource("FXMLHomeComercial.fxml"));
+                Parent vista = loadVista.load();
+
+                FXMLHomeComercialController controladorHome = loadVista.getController();
+                controladorHome.inicializarHomeComercial(usuarioSesion);
+
+                Scene scene = new Scene(vista);
+                stagePrincipal.setTitle("Inicio Administrador Comercial");
+                stagePrincipal.setScene(scene);
+                stagePrincipal.show();
+            } 
 
         } catch (IOException ex) {
             Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-
 }
