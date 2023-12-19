@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="cliente">
     
-    <select id="obtenerLista" resultType="modelo.pojo.Cliente" parameterType="int">
+    <select id="obtenerLista" resultType="modelo.pojo.Cliente">
         SELECT * FROM cliente
     </select>
     

@@ -28,6 +28,7 @@ import validator.SucursalValidator;
  */
 @Path("sucursal")
 public class SucursalWS {
+    
     @Context
     private UriInfo context;
     

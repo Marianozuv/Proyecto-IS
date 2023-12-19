@@ -157,7 +157,4 @@ public class Promocion {
     public void setEstatus(boolean estatus) {
         this.estatus = estatus;
     }
-    
-    
-
 }
