@@ -1,17 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ws;
 
 import java.util.Set;
 import javax.ws.rs.core.Application;
 
-/**
- *
- * @author mateo
- */
+
 @javax.ws.rs.ApplicationPath("webservice")
 public class ApplicationConfig extends Application {
 
@@ -32,6 +24,7 @@ public class ApplicationConfig extends Application {
         resources.add(ws.AutenticacionAppWS.class);
         resources.add(ws.AutenticacionWS.class);
         resources.add(ws.ClienteWS.class);
+        resources.add(ws.CuponWS.class);
         resources.add(ws.EmpresaWS.class);
         resources.add(ws.PromocionWS.class);
         resources.add(ws.SucursalWS.class);

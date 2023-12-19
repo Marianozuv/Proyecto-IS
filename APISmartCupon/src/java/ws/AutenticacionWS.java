@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ws;
 
 import javax.ws.rs.FormParam;
@@ -17,19 +12,14 @@ import javax.ws.rs.core.UriInfo;
 import modelo.AutenticacionDAO;
 import modelo.pojo.RespuestaLoginEscritorio;
 
-/**
- *
- * @author mateo
- */
+
 @Path("autenticacion")
 public class AutenticacionWS {
        
     @Context
     private UriInfo context;
 
-    /**
-     * Creates a new instance of AutenticacionWS
-     */
+   
     public AutenticacionWS() {
     }
 

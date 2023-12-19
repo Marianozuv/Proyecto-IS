@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
 import java.util.HashMap;
@@ -11,10 +6,6 @@ import modelo.pojo.RespuestaLoginApp;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
 
-/**
- *
- * @author andre
- */
 public class AutenticacionAppDAO {
     public static RespuestaLoginApp verificarSesionApp(String email, String password) {
         RespuestaLoginApp respuesta = new RespuestaLoginApp();

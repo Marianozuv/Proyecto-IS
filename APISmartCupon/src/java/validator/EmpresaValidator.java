@@ -1,17 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package validator;
 
 import modelo.pojo.Empresa;
 import modelo.pojo.Mensaje;
 
-/**
- *
- * @author andre
- */
+
 public class EmpresaValidator {
     private static boolean isNullOrEmpty(String val) {
         return val == null || val.isEmpty();

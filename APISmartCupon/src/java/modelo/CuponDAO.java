@@ -1,14 +1,15 @@
 package modelo;
 
+import java.util.HashMap;
+import java.util.List;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
+import modelo.pojo.Cupon;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
 
-
-public class PromocionDAO {
-    
-    public static Mensaje registrarUsuario(Promocion promocion) {
+public class CuponDAO {
+    public static Mensaje crearCupon(Cupon cupon) {
         
         Mensaje mensaje = new Mensaje();
         mensaje.setError(true);
@@ -20,15 +21,15 @@ public class PromocionDAO {
             
             try {
                 
-                int filasAfectadas = sqlSession.delete("promociones.registrarPromocion", promocion);
+                int filasAfectadas = sqlSession.delete("cupones.crearCupon", cupon);
                 
                 
                 if (filasAfectadas > 0) {
                     sqlSession.commit();
                     mensaje.setError(false);
-                    mensaje.setMensaje("La promocion se ha registrado");
+                    mensaje.setMensaje(" Se han creado ${Promocion.getcuponesMaximos()} cupones");
                 }else{
-                    mensaje.setMensaje("No se pudo registrar la promocion");
+                    mensaje.setMensaje("No se pudieron crear los cupones colicitados");
                 }
                 
             } catch (Exception e) {
@@ -45,54 +46,48 @@ public class PromocionDAO {
         return mensaje;
     }
     
-    public static Promocion obtenerPromo(int idPromocion) {
+    
+     
+    public static Cupon obtenerCupon(int idCupon) {
         
         SqlSession sqlSession = MyBatisUtil.getSession();
-        Promocion promocion = null;
+        Cupon cupon = null;
         
         try {
-            promocion = sqlSession.selectOne("promociones.obtenerPromocion", idPromocion);
+            cupon = sqlSession.selectOne("cupones.obtenerCupones", idCupon);
         } catch (Exception e) {
             e.printStackTrace();
         }
         
-        return promocion;
+        return cupon;
     }
     
-    public static Mensaje editarPromocion(Promocion promocion) {
-        Mensaje mensaje = new Mensaje();
-        mensaje.setError(true);
-        
-        SqlSession sqlSession = MyBatisUtil.getSession();
-        
-        if (sqlSession != null) {
-            
+    private HashMap<String, Object> toparam(Cupon cupon) {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("idCupon", cupon.getIdCupon());
+        parametros.put("idCupon", cupon.getCodigoPromocion());
+        parametros.put("idCupon", cupon.getFechaCanje());
+        return parametros;
+    }
+    
+    public List<Cupon> obtenerListaCupones() {
+        List<Cupon> cupon = null;
+        SqlSession conexionDB = MyBatisUtil.getSession();
+
+        if (conexionDB != null) {
             try {
-                
-                int filasAfectadas = sqlSession.update("promociones.editarPromocion", promocion);
-                
-                if (filasAfectadas > 0) {
-                    sqlSession.commit();
-                    mensaje.setError(false);
-                    mensaje.setMensaje("Se ha editado la promocion");
-                }else{
-                    mensaje.setMensaje("No se pudo editar la promocion");
-                }
-                
+                cupon = conexionDB.selectList("cupon.obtenerListaCupones");
             } catch (Exception e) {
                 e.printStackTrace();
-            }finally{
-                sqlSession.close();
+            } finally {
+                conexionDB.close();
             }
-            
-        }else{
-            mensaje.setMensaje("No hay conexión a la base de datos");
         }
-        
-        return mensaje;
+        return cupon;
     }
     
-    public static Mensaje eliminarPromocion(int idPromocion) {
+    
+    public static Mensaje eliminarCupon(int idCupon) {
      
         Mensaje mensaje = new Mensaje();
         mensaje.setError(true);
@@ -103,14 +98,14 @@ public class PromocionDAO {
             
             try {
                 
-                int filasAfectadas = sqlSession.delete("promociones.eliminarPromocion", idPromocion);
+                int filasAfectadas = sqlSession.delete("cupones.eliminarCupon", idCupon);
                 
                 if (filasAfectadas > 0) {
                     sqlSession.commit();
                     mensaje.setError(false);
-                    mensaje.setMensaje("La promocion se ha eliminado");
+                    mensaje.setMensaje("El cupon ha sido utilizado");
                 }else{
-                    mensaje.setMensaje("La promocion no se ha podido eliminar");
+                    mensaje.setMensaje("El cupon no ha sido utilizado");
                 }
                 
             } catch (Exception e) {
@@ -125,4 +120,7 @@ public class PromocionDAO {
         
         return mensaje;
     }
+    
+    
+    
 }

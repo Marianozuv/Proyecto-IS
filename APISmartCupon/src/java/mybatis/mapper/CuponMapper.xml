@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cupones">
+    
+    <insert id="crearCupon" parameterType="modelo.pojo.Cupon">
+        INSERT INTO cupon_canjeado (
+            idCupon,
+            codigoPromocion,
+            fechaCanje,   
+        ) VALUES (
+            #{idCupon},
+            #{codigoPromocion},
+            #{fechaCanje},
+        )
+    </insert>
+    
+    <select id="obtenerCupon" parameterType="int" resultType="modelo.pojo.Cupon">
+        SELECT
+            idCupon,
+            codigoPromocion,
+            fechaCanje, 
+        FROM cupon_canjeado
+        WHERE idCupon = #{idCupon}
+    </select>
+    
+    <select id="obtenerListaCupones" resultType="modelo.pojo.Cupon">
+        SELECT * FROM cupon_canjeado
+    </select>
+        
+    <delete id="eliminarCupon" parameterType="int">
+        DELETE FROM cupon_canjeado WHERE idCupon = #{idCupon}
+    </delete>
+
+</mapper>
+
+
+
