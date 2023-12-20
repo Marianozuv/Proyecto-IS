@@ -96,7 +96,7 @@ public class FXMLLoginController implements Initializable {
 
     private void irPantallaPrincipal(Usuario usuarioSesion) {
 
-        try {
+        /*try {
             Stage stagePrincipal = (Stage) tfUsuario.getScene().getWindow();
             
             if(usuarioSesion.getIdRol() == 1){
@@ -127,6 +127,21 @@ public class FXMLLoginController implements Initializable {
 
         } catch (IOException ex) {
             Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        
+        try {
+            
+            Stage stagePrincipal = (Stage) tfUsuario.getScene().getWindow();
+            FXMLLoader loadVista = new FXMLLoader(getClass().getResource("FXMLHome.fxml"));
+            Parent vista = loadVista.load();
+            FXMLHomeController controladorHome = loadVista.getController();
+            controladorHome.inicializarHome(usuarioSesion);
+            Scene scene = new Scene(vista);
+            stagePrincipal.setScene(scene);
+            stagePrincipal.show();
+            
+        } catch (Exception e) {
+            Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, e);
         }
 
     }

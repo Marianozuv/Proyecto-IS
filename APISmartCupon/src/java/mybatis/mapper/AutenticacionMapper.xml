@@ -7,7 +7,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="autenticacion">
     
     <select id="loginEscritorio" resultType="modelo.pojo.Usuario" parameterType="map">
-        SELECT * FROM usuario WHERE username = #{username} AND password = #{password}   
+        SELECT idUsuario,
+               idEmpresa,
+               idRol,
+               nombre,
+               apellidoPaterno,
+               apellidoMaterno,
+               CURP,
+               email,
+               username, 
+               password,
+               rol
+        FROM usuario NATURAL JOIN cat_rol
+        WHERE username = #{username} AND password = #{password}   
     </select>
 
 </mapper>

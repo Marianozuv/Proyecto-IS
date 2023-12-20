@@ -12,11 +12,12 @@ public class Usuario {
     private String email;
     private String username;
     private String password;
+    private String rol;
 
     public Usuario() {
     }
 
-    public Usuario(Integer idUsuario, Integer idRol, Integer idEmpresa, String nombre, String apellidoPaterno, String apellidoMaterno, String CURP, String email, String username, String password) {
+    public Usuario(Integer idUsuario, Integer idRol, Integer idEmpresa, String nombre, String apellidoPaterno, String apellidoMaterno, String CURP, String email, String username, String password, String rol) {
         this.idUsuario = idUsuario;
         this.idRol = idRol;
         this.idEmpresa = idEmpresa;
@@ -27,6 +28,7 @@ public class Usuario {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.rol = rol;
     }
 
     public Integer getIdUsuario() {
@@ -108,4 +110,15 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+
+    
 }

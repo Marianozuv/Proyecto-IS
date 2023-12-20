@@ -21,54 +21,24 @@ public class Usuario {
     private String nombre;
     private String password;
     private String username;
+    private String rol;
     
 
     public Usuario() {
     }
 
-    public Usuario(Integer idUsuario, Integer idRol, Integer idEmpresa, String nombre, String apellidoPaterno, String apellidoMaterno, String curp, String email, String username, String password) {
-        this.idUsuario = idUsuario;
-        this.idRol = idRol;
-        this.idEmpresa = idEmpresa;
-        this.nombre = nombre;
+    public Usuario(String apellidoPaterno, String apellidoMaterno, String curp, String email, Integer idEmpresa, Integer idRol, Integer idUsuario, String nombre, String password, String username, String rol) {
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.curp = curp;
         this.email = email;
-        this.username = username;
-        this.password = password;
-    }
-
-    public Integer getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public Integer getIdRol() {
-        return idRol;
-    }
-
-    public void setIdRol(Integer idRol) {
-        this.idRol = idRol;
-    }
-
-    public Integer getIdEmpresa() {
-        return idEmpresa;
-    }
-
-    public void setIdEmpresa(Integer idEmpresa) {
         this.idEmpresa = idEmpresa;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
+        this.idRol = idRol;
+        this.idUsuario = idUsuario;
         this.nombre = nombre;
+        this.password = password;
+        this.username = username;
+        this.rol = rol;
     }
 
     public String getApellidoPaterno() {
@@ -103,12 +73,36 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
+    public Integer getIdEmpresa() {
+        return idEmpresa;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setIdEmpresa(Integer idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+
+    public Integer getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(Integer idRol) {
+        this.idRol = idRol;
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getPassword() {
@@ -118,8 +112,22 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
-    
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
     
 }

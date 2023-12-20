@@ -27,13 +27,13 @@ public class AutenticacionDAO {
                 if(usuario != null && usuario.getIdRol() != null){
                     if(usuario.getIdRol() == 1){
                         respuesta.setError(false);
-                        respuesta.setContenido("Bienvenido " + usuario.getNombre() + "al sistema de Administración General");
+                        respuesta.setContenido("Bienvenido " + usuario.getNombre() + " al sistema de Administración General");
                         respuesta.setUsuarioSesion(usuario);
                     }
                     
                     if(usuario.getIdRol() == 2){
                         respuesta.setError(false);
-                        respuesta.setContenido("Bienvenido " + usuario.getNombre() + "al sistema de Administración Comercial");
+                        respuesta.setContenido("Bienvenido " + usuario.getNombre() + " al sistema de Administración Comercial");
                         respuesta.setUsuarioSesion(usuario);
                     }
                 }else{
