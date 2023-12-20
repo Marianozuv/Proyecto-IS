@@ -34,7 +34,7 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <TextField promptText="Ciudad">
+            <TextField fx:id="tfCiudad" promptText="Ciudad">
                <font>
                   <Font size="16.0" />
                </font>
@@ -50,7 +50,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <TextField promptText="Telefono">
+            <TextField fx:id="tfTelefono" promptText="Telefono">
                <font>
                   <Font size="16.0" />
                </font>
@@ -66,7 +66,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <TextField promptText="Pagina web">
+            <TextField fx:id="tfPaginaWeb" promptText="Pagina web">
                <font>
                   <Font size="16.0" />
                </font>
@@ -82,7 +82,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <TextField promptText="RFC">
+            <TextField fx:id="tfRFC" promptText="RFC">
                <font>
                   <Font size="16.0" />
                </font>
@@ -98,7 +98,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <TextField promptText="Email">
+            <TextField fx:id="tfEmail" promptText="Email">
                <font>
                   <Font size="16.0" />
                </font>
@@ -115,7 +115,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField promptText="Nombre empresa">
+            <TextField fx:id="tfNombre" promptText="Nombre empresa">
                <font>
                   <Font size="16.0" />
                </font>
@@ -131,7 +131,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <TextField promptText="Nombre comercial">
+            <TextField fx:id="tfNombreComercial" promptText="Nombre comercial">
                <font>
                   <Font size="16.0" />
                </font>
@@ -147,7 +147,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <TextField promptText="Representante">
+            <TextField fx:id="tfRepresentante" promptText="Representante">
                <font>
                   <Font size="16.0" />
                </font>
@@ -163,7 +163,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <TextField promptText="Direcció ">
+            <TextField fx:id="tfDireccion" promptText="Dirección">
                <font>
                   <Font size="16.0" />
                </font>
@@ -176,7 +176,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <TextField promptText="Código postal">
+            <TextField fx:id="tfCodigoPostal" promptText="Código postal">
                <font>
                   <Font size="16.0" />
                </font>
@@ -218,17 +218,33 @@
             </HBox>
          </children>
       </VBox>
-      <HBox alignment="TOP_CENTER" layoutX="475.0" layoutY="469.0" maxWidth="1.7976931348623157E308" prefHeight="43.0" prefWidth="299.0">
+      <HBox fx:id="vbBotones" alignment="TOP_RIGHT" layoutX="111.0" layoutY="469.0" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="43.0" prefWidth="663.0">
          <children>
-            <Button maxWidth="140.0" mnemonicParsing="false" onAction="#btModuloEmpresas" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Editar" textFill="WHITE">
+            <Button fx:id="btEliminar" maxWidth="140.0" mnemonicParsing="false" onAction="#btEliminarEmpresa" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #BF3131; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Eliminar" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
                <HBox.margin>
-                  <Insets left="3.0" />
+                  <Insets left="9.0" />
                </HBox.margin>
             </Button>
-            <Button maxWidth="140.0" mnemonicParsing="false" onAction="#btModuloEmpresas" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Eliminar" textFill="WHITE">
+            <Button fx:id="btCancelar" maxWidth="140.0" mnemonicParsing="false" onAction="#btCancelar" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #BF3131; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Cancelar" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="9.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btGuradarInfo" maxWidth="140.0" mnemonicParsing="false" onAction="#btSubirInfromacionEmpresa" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Guardar" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="9.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btEditarEmpresa" maxWidth="140.0" mnemonicParsing="false" onAction="#btEditarInfromacionEmpresa" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Editar" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>

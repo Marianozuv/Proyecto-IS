@@ -21,6 +21,42 @@ import java.net.URL;
  * @author mateo
  */
 public class ConexionHTTP {
+    
+        public static CodigoHTTP peticionGET(String url) {
+        CodigoHTTP respuesta = new CodigoHTTP();
+
+        try {
+
+            URL urlServicio = new URL(url);
+            HttpURLConnection conexionHttp = (HttpURLConnection) urlServicio.openConnection();
+            conexionHttp.setRequestMethod("GET");
+            int cRespuesta = conexionHttp.getResponseCode();
+            respuesta.setCodigoRespuesta(cRespuesta);
+
+            if (cRespuesta == HttpURLConnection.HTTP_OK) {
+
+                respuesta.setContenido(convertirContenido(conexionHttp.getInputStream()));
+
+            } else {
+
+                respuesta.setContenido("CODE ERROR: " + cRespuesta);
+
+            }
+
+        } catch (MalformedURLException ex) {
+
+            respuesta.setCodigoRespuesta(Constantes.ERROR_URL);
+            respuesta.setContenido("Error" + ex.getMessage());
+
+        } catch (IOException iox) {
+
+            respuesta.setCodigoRespuesta(Constantes.ERROR_PETICION);
+            respuesta.setContenido("Error" + iox.getMessage());
+
+        }
+
+        return respuesta;
+    }
 
     public static CodigoHTTP peticionPOST(String url, String parametros) {
         CodigoHTTP respuesta = new CodigoHTTP();
@@ -37,7 +73,7 @@ public class ConexionHTTP {
             os.flush();
             os.close();
             int codigoRespuesta = conexionHttp.getResponseCode();
-            respuesta.setCondigoRespuesta(codigoRespuesta);
+            respuesta.setCodigoRespuesta(codigoRespuesta);
             if (codigoRespuesta == HttpURLConnection.HTTP_OK) {
                 respuesta.setContenido(convertirContenido(conexionHttp.getInputStream()));
             } else {
@@ -46,12 +82,12 @@ public class ConexionHTTP {
 
         } catch (MalformedURLException ex) {
 
-            respuesta.setCondigoRespuesta(Constantes.ERROR_URL);
+            respuesta.setCodigoRespuesta(Constantes.ERROR_URL);
             respuesta.setContenido("Error" + ex.getMessage());
 
         } catch (IOException iox) {
 
-            respuesta.setCondigoRespuesta(Constantes.ERROR_PETICION);
+            respuesta.setCodigoRespuesta(Constantes.ERROR_PETICION);
             respuesta.setContenido("Error" + iox.getMessage());
 
         }

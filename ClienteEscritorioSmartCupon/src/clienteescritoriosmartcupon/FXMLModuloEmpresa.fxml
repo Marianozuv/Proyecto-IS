@@ -33,13 +33,18 @@
             <TableColumn fx:id="colTelefono" prefWidth="136.5" text="Telefono" />
         </columns>
       </TableView>
-      <TextField fx:id="tfBuscador" layoutX="20.0" layoutY="91.0" promptText="Buscar">
+      <TextField fx:id="tfBuscador" layoutX="21.0" layoutY="91.0" promptText="Buscar">
          <font>
             <Font size="19.0" />
          </font>
       </TextField>
-      <ComboBox fx:id="cbFiltroBuscado" layoutX="265.0" layoutY="91.0" prefHeight="37.0" prefWidth="111.0" />
+      <ComboBox fx:id="cbFiltroBuscado" layoutX="278.0" layoutY="91.0" prefHeight="37.0" prefWidth="111.0" />
       <Button layoutX="601.0" layoutY="90.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btVerInfoEmpresa" prefHeight="39.0" prefWidth="174.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Ver Información" textFill="WHITE">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+      <Button layoutX="410.0" layoutY="91.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btRegistroEmpresa" prefHeight="39.0" prefWidth="174.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Registrar" textFill="WHITE">
          <font>
             <Font size="19.0" />
          </font>

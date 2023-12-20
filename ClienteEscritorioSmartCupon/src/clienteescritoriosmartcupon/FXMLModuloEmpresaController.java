@@ -5,16 +5,31 @@
  */
 package clienteescritoriosmartcupon;
 
+import clienteescritoriosmartcupon.modelo.pojo.Empresa;
+import clienteescritoriosmartcupon.modelo.pojo.dao.EmpresaDAO;
+import clienteescritoriosmartcupon.utils.Utilidades;
+import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -23,22 +38,24 @@ import javafx.scene.control.TextField;
  */
 public class FXMLModuloEmpresaController implements Initializable {
 
+    private ObservableList<Empresa> empresas;
+
     @FXML
     private Label lbUsuario;
     @FXML
-    private TableView<?> tvEmpresas;
+    private TableView<Empresa> tvEmpresas;
     @FXML
-    private TableColumn<?, ?> colNombre;
+    private TableColumn colNombre;
     @FXML
-    private TableColumn<?, ?> colRepresentanteLegal;
+    private TableColumn colRepresentanteLegal;
     @FXML
-    private TableColumn<?, ?> colRFC;
+    private TableColumn colRFC;
     @FXML
-    private TableColumn<?, ?> colEstatus;
+    private TableColumn colEstatus;
     @FXML
-    private TableColumn<?, ?> colDireccion;
+    private TableColumn colDireccion;
     @FXML
-    private TableColumn<?, ?> colTelefono;
+    private TableColumn colTelefono;
     @FXML
     private TextField tfBuscador;
     @FXML
@@ -49,11 +66,70 @@ public class FXMLModuloEmpresaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        obtenerEmpresas();
+        cargarTablaEmpresas();
+    }
+
+    private void obtenerEmpresas() {
+        empresas = FXCollections.observableArrayList();
+        List<Empresa> info = EmpresaDAO.obtenerEmpresas();
+        empresas.addAll(info);
+        tvEmpresas.setItems(empresas);
+    }
+
+    private void cargarTablaEmpresas() {
+        colNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
+        colRepresentanteLegal.setCellValueFactory(new PropertyValueFactory("nombreRepresentanteLegal"));
+        colRFC.setCellValueFactory(new PropertyValueFactory("RFC"));
+        colDireccion.setCellValueFactory(new PropertyValueFactory("RFC"));
+        colDireccion.setCellValueFactory(new PropertyValueFactory("RFC"));
+        colTelefono.setCellValueFactory(new PropertyValueFactory("RFC"));
+        colEstatus.setCellValueFactory(new PropertyValueFactory("estatus"));
+    }
 
     @FXML
-    private void btVerInfoEmpresa(ActionEvent event) {
+    private void btVerInfoEmpresa(ActionEvent event) throws IOException {
+
+        int posicionSelecionada = tvEmpresas.getSelectionModel().getSelectedIndex();
+
+        if (posicionSelecionada != -1) {
+
+            Empresa empresa = empresas.get(posicionSelecionada);
+            Utilidades.mostrarAlertaSimple("Ver información empresa", "Ha selecionado la empresa: " + empresa.getNombre(), Alert.AlertType.INFORMATION);
+
+            FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLFromEmpresa.fxml"));
+            Parent vista = vistaLoad.load();
+
+            FXMLFromEmpresaController controller = vistaLoad.getController();
+            controller.inicializarInformacion(empresa, true);
+
+            Stage stage = new Stage();
+            Scene escenaEditarPaciente = new Scene(vista);
+            stage.setScene(escenaEditarPaciente);
+            stage.setTitle("Infromación empresa");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+        } else {
+            Utilidades.mostrarAlertaSimple("Ver información empresa", "Para poder modificar debes seleccionar un paciente", Alert.AlertType.INFORMATION);
+        }
     }
-    
+
+    @FXML
+    private void btRegistroEmpresa(ActionEvent event) throws IOException{
+
+        FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLFromEmpresa.fxml"));
+        Parent vista = vistaLoad.load();
+
+        FXMLFromEmpresaController controller = vistaLoad.getController();
+        controller.inicializarInformacion(null, false);
+
+        Stage stage = new Stage();
+        Scene escenaEditarPaciente = new Scene(vista);
+        stage.setScene(escenaEditarPaciente);
+        stage.setTitle("Registrar empresa");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+    }
+
 }

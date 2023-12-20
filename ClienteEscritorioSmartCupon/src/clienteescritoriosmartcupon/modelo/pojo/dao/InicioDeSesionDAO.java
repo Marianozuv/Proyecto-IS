@@ -26,7 +26,7 @@ public class InicioDeSesionDAO {
         
         CodigoHTTP codigoRespuesta = ConexionHTTP.peticionPOST(url, parametros);
         
-        if(codigoRespuesta.getCondigoRespuesta() == HttpURLConnection.HTTP_OK){
+        if(codigoRespuesta.getCodigoRespuesta()== HttpURLConnection.HTTP_OK){
             Gson gson = new Gson();
             respuesta = gson.fromJson(codigoRespuesta.getContenido(), RespuestaLogin.class);
         } else {

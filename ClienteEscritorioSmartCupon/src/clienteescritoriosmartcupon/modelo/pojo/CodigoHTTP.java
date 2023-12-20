@@ -11,23 +11,23 @@ package clienteescritoriosmartcupon.modelo.pojo;
  */
 public class CodigoHTTP {
 
-    private int condigoRespuesta;
+    private int codigoRespuesta;
     private String Contenido;
 
     public CodigoHTTP() {
     }
 
-    public CodigoHTTP(int condigoRespuesta, String Contenido) {
-        this.condigoRespuesta = condigoRespuesta;
+    public CodigoHTTP(int codigoRespuesta, String Contenido) {
+        this.codigoRespuesta = codigoRespuesta;
         this.Contenido = Contenido;
     }
 
-    public int getCondigoRespuesta() {
-        return condigoRespuesta;
+    public int getCodigoRespuesta() {
+        return codigoRespuesta;
     }
 
-    public void setCondigoRespuesta(int condigoRespuesta) {
-        this.condigoRespuesta = condigoRespuesta;
+    public void setCodigoRespuesta(int codigoRespuesta) {
+        this.codigoRespuesta = codigoRespuesta;
     }
 
     public String getContenido() {
