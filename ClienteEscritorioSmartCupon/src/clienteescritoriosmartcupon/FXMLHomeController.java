@@ -19,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -82,13 +83,17 @@ public class FXMLHomeController implements Initializable {
         
         try {
 
-            Stage stagePrincipal = (Stage) lbUsuario.getScene().getWindow();
-            FXMLLoader loadVista = new FXMLLoader(getClass().getResource("FXMLModuloEmpresa.fxml"));
-            Parent vista = loadVista.load();
-            FXMLModuloEmpresaController moduloEmpresaController = loadVista.getController();
-            Scene scene = new Scene(vista);
-            stagePrincipal.setScene(scene);
-            stagePrincipal.show();
+            FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLModuloEmpresa.fxml"));
+            Parent vista = vistaLoad.load();
+
+            FXMLModuloEmpresaController controller = vistaLoad.getController();
+
+            Stage stage = new Stage();
+            Scene escenaEditarPaciente = new Scene(vista);
+            stage.setScene(escenaEditarPaciente);
+            stage.setTitle("Infromación empresa");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
 
         } catch (Exception e) {
             Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, e);

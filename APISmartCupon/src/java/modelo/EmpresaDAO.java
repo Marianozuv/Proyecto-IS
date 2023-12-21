@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import modelo.pojo.Empresa;
 import modelo.pojo.Mensaje;
+import modelo.pojo.Sucursal;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
-
 
 public class EmpresaDAO {
 
@@ -25,7 +25,7 @@ public class EmpresaDAO {
         }
         return empresa;
     }
-    
+
     public List<Empresa> obtenerEmpresaById(Integer idEmpresa) {
         List<Empresa> empresa = null;
         SqlSession conexionDB = MyBatisUtil.getSession();
@@ -41,12 +41,12 @@ public class EmpresaDAO {
         }
         return empresa;
     }
-    
-    public Mensaje registrar(Empresa empresa){
-         
+
+    public Mensaje registrar(Empresa empresa) {
+
         Mensaje msj = new Mensaje();
         SqlSession conexionDB = MyBatisUtil.getSession();
-        
+
         if (conexionDB != null) {
             try {
                 int numeroFilasAfectadas = conexionDB.insert("empresa.registrar", empresa);
@@ -71,7 +71,7 @@ public class EmpresaDAO {
 
         return msj;
     }
-    
+
     private HashMap<String, Object> toparam(Empresa empresa) {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("idEmpresa", empresa.getIdEmpresa());
@@ -99,7 +99,7 @@ public class EmpresaDAO {
 
         if (conn != null) {
             try {
-                if (empresa.getIdEmpresa()== 0) {
+                if (empresa.getIdEmpresa() == 0) {
                     response.setMensaje("ID necesario para actualizar");
                 }
                 Empresa found = conn.selectOne("empresa.obtenerEmpresaById", empresa.getIdEmpresa());
@@ -125,36 +125,97 @@ public class EmpresaDAO {
         return response;
     }
 
-    public Mensaje eliminar(Integer idEmpresa) {
+    public static Mensaje subirLogo(int idEmpresa, byte[] foto) {
+        Mensaje mensaje = new Mensaje();
+        mensaje.setError(true);
 
-        Mensaje msj = new Mensaje();
-        SqlSession conexionDB = MyBatisUtil.getSession();
+        SqlSession sqlSession = MyBatisUtil.getSession();
 
-        if (conexionDB != null) {
+        if (sqlSession != null) {
+
             try {
-                int numeroFilasAfectadas = conexionDB.delete("empresa.eliminar", (idEmpresa));
+                Empresa empresaFoto = new Empresa();
+                empresaFoto.setIdEmpresa(idEmpresa);
+                empresaFoto.setLogoEmpresa(foto);
+                int filasAfectadas = sqlSession.update("empresa.subirLogoEmpresa", empresaFoto);
+                sqlSession.commit();
+
+                if (filasAfectadas > 0) {
+
+                    mensaje.setError(false);
+                    mensaje.setMensaje("El logo de la empresa ha sido guardada");
+
+                } else {
+
+                    mensaje.setMensaje("Hubo un error al intentar guardar el loco de la empresa");
+                }
+            } catch (Exception e) {
+            }
+
+        } else {
+
+            mensaje.setMensaje("Lo sentimos, no hay conexión para subir la fotografía");
+
+        }
+
+        return mensaje;
+    }
+
+    public static Empresa obtenerLogoEmpresa(int idEmpresa) {
+
+        Empresa empresa = new Empresa();
+        SqlSession conexionBD = MyBatisUtil.getSession();
+
+        if (conexionBD != null) {
+            try {
+                empresa = conexionBD.selectOne("empresa.obtenerLogoEmpresa", idEmpresa);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                conexionBD.close();
+            }
+        }
+
+        return empresa;
+    }
+
+public Mensaje eliminar(Integer idEmpresa) {
+    Mensaje msj = new Mensaje();
+    msj.setError(true);
+    SqlSession conexionDB = MyBatisUtil.getSession();
+    List<Sucursal> sucursales = null;
+
+    if (conexionDB != null) {
+        try {
+            
+            sucursales = conexionDB.selectList("sucursal.obtenerPorIdEmpresa", idEmpresa);
+
+            if (sucursales != null && !sucursales.isEmpty()) {
+                msj.setMensaje("La empresa no se puede eliminar, ya que tiene sucursales asociadas");
+            } else {
+                int numeroFilasAfectadas = conexionDB.delete("empresa.eliminar", idEmpresa);
                 conexionDB.commit();
+
                 if (numeroFilasAfectadas > 0) {
                     msj.setError(false);
                     msj.setMensaje("Información de la Empresa eliminada con éxito");
                 } else {
-                    msj.setError(true);
                     msj.setMensaje("Lo sentimos, no se pudo eliminar la información de la Empresa.");
                 }
-            } catch (Exception e) {
-                msj.setError(true);
-                msj.setMensaje("Error: " + e.getMessage());
-            } finally {
-                conexionDB.close();
             }
-        } else {
-            msj.setError(true);
-            msj.setMensaje("Por el momento no hay conexión con la base de datos.");
+        } catch (Exception e) {
+            msj.setMensaje("Error: " + e.getMessage());
+        } finally {
+            conexionDB.close();
         }
-
-        return msj;
+    } else {      
+        msj.setMensaje("Por el momento no hay conexión con la base de datos.");
     }
-    
+
+    return msj;
+}
+
+
     public static Mensaje subirLogoEmpresa(int idEmpresa, byte[] logo) {
         Mensaje msj = new Mensaje();
         msj.setError(true);
@@ -186,17 +247,17 @@ public class EmpresaDAO {
         }
         return msj;
     }
-    
-    public static Empresa obtenerLogo(int idEmpresa){
+
+    public static Empresa obtenerLogo(int idEmpresa) {
         Empresa empresa = null;
         SqlSession conexionDB = MyBatisUtil.getSession();
-        
-        if (conexionDB != null){
+
+        if (conexionDB != null) {
             try {
                 empresa = conexionDB.selectOne("empresa.obtenerLogo", idEmpresa);
             } catch (Exception e) {
                 e.printStackTrace();
-            }finally{
+            } finally {
                 conexionDB.close();
             }
         }

@@ -7,11 +7,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="empresa">
 
     <select id="obtenerEmpresas" resultType="modelo.pojo.Empresa">
-        SELECT * FROM empresa
+        SELECT idEmpresa,
+               nombre,
+               nombreComercial,
+               nombreRepresentanteLegal,
+               email,
+               direccion,
+               codigoPostal,
+               ciudad,
+               telefono,
+               paginaWeb,
+               RFC,
+               estatus
+        FROM empresa
     </select>
     
     <select id="obtenerEmpresaById" parameterType="int" resultType="modelo.pojo.Empresa">
-        SELECT * FROM empresa WHERE idEmpresa = #{idEmpresa}
+        SELECT idEmpresa,
+               nombre,
+               nombreComercial,
+               nombreRepresentanteLegal,
+               email,
+               direccion,
+               codigoPostal,
+               ciudad,
+               telefono,
+               paginaWeb,
+               RFC,
+               estatus
+        FROM empresa WHERE idEmpresa = #{idEmpresa}
     </select>
     
     <insert id="registrar" parameterType="modelo.pojo.Empresa">     
@@ -30,8 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             codigoPostal = #{codigoPostal},
             ciudad = #{ciudad},
             telefono = #{telefono},
-            paginaWeb = #{paginaWeb},
-            RFC = #{RFC} 
+            paginaWeb = #{paginaWeb}
         WHERE idEmpresa = #{idEmpresa}
         
     </update>
@@ -47,5 +70,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <delete id="eliminar" parameterType="int">
         DELETE FROM empresa WHERE idEmpresa = #{idEmpresa}
     </delete>
+    
+    
+    
+    <update id="subirLogoEmpresa" parameterType="modelo.pojo.Empresa"  >
+        UPDATE empresa
+        SET logoEmpresa=#{logoEmpresa}
+        WHERE idEmpresa=#{idEmpresa}
+    </update>
 
+    <select id="obtenerLogoEmpresa" parameterType="int" resultType="modelo.pojo.Empresa">
+        SELECT idEmpresa, nombre, TO_BASE64(logoEmpresa) AS 'logoEmpresaBase64' 
+        FROM empresa
+        WHERE idEmpresa=#{idEmpresa}
+    </select>
+    
+    
 </mapper>

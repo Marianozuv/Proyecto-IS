@@ -186,16 +186,19 @@
             </TextField>
          </children>
       </VBox>
-      <VBox alignment="TOP_CENTER" layoutX="29.0" layoutY="135.0" prefHeight="279.0" prefWidth="220.0" style="-fx-background-color: #0C356A; -fx-background-radius: 15;">
+      <VBox fx:id="vbFoto" alignment="TOP_CENTER" layoutX="29.0" layoutY="135.0" prefHeight="279.0" prefWidth="220.0" style="-fx-background-color: #0C356A; -fx-background-radius: 15;">
          <children>
             <Pane prefHeight="170.0" prefWidth="150.0" style="-fx-border-color: white; -fx-border-radius: 15; -fx-border-style: dashed; -fx-border-width: 4;">
                <VBox.margin>
                   <Insets left="25.0" right="25.0" top="25.0" />
                </VBox.margin>
+               <children>
+                  <ImageView fx:id="ivLogoEmpresa" fitHeight="150.0" fitWidth="140.0" layoutX="17.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
             </Pane>
             <HBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="43.0" prefWidth="220.0">
                <children>
-                  <Button maxWidth="110.0" mnemonicParsing="false" onAction="#btModuloEmpresas" prefHeight="29.0" prefWidth="95.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Cargar foto" textFill="WHITE">
+                  <Button maxWidth="110.0" mnemonicParsing="false" onAction="#btCargarLogo" prefHeight="29.0" prefWidth="95.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Cargar foto" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -203,7 +206,7 @@
                         <Insets left="3.0" />
                      </HBox.margin>
                   </Button>
-                  <Button maxWidth="122.0" mnemonicParsing="false" onAction="#btModuloEmpresas" prefHeight="29.0" prefWidth="95.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Subir foto" textFill="WHITE">
+                  <Button maxWidth="122.0" mnemonicParsing="false" onAction="#btSubirLogo" prefHeight="29.0" prefWidth="95.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Subir foto" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>

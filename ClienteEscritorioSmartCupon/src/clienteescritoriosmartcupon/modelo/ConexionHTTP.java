@@ -21,8 +21,8 @@ import java.net.URL;
  * @author mateo
  */
 public class ConexionHTTP {
-    
-        public static CodigoHTTP peticionGET(String url) {
+
+    public static CodigoHTTP peticionGET(String url) {
         CodigoHTTP respuesta = new CodigoHTTP();
 
         try {
@@ -57,6 +57,43 @@ public class ConexionHTTP {
 
         return respuesta;
     }
+    
+        public static CodigoHTTP peticionDELETE(String url) {
+        CodigoHTTP respuesta = new CodigoHTTP();
+
+        try {
+
+            URL urlServicio = new URL(url);
+            HttpURLConnection conexionHttp = (HttpURLConnection) urlServicio.openConnection();
+            conexionHttp.setRequestMethod("DELETE");
+            int cRespuesta = conexionHttp.getResponseCode();
+            respuesta.setCodigoRespuesta(cRespuesta);
+
+            if (cRespuesta == HttpURLConnection.HTTP_OK) {
+
+                respuesta.setContenido(convertirContenido(conexionHttp.getInputStream()));
+
+            } else {
+
+                respuesta.setContenido("CODE ERROR: " + cRespuesta);
+
+            }
+
+        } catch (MalformedURLException ex) {
+
+            respuesta.setCodigoRespuesta(Constantes.ERROR_URL);
+            respuesta.setContenido("Error" + ex.getMessage());
+
+        } catch (IOException iox) {
+
+            respuesta.setCodigoRespuesta(Constantes.ERROR_PETICION);
+            respuesta.setContenido("Error" + iox.getMessage());
+
+        }
+
+        return respuesta;
+    }
+
 
     public static CodigoHTTP peticionPOST(String url, String parametros) {
         CodigoHTTP respuesta = new CodigoHTTP();
@@ -95,6 +132,83 @@ public class ConexionHTTP {
         return respuesta;
     }
 
+    public static CodigoHTTP peticionPOSTJSON(String url, String json) {
+        CodigoHTTP respuesta = new CodigoHTTP();
+
+        try {
+
+            URL urlServicio = new URL(url);
+            HttpURLConnection conexionHttp = (HttpURLConnection) urlServicio.openConnection();
+            conexionHttp.setRequestMethod("POST");
+            conexionHttp.setRequestProperty("Content-Type", "application/json");
+            conexionHttp.setDoOutput(true);
+            //Escribir datos en el cuerpo de la petición
+            OutputStream os = conexionHttp.getOutputStream();
+            os.write(json.getBytes());
+            os.flush();
+            os.close();//Termina la escritura
+            int codigoRespuesta = conexionHttp.getResponseCode();
+            respuesta.setCodigoRespuesta(codigoRespuesta);
+            if (codigoRespuesta == HttpURLConnection.HTTP_OK) {
+                respuesta.setContenido(convertirContenido(conexionHttp.getInputStream()));
+            } else {
+                respuesta.setContenido("CODE ERROR: " + codigoRespuesta);
+            }
+
+        } catch (MalformedURLException ex) {
+
+            respuesta.setCodigoRespuesta(Constantes.ERROR_URL);
+            respuesta.setContenido("Error" + ex.getMessage());
+
+        } catch (IOException iox) {
+
+            respuesta.setCodigoRespuesta(Constantes.ERROR_PETICION);
+            respuesta.setContenido("Error" + iox.getMessage());
+
+        }
+
+        return respuesta;
+    }
+
+    public static CodigoHTTP peticionPUTJSON(String url, String json) {
+        CodigoHTTP respuesta = new CodigoHTTP();
+
+        try {
+
+            URL urlServicio = new URL(url);
+            HttpURLConnection conexionHttp = (HttpURLConnection) urlServicio.openConnection();
+            conexionHttp.setRequestMethod("PUT");
+            conexionHttp.setRequestProperty("Content-Type", "application/json");
+            conexionHttp.setDoOutput(true);
+            //Escribir datos en el cuerpo de la petición
+            OutputStream os = conexionHttp.getOutputStream();
+            os.write(json.getBytes());
+            os.flush();
+            os.close();//Termina la escritura
+            int codigoRespuesta = conexionHttp.getResponseCode();
+            respuesta.setCodigoRespuesta(codigoRespuesta);
+            if (codigoRespuesta == HttpURLConnection.HTTP_OK) {
+                respuesta.setContenido(convertirContenido(conexionHttp.getInputStream()));
+            } else {
+                respuesta.setContenido("CODE ERROR: " + codigoRespuesta);
+            }
+
+        } catch (MalformedURLException ex) {
+
+            respuesta.setCodigoRespuesta(Constantes.ERROR_URL);
+            respuesta.setContenido("Error" + ex.getMessage());
+
+        } catch (IOException iox) {
+
+            respuesta.setCodigoRespuesta(Constantes.ERROR_PETICION);
+            respuesta.setContenido("Error" + iox.getMessage());
+
+        }
+
+        return respuesta;
+
+    }
+
     private static String convertirContenido(InputStream contenido) throws IOException {
 
         InputStreamReader inputLectura = new InputStreamReader(contenido);
@@ -108,6 +222,44 @@ public class ConexionHTTP {
         buffer.close();
 
         return cadenaBuffer.toString();
+
+    }
+    
+        public static CodigoHTTP peticionPUTImagen(String url, byte[] imagen) {
+        CodigoHTTP respuesta = new CodigoHTTP();
+
+        try {
+
+            URL urlServicio = new URL(url);
+            HttpURLConnection conexionHttp = (HttpURLConnection) urlServicio.openConnection();
+            conexionHttp.setRequestMethod("PUT");
+            conexionHttp.setDoOutput(true);
+            //Escribir datos en el cuerpo de la petición
+            OutputStream os = conexionHttp.getOutputStream();
+            os.write(imagen);
+            os.flush();
+            os.close();//Termina la escritura
+            int codigoRespuesta = conexionHttp.getResponseCode();
+            respuesta.setCodigoRespuesta(codigoRespuesta);
+            if (codigoRespuesta == HttpURLConnection.HTTP_OK) {
+                respuesta.setContenido(convertirContenido(conexionHttp.getInputStream()));
+            } else {
+                respuesta.setContenido("CODE ERROR: " + codigoRespuesta);
+            }
+
+        } catch (MalformedURLException ex) {
+
+            respuesta.setCodigoRespuesta(Constantes.ERROR_URL);
+            respuesta.setContenido("Error" + ex.getMessage());
+
+        } catch (IOException iox) {
+
+            respuesta.setCodigoRespuesta(Constantes.ERROR_PETICION);
+            respuesta.setContenido("Error" + iox.getMessage());
+
+        }
+
+        return respuesta;
 
     }
 }

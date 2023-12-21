@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,22 +70,28 @@ public class FXMLModuloEmpresaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         obtenerEmpresas();
         cargarTablaEmpresas();
+
     }
 
     private void obtenerEmpresas() {
-        empresas = FXCollections.observableArrayList();
-        List<Empresa> info = EmpresaDAO.obtenerEmpresas();
-        empresas.addAll(info);
-        tvEmpresas.setItems(empresas);
+
+        try {
+            empresas = FXCollections.observableArrayList();
+            List<Empresa> info = EmpresaDAO.obtenerEmpresas();
+            empresas.addAll(info);
+            tvEmpresas.setItems(empresas);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void cargarTablaEmpresas() {
         colNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
         colRepresentanteLegal.setCellValueFactory(new PropertyValueFactory("nombreRepresentanteLegal"));
         colRFC.setCellValueFactory(new PropertyValueFactory("RFC"));
-        colDireccion.setCellValueFactory(new PropertyValueFactory("RFC"));
-        colDireccion.setCellValueFactory(new PropertyValueFactory("RFC"));
-        colTelefono.setCellValueFactory(new PropertyValueFactory("RFC"));
+        colDireccion.setCellValueFactory(new PropertyValueFactory("direccion"));
+        colTelefono.setCellValueFactory(new PropertyValueFactory("telefono"));
         colEstatus.setCellValueFactory(new PropertyValueFactory("estatus"));
     }
 
@@ -111,12 +119,12 @@ public class FXMLModuloEmpresaController implements Initializable {
             stage.showAndWait();
 
         } else {
-            Utilidades.mostrarAlertaSimple("Ver información empresa", "Para poder modificar debes seleccionar un paciente", Alert.AlertType.INFORMATION);
+            Utilidades.mostrarAlertaSimple("Ver información empresa", "Para poder modificar debes seleccionar una empresa", Alert.AlertType.INFORMATION);
         }
     }
 
     @FXML
-    private void btRegistroEmpresa(ActionEvent event) throws IOException{
+    private void btRegistroEmpresa(ActionEvent event) throws IOException {
 
         FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLFromEmpresa.fxml"));
         Parent vista = vistaLoad.load();
@@ -131,5 +139,7 @@ public class FXMLModuloEmpresaController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
     }
+
+
 
 }
