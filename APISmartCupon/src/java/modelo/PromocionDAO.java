@@ -3,6 +3,7 @@ package modelo;
 import java.util.List;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
+import modelo.pojo.Sucursal;
 import modelo.pojo.SucursalPromocion;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
@@ -146,6 +147,25 @@ public class PromocionDAO {
         return mensaje;
     }
     
+    public static List<Sucursal> obtenerSucursalesAsociadas(int idPromocion) {
+        
+        List<Sucursal> sucursales = null;
+        
+        SqlSession sqlSession = mybatis.MyBatisUtil.getSession();
+        
+        try {
+            
+            sucursales = sqlSession.selectList("promociones.sucursalesAsociadas", idPromocion);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            sqlSession.commit();
+        }
+        
+        return sucursales;
+    }
+    
     public static Mensaje asignarSucursal(SucursalPromocion sucursalPromocion) {
         
         Mensaje mensaje = new Mensaje();
@@ -170,7 +190,7 @@ public class PromocionDAO {
                 
             } catch (Exception e) {
                 e.printStackTrace();
-                mensaje.setMensaje(mensaje.getMensaje());
+                mensaje.setMensaje(e.getMessage());
             }finally{
                 sqlSession.close();
             }

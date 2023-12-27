@@ -19,6 +19,7 @@ import javax.ws.rs.core.UriInfo;
 import modelo.PromocionDAO;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
+import modelo.pojo.Sucursal;
 import modelo.pojo.SucursalPromocion;
 
 
@@ -42,6 +43,19 @@ public class PromocionWS {
         }else{
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }     
+        
+    }
+    
+    @GET
+    @Path("obtenerSucursalesByPromocion/{idPromocion}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Sucursal> obtenerSucursales(@PathParam("idPromocion") Integer idPromocion){
+        
+        if (idPromocion != null && idPromocion > 0) {
+            return PromocionDAO.obtenerSucursalesAsociadas(idPromocion);
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
         
     }
     

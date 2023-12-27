@@ -54,10 +54,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     
-    <select id="asignarSucursalPromocion" parameterType="modelo.pojo.SucursalPromocion">
+    <insert id="asignarSucursalPromocion" parameterType="modelo.pojo.SucursalPromocion">
         INSERT INTO sucursal_promocion 
                (idSucursal, idPromocion) 
         VALUES (#{idSucursal}, #{idPromocion})
+    </insert>
+    
+    
+    <select id="sucursalesAsociadas" parameterType="int" resultType="modelo.pojo.Sucursal" >
+        SELECT
+            s.idSucursal, 
+            s.nombreSucursal,
+            s.direccion,
+            s.codigoPostal,
+            s.colonia,
+            s.ciudad,
+            s.telefono,
+            s.latitud,
+            s.longitud,
+            s.nombreEncargado
+        FROM sucursal s
+        NATURAL JOIN sucursal_promocion sp
+        WHERE idPromocion = #{idPromocion}
     </select>
     
     <select id="obtenerPromocionByIdCategoria" parameterType="int" resultType="modelo.pojo.Promocion">
