@@ -3,6 +3,7 @@ package modelo;
 import java.util.List;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
+import modelo.pojo.SucursalPromocion;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
 
@@ -134,6 +135,42 @@ public class PromocionDAO {
                 
             } catch (Exception e) {
                 e.printStackTrace();
+            }finally{
+                sqlSession.close();
+            }
+            
+        }else{
+            mensaje.setMensaje("No hay conexión a la base de datos");
+        }
+        
+        return mensaje;
+    }
+    
+    public static Mensaje asignarSucursal(SucursalPromocion sucursalPromocion) {
+        
+        Mensaje mensaje = new Mensaje();
+        mensaje.setError(true);
+        
+        SqlSession sqlSession = MyBatisUtil.getSession();
+        
+        
+        if (sqlSession != null) {
+            
+            try {
+                
+                int filasAfectadas = sqlSession.insert("promociones.asignarSucursalPromocion", sucursalPromocion);
+                
+                if (filasAfectadas > 0) {
+                  mensaje.setError(false);
+                  mensaje.setMensaje("Se ha asignado la sucursal correctamente");
+                  sqlSession.commit();
+                }else{
+                    mensaje.setMensaje("No se pudo asignar la sucursal");
+                }
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                mensaje.setMensaje(mensaje.getMensaje());
             }finally{
                 sqlSession.close();
             }

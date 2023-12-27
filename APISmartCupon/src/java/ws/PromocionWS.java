@@ -19,6 +19,7 @@ import javax.ws.rs.core.UriInfo;
 import modelo.PromocionDAO;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
+import modelo.pojo.SucursalPromocion;
 
 
 @Path("promocion")
@@ -42,6 +43,23 @@ public class PromocionWS {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }     
         
+    }
+    
+    @POST
+    @Path("asignarSucursal")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje asignarSucursalPromocion(String json){
+        
+        Gson gson = new Gson();
+        SucursalPromocion sucursalPromocion = gson.fromJson(json, SucursalPromocion.class);
+        
+        if (sucursalPromocion != null) {
+            return PromocionDAO.asignarSucursal(sucursalPromocion);
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+       
     }
     
     @GET
