@@ -8,12 +8,14 @@ package clienteescritoriosmartcupon.modelo.pojo.dao;
 import clienteescritoriosmartcupon.modelo.ConexionHTTP;
 import clienteescritoriosmartcupon.modelo.pojo.CodigoHTTP;
 import clienteescritoriosmartcupon.modelo.pojo.Mensaje;
+import clienteescritoriosmartcupon.modelo.pojo.Rol;
 import clienteescritoriosmartcupon.modelo.pojo.Usuario;
 import clienteescritoriosmartcupon.utils.Constantes;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -23,22 +25,32 @@ import java.util.List;
  * @author andre
  */
 public class UsuarioDAO {
-    public static HashMap<String, Object> get(){
-        HashMap<String, Object> respuesta = new LinkedHashMap<>();
+    public static List<Usuario> get(){
+        List<Usuario> usuarios = null;
         String url = Constantes.URL_WS + "usuario/lista";
         CodigoHTTP  codigoRespuesta = ConexionHTTP.peticionGET(url);
         
         if(codigoRespuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK){
-            respuesta.put("error", false);
             Type tipoListaUsuario = new TypeToken<List<Usuario>>(){}.getType();
             Gson gson = new Gson();
-            List<Usuario> usuarios = gson.fromJson(codigoRespuesta.getContenido(), tipoListaUsuario);
-            respuesta.put("usuarios", usuarios);
+            usuarios = gson.fromJson(codigoRespuesta.getContenido(), tipoListaUsuario);
         }else{
-            respuesta.put("error", true);
-            respuesta.put("mensaje", "Hubo un error al obtener la información de los usuarios, " + "porfavor intentelo más tarde.");
+            System.out.println(codigoRespuesta.getContenido());
+            System.out.println(codigoRespuesta.getCodigoRespuesta());
         }
-        return respuesta;
+        return usuarios;
+    }
+    
+    public static List<Rol> obtenerRol(){
+        List<Rol> roles = new ArrayList<>();
+        String url = Constantes.URL_WS + "usuario/listaRol";
+        CodigoHTTP  respuesta = ConexionHTTP.peticionGET(url);
+        if(respuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK){
+            Gson gson = new Gson();
+            Type tipoListaRoles = new TypeToken<List<Rol>>(){}.getType();
+            roles = gson.fromJson(respuesta.getContenido(), tipoListaRoles);
+        }
+        return roles;
     }
     
     public static Mensaje add(Usuario usuario) {

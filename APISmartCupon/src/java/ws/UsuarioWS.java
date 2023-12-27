@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import modelo.UsuarioDAO;
 import modelo.pojo.Mensaje;
+import modelo.pojo.Rol;
 import modelo.pojo.Usuario;
 import validator.UsuarioValidator;
 
@@ -33,6 +34,14 @@ public class UsuarioWS {
     public List<Usuario> obtenerLista() {
         UsuarioDAO dao = new UsuarioDAO();
         return dao.obtenerListaUsuarios();
+    }
+    
+    @Path("listaRol")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Rol> obtenerListaRol() {
+        UsuarioDAO dao = new UsuarioDAO();
+        return dao.obtenerListaRol();
     }
     
     @GET

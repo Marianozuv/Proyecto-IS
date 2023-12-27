@@ -3,6 +3,7 @@ package modelo;
 import java.util.HashMap;
 import java.util.List;
 import modelo.pojo.Mensaje;
+import modelo.pojo.Rol;
 import modelo.pojo.Usuario;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
@@ -40,6 +41,22 @@ public class UsuarioDAO {
             }
         }
         return usuario;
+    }
+    
+    public List<Rol> obtenerListaRol() {
+        List<Rol> rol = null;
+        SqlSession conexionDB = MyBatisUtil.getSession();
+
+        if (conexionDB != null) {
+            try {
+                rol = conexionDB.selectList("rol.obtenerLista");
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                conexionDB.close();
+            }
+        }
+        return rol;
     }
     
     public Mensaje registrar(Usuario usuario){

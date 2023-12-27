@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriosmartcupon.FXMLFormUsuarioController">
+    <children>
+      <ImageView fitHeight="577.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@recursos/fondo.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lbUsuario" layoutX="19.0" layoutY="14.0" text="Información del Usuario" textFill="WHITE">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <VBox layoutX="461.0" layoutY="92.0" prefHeight="320.0" prefWidth="240.0">
+         <children>
+            <Label text="Email" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="tfEmail" promptText="Email">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Username" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="tfUsername" promptText="Username">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Password" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="tfPassword" promptText="Password">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Rol" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cbRol" prefWidth="150.0" />
+            <Label text="Empresa" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cbEmpresa" prefWidth="150.0" />
+         </children>
+      </VBox>
+      <VBox layoutX="72.0" layoutY="93.0" prefHeight="320.0" prefWidth="240.0">
+         <children>
+            <Label text="Nombre Usuario" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfNombre" promptText="Nombre Usuario">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Apellido Paterno" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="tfApellidoPaterno" promptText="Apellido Paterno">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Apellido Materno" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="tfApellidoMaterno" promptText="Apellido Meterno">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="CURP" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="tfCURP" promptText="CURP">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+         </children>
+      </VBox>
+      <HBox fx:id="vbBotones" alignment="TOP_RIGHT" layoutX="68.0" layoutY="446.0" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="43.0" prefWidth="663.0">
+         <children>
+            <Button fx:id="btEliminar" maxWidth="140.0" mnemonicParsing="false" onAction="#btEliminarUsuario" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #BF3131; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Eliminar" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="9.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btCancelar" maxWidth="140.0" mnemonicParsing="false" onAction="#btCancelar" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #BF3131; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Cancelar" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="9.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btGuradarInfo" maxWidth="140.0" mnemonicParsing="false" onAction="#btSubirInfromacionUsuario" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Guardar" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="9.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btEditarUsuario" maxWidth="140.0" mnemonicParsing="false" onAction="#btEditarInfromacionUsuario" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Editar" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="9.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
