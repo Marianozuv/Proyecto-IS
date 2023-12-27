@@ -14,13 +14,13 @@ public class Promocion {
     private Integer porcentaje_Costo;
     private Integer idCategoria;
     private int cuponesMaximos;
-    private Integer codigoPromocion;
+    private String codigoPromocion;
     private boolean estatus;
 
     public Promocion() {
     }
 
-    public Promocion(Integer idPromocion, Integer idEmpresa, String nombrePromocion, String descripcion, String imagenPromocionBase64, String fechaInicioPromocion, String fechaTerminoPromocion, String restricciones, Integer idTipoPromocion, Integer porcentaje_Costo, Integer idCategoria, int cuponesMaximos, Integer codigoPromocion, boolean estatus) {
+    public Promocion(Integer idPromocion, Integer idEmpresa, String nombrePromocion, String descripcion, String imagenPromocionBase64, String fechaInicioPromocion, String fechaTerminoPromocion, String restricciones, Integer idTipoPromocion, Integer porcentaje_Costo, Integer idCategoria, int cuponesMaximos, String codigoPromocion, boolean estatus) {
         this.idPromocion = idPromocion;
         this.idEmpresa = idEmpresa;
         this.nombrePromocion = nombrePromocion;
@@ -133,11 +133,11 @@ public class Promocion {
         this.cuponesMaximos = cuponesMaximos;
     }
 
-    public Integer getCodigoPromocion() {
+    public String getCodigoPromocion() {
         return codigoPromocion;
     }
 
-    public void setCodigoPromocion(Integer codigoPromocion) {
+    public void setCodigoPromocion(String codigoPromocion) {
         this.codigoPromocion = codigoPromocion;
     }
 
@@ -148,4 +148,7 @@ public class Promocion {
     public void setEstatus(boolean estatus) {
         this.estatus = estatus;
     }
+
+
+    
 }
