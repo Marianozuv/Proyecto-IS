@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.List;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
 import mybatis.MyBatisUtil;
@@ -43,6 +44,24 @@ public class PromocionDAO {
         
         
         return mensaje;
+    }
+    
+    
+    public static List<Promocion> obtenerPromocionByCategoria(int idCategoria) {
+        
+        SqlSession sqlSession = MyBatisUtil.getSession();
+        List<Promocion> promociones = null;
+        
+        try {
+            promociones = sqlSession.selectList("promociones.obtenerPromocionByIdCategoria", idCategoria);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            sqlSession.close();
+        }
+        
+        
+        return promociones;
     }
     
     public static Promocion obtenerPromo(int idPromocion) {

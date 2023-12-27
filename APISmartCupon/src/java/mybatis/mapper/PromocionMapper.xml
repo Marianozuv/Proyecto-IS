@@ -8,66 +8,88 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <insert id="registrarPromocion" parameterType="modelo.pojo.Promocion">
         INSERT INTO promocion (
-            idEmpresa,
-            nombrePromocion,
-            descripcion,   
-            fechaInicioPromocion,
-            fechaTerminoPromocion,
-            restricciones,
-            idTipoPromocion,
-            porcentaje_Costo,
-            idCategoria,
-            cuponesMaximos,
-            codigoPromocion
+        idEmpresa,
+        nombrePromocion,
+        descripcion,   
+        fechaInicioPromocion,
+        fechaTerminoPromocion,
+        restricciones,
+        idTipoPromocion,
+        porcentaje_Costo,
+        idCategoria,
+        cuponesMaximos,
+        codigoPromocion
         ) VALUES (
-            #{idEmpresa},
-            #{nombrePromocion},
-            #{descripcion},
-            #{fechaInicioPromocion},
-            #{fechaTerminoPromocion},
-            #{restricciones},
-            #{idTipoPromocion},
-            #{porcentaje_Costo},
-            #{idCategoria},
-            #{cuponesMaximos},
-            #{codigoPromocion}
+        #{idEmpresa},
+        #{nombrePromocion},
+        #{descripcion},
+        #{fechaInicioPromocion},
+        #{fechaTerminoPromocion},
+        #{restricciones},
+        #{idTipoPromocion},
+        #{porcentaje_Costo},
+        #{idCategoria},
+        #{cuponesMaximos},
+        #{codigoPromocion}
         )
     </insert>
     
     <select id="obtenerPromocion" parameterType="int" resultType="modelo.pojo.Promocion">
         SELECT
-            idPromocion,
-            idEmpresa,
-            nombrePromocion,
-            descripcion,   
-            fechaInicioPromocion,
-            fechaTerminoPromocion,
-            restricciones,
-            idTipoPromocion,
-            porcentaje_Costo,
-            idCategoria,
+        idPromocion,
+        idEmpresa,
+        nombrePromocion,
+        descripcion,   
+        fechaInicioPromocion,
+        fechaTerminoPromocion,
+        restricciones,
+        idTipoPromocion,
+        porcentaje_Costo,
+        idCategoria,
+        cuponesMaximos,
+        codigoPromocion,
+        estatus
+        FROM promocion
+        WHERE idPromocion = #{idPromocion}
+    </select>
+    
+    <select id="obtenerPromocionByIdCategoria" parameterType="int" resultType="modelo.pojo.Promocion">
+        SELECT
+            p.idPromocion,
+            e.nombreComercial,
+            p.nombrePromocion,
+            p.descripcion,   
+            p.fechaInicioPromocion,
+            p.fechaTerminoPromocion,
+            p.restricciones,
+            cp.TipoPoromocion,
+            p.porcentaje_Costo,
+            cc.categoria,
             cuponesMaximos,
             codigoPromocion,
             estatus
-        FROM promocion
-        WHERE idPromocion = #{idPromocion}
+        FROM promocion p 
+        NATURAL JOIN empresa e 
+        NATURAL JOIN cat_tipopromocion cp
+        NATURAL JOIN cat_categoria cc
+        WHERE idCategoria  = #{idCategoria}
     </select>
     
     <update id="editarPromocion" parameterType="modelo.pojo.Promocion">
         UPDATE promocion
         SET
-            idEmpresa = #{idEmpresa},
-            nombrePromocion = #{nombrePromocion},
-            descripcion = #{descripcion},
-            fechaInicioPromocion = #{fechaInicioPromocion},
-            fechaTerminoPromocion = #{fechaTerminoPromocion},
-            restricciones = #{restricciones},
-            idTipoPromocion = #{idTipoPromocion},
-            porcentaje_Costo = #{porcentaje_Costo},
-            idCategoria = #{idCategoria},
-            cuponesMaximos = #{cuponesMaximos},
-            codigoPromocion = #{codigoPromocion},
-            estatus = #{estatus}
+        idEmpresa = #{idEmpresa},
+        nombrePromocion = #{nombrePromocion},
+        descripcion = #{descripcion},
+        fechaInicioPromocion = #{fechaInicioPromocion},
+        fechaTerminoPromocion = #{fechaTerminoPromocion},
+        restricciones = #{restricciones},
+        idTipoPromocion = #{idTipoPromocion},
+        porcentaje_Costo = #{porcentaje_Costo},
+        idCategoria = #{idCategoria},
+        cuponesMaximos = #{cuponesMaximos},
+        codigoPromocion = #{codigoPromocion},
+        estatus = #{estatus}
         WHERE idPromocion = #{idPromocion}
     </update>
     

@@ -2,6 +2,7 @@
 package ws;
 
 import com.google.gson.Gson;
+import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -40,6 +41,19 @@ public class PromocionWS {
         }else{
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }     
+        
+    }
+    
+    @GET
+    @Path("listaPromocionPorCategoriaId/{idCategoria}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public static List<Promocion> obtenerListaPromocion(@PathParam("idCategoria") Integer idCategoria){
+        
+        if(idCategoria > 0 && idCategoria != null){
+            return PromocionDAO.obtenerPromocionByCategoria(idCategoria);
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
         
     }
     

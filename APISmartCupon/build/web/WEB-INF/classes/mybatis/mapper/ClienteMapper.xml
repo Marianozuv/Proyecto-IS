@@ -17,7 +17,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="registrar" parameterType="modelo.pojo.Cliente">  
         INSERT INTO cliente (nombre, apellidoPaterno, apellidoMaterno, telefono, email, direccion, fechaNacimiento, password)
         VALUES (#{nombre}, #{apellidoPaterno}, #{apellidoMaterno}, #{telefono}, #{email}, #{direccion}, #{fechaNacimiento}, #{password})
-        
     </insert>
     
     <update id="editar" parameterType="modelo.pojo.Cliente">
