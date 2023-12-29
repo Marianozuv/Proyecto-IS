@@ -5,6 +5,8 @@
  */
 package clienteescritoriosmartcupon;
 
+import clienteescritoriosmartcupon.modelo.pojo.Empresa;
+import clienteescritoriosmartcupon.modelo.pojo.Rol;
 import clienteescritoriosmartcupon.modelo.pojo.Usuario;
 import clienteescritoriosmartcupon.modelo.pojo.dao.UsuarioDAO;
 import clienteescritoriosmartcupon.utils.Utilidades;
@@ -38,6 +40,8 @@ import javafx.stage.Stage;
 public class FXMLModuloUsuarioController implements Initializable {
     
     private Usuario usuario;
+    private Rol rol;
+    private Empresa empresa;
     private ObservableList<Usuario> usuariosEmpresas;
 
     @FXML
@@ -136,6 +140,6 @@ public class FXMLModuloUsuarioController implements Initializable {
         colApellidoMaterno.setCellValueFactory(new PropertyValueFactory("apellidoMaterno"));
         colCURP.setCellValueFactory(new PropertyValueFactory("curp"));
         colEmail.setCellValueFactory(new PropertyValueFactory("email"));
-        colRol.setCellValueFactory(new PropertyValueFactory("rol"));
+        colRol.setCellValueFactory(new PropertyValueFactory("idRol"));
     }
 }

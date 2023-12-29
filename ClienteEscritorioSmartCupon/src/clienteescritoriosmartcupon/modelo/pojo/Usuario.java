@@ -10,35 +10,65 @@ package clienteescritoriosmartcupon.modelo.pojo;
  * @author mateo
  */
 public class Usuario {
-    
+    private Integer idUsuario;
+    private Integer idRol;
+    private Integer idEmpresa;
+    private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
     private String curp;
     private String email;
-    private Integer idEmpresa;
-    private Integer idRol;
-    private Integer idUsuario;
-    private String nombre;
-    private String password;
     private String username;
+    private String password;
     private String rol;
-    
 
     public Usuario() {
     }
 
-    public Usuario(String apellidoPaterno, String apellidoMaterno, String curp, String email, Integer idEmpresa, Integer idRol, Integer idUsuario, String nombre, String password, String username, String rol) {
+    public Usuario(Integer idUsuario, Integer idRol, Integer idEmpresa, String nombre, String apellidoPaterno, String apellidoMaterno, String curp, String email, String username, String password, String rol) {
+        this.idUsuario = idUsuario;
+        this.idRol = idRol;
+        this.idEmpresa = idEmpresa;
+        this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.curp = curp;
         this.email = email;
-        this.idEmpresa = idEmpresa;
-        this.idRol = idRol;
-        this.idUsuario = idUsuario;
-        this.nombre = nombre;
-        this.password = password;
         this.username = username;
+        this.password = password;
         this.rol = rol;
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public Integer getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(Integer idRol) {
+        this.idRol = idRol;
+    }
+
+    public Integer getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(Integer idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getApellidoPaterno() {
@@ -73,36 +103,12 @@ public class Usuario {
         this.email = email;
     }
 
-    public Integer getIdEmpresa() {
-        return idEmpresa;
+    public String getUsername() {
+        return username;
     }
 
-    public void setIdEmpresa(Integer idEmpresa) {
-        this.idEmpresa = idEmpresa;
-    }
-
-    public Integer getIdRol() {
-        return idRol;
-    }
-
-    public void setIdRol(Integer idRol) {
-        this.idRol = idRol;
-    }
-
-    public Integer getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -111,14 +117,6 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getRol() {

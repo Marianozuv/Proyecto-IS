@@ -34,9 +34,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -93,8 +91,6 @@ public class FXMLFormUsuarioController implements Initializable {
         // TODO
         cargarInformacionRoles();
         cargarInformacionEmpresas();
-        configurarSeleccionRol();
-        configurarSeleccionEmpresa();
     }    
     
     public void inicializarInformacion(Usuario usuario, boolean isEdicion) {
@@ -110,6 +106,7 @@ public class FXMLFormUsuarioController implements Initializable {
         cbEmpresa.setEditable(false);
 
         this.usuario = usuario;
+        
         this.isEdicion = isEdicion;
 
         if (isEdicion) {
@@ -129,12 +126,11 @@ public class FXMLFormUsuarioController implements Initializable {
             tfEmail.setText(usuario.getEmail());
             tfUsername.setText(usuario.getUsername());
             tfPassword.setText(usuario.getPassword());
-            /*int posicionRol = buscarIdRol(rol.getIdRol());
+            int posicionRol = buscarIdRol(rol.getIdRol());
             cbRol.getSelectionModel().select(posicionRol);
             int posicionEmpresa = buscarIdEmpresa(empresa.getIdEmpresa());
-            cbEmpresa.getSelectionModel().select(posicionEmpresa);*/
+            cbEmpresa.getSelectionModel().select(posicionEmpresa);
             
-
         } else {
 
             vbBotones.getChildren().clear();
@@ -158,7 +154,101 @@ public class FXMLFormUsuarioController implements Initializable {
             cbEmpresa.setEditable(true);
         }
     }
+    
+    private void llenarCamposVentana() {
+        tfNombre.setText(usuario.getNombre());
+        tfApellidoPaterno.setText(usuario.getApellidoPaterno());
+        tfApellidoMaterno.setText(usuario.getApellidoMaterno());
+        tfCURP.setText(usuario.getCurp());
+        tfEmail.setText(usuario.getEmail());
+        tfUsername.setText(usuario.getUsername());
+        tfPassword.setText(usuario.getPassword());
+        int posicionRol = buscarIdRol(rol.getIdRol());
+        cbRol.getSelectionModel().select(posicionRol);
+        int posicionEmpresa = buscarIdEmpresa(empresa.getIdEmpresa());
+        cbEmpresa.getSelectionModel().select(posicionEmpresa);
+    }
 
+    @FXML
+    private void btSubirInfromacionUsuario(ActionEvent event) {
+        
+        if (isEdicion) {
+
+            usuario.setNombre(tfNombre.getText());
+            usuario.setApellidoPaterno(tfApellidoPaterno.getText());
+            usuario.setApellidoMaterno(tfApellidoMaterno.getText());
+            usuario.setCurp(tfCURP.getText());
+            usuario.setEmail(tfEmail.getText());
+            usuario.setUsername(tfUsername.getText());
+            usuario.setPassword(tfPassword.getText());
+            Rol rolSeleccion = roles.get(cbRol.getSelectionModel().getSelectedIndex());
+            usuario.setIdRol(rolSeleccion.getIdRol());
+            usuario.setIdUsuario(this.usuario.getIdUsuario());
+            Empresa empresaSeleccion = empresas.get(cbEmpresa.getSelectionModel().getSelectedIndex());
+            usuario.setIdEmpresa(empresaSeleccion.getIdEmpresa());
+            usuario.setIdUsuario(this.usuario.getIdUsuario());
+            
+            update(usuario);
+
+        } else {
+            usuario = new Usuario();
+            usuario.setNombre(tfNombre.getText());
+            usuario.setApellidoPaterno(tfApellidoPaterno.getText());
+            usuario.setApellidoMaterno(tfApellidoMaterno.getText());
+            usuario.setCurp(tfCURP.getText());
+            usuario.setEmail(tfEmail.getText());
+            usuario.setUsername(tfUsername.getText());
+            usuario.setPassword(tfPassword.getText());
+            Rol rolSeleccion = roles.get(cbRol.getSelectionModel().getSelectedIndex());
+            usuario.setIdRol(rolSeleccion.getIdRol());
+            usuario.setIdUsuario(this.usuario.getIdUsuario());
+            Empresa empresaSeleccion = empresas.get(cbEmpresa.getSelectionModel().getSelectedIndex());
+            usuario.setIdEmpresa(empresaSeleccion.getIdEmpresa());
+            usuario.setIdUsuario(this.usuario.getIdUsuario());
+
+            add(usuario);
+        }
+    }
+
+    @FXML
+    private void btEditarInfromacionUsuario(ActionEvent event) {
+        vbBotones.getChildren().clear();
+
+        vbBotones.getChildren().remove(btCancelar);
+        vbBotones.getChildren().remove(btGuradarInfo);
+
+        vbBotones.getChildren().add(btEliminar);
+        vbBotones.getChildren().add(btEditarUsuario);
+
+        tfNombre.setEditable(true);
+        tfApellidoPaterno.setEditable(true);
+        tfApellidoMaterno.setEditable(true);
+        tfCURP.setEditable(true);
+        tfEmail.setEditable(true);
+        tfNombre.setEditable(true);
+        tfUsername.setEditable(true);
+        tfPassword.setEditable(true);
+        cbRol.setEditable(true);
+        cbEmpresa.setEditable(true);
+    }
+    
+    @FXML
+    private void btEliminarUsuario(ActionEvent event) {
+        if (Utilidades.mostrarAlertaConfirmacion("Eliminar Usuario", "¿Está seguro de eliminar a este Usuario?")) {
+            Mensaje mensaje = UsuarioDAO.delete(usuario);
+
+            if (!mensaje.isError()) {
+                Utilidades.mostrarAlertaSimple("Eliminar usuario", mensaje.getMensaje(), Alert.AlertType.INFORMATION);
+                cerrarVentana();
+            }else {
+                Utilidades.mostrarAlertaSimple("Eliminar usuario", mensaje.getMensaje(), Alert.AlertType.INFORMATION);
+            }
+
+        } else {
+            Utilidades.mostrarAlertaSimple("Operacion eliminar", "La operación eliminar se ha cancelado", Alert.AlertType.INFORMATION);
+        }
+    }
+    
     @FXML
     private void btCancelar(ActionEvent event) {
         if (isEdicion) {
@@ -207,85 +297,6 @@ public class FXMLFormUsuarioController implements Initializable {
             }
         }
     }
-
-    @FXML
-    private void btEliminarUsuario(ActionEvent event) {
-        if (Utilidades.mostrarAlertaConfirmacion("Eliminar Usuario", "¿Está seguro de eliminar a este Usuario?")) {
-            Mensaje mensaje = UsuarioDAO.delete(usuario);
-
-            if (!mensaje.isError()) {
-                Utilidades.mostrarAlertaSimple("Eliminar usuario", mensaje.getMensaje(), Alert.AlertType.INFORMATION);
-                cerrarVentana();
-            }else {
-                Utilidades.mostrarAlertaSimple("Eliminar usuario", mensaje.getMensaje(), Alert.AlertType.INFORMATION);
-            }
-
-        } else {
-            Utilidades.mostrarAlertaSimple("Operacion eliminar", "La operación eliminar se ha cancelado", Alert.AlertType.INFORMATION);
-        }
-    }
-
-    @FXML
-    private void btSubirInfromacionUsuario(ActionEvent event) {
-        if (isEdicion) {
-
-            usuario.setNombre(tfNombre.getText());
-            usuario.setApellidoPaterno(tfApellidoPaterno.getText());
-            usuario.setApellidoMaterno(tfApellidoMaterno.getText());
-            usuario.setCurp(tfCURP.getText());
-            usuario.setEmail(tfEmail.getText());
-            usuario.setUsername(tfUsername.getText());
-            usuario.setPassword(tfPassword.getText());
-            Rol rolSeleccion = roles.get(cbRol.getSelectionModel().getSelectedIndex());
-            usuario.setIdRol(rolSeleccion.getIdRol());
-            usuario.setIdRol(this.usuario.getIdUsuario());
-            Empresa empresaSeleccion = empresas.get(cbEmpresa.getSelectionModel().getSelectedIndex());
-            usuario.setIdEmpresa(empresaSeleccion.getIdEmpresa());
-            usuario.setIdEmpresa(this.usuario.getIdUsuario());
-            
-            update(usuario);
-
-        } else {
-            usuario = new Usuario();
-            usuario.setNombre(tfNombre.getText());
-            usuario.setApellidoPaterno(tfApellidoPaterno.getText());
-            usuario.setApellidoMaterno(tfApellidoMaterno.getText());
-            usuario.setCurp(tfCURP.getText());
-            usuario.setEmail(tfEmail.getText());
-            usuario.setUsername(tfUsername.getText());
-            usuario.setPassword(tfPassword.getText());
-            Rol rolSeleccion = roles.get(cbRol.getSelectionModel().getSelectedIndex());
-            usuario.setIdRol(rolSeleccion.getIdRol());
-            usuario.setIdRol(this.usuario.getIdUsuario());
-            Empresa empresaSeleccion = empresas.get(cbEmpresa.getSelectionModel().getSelectedIndex());
-            usuario.setIdEmpresa(empresaSeleccion.getIdEmpresa());
-            usuario.setIdEmpresa(this.usuario.getIdUsuario());
-
-            add(usuario);
-        }
-    }
-
-    @FXML
-    private void btEditarInfromacionUsuario(ActionEvent event) {
-        vbBotones.getChildren().clear();
-
-        vbBotones.getChildren().remove(btCancelar);
-        vbBotones.getChildren().remove(btGuradarInfo);
-
-        vbBotones.getChildren().add(btEliminar);
-        vbBotones.getChildren().add(btEditarUsuario);
-
-        tfNombre.setEditable(true);
-        tfApellidoPaterno.setEditable(true);
-        tfApellidoMaterno.setEditable(true);
-        tfCURP.setEditable(true);
-        tfEmail.setEditable(true);
-        tfNombre.setEditable(true);
-        tfUsername.setEditable(true);
-        tfPassword.setEditable(true);
-        cbRol.setEditable(true);
-        cbEmpresa.setEditable(true);
-    }
     
     private void cargarInformacionRoles() {
         roles = FXCollections.observableArrayList();
@@ -299,24 +310,6 @@ public class FXMLFormUsuarioController implements Initializable {
         List<Empresa> info = EmpresaDAO.obtenerEmpresas();
         empresas.addAll(info);
         cbEmpresa.setItems(empresas);
-    }
-    
-    private void configurarSeleccionRol() {
-        cbRol.valueProperty().addListener(new ChangeListener<Rol>() {
-            @Override
-            public void changed(ObservableValue<? extends Rol> observable, Rol oldValue, Rol newValue) {
-                cargarInformacionRoles();
-            }
-        });
-    }
-    
-    private void configurarSeleccionEmpresa() {
-        cbEmpresa.valueProperty().addListener(new ChangeListener<Empresa>(){
-            @Override
-            public void changed(ObservableValue<? extends Empresa> observable, Empresa oldValue, Empresa newValue) {
-                cargarInformacionEmpresas();
-            }
-        });
     }
     
     private void cerrarVentana() {
