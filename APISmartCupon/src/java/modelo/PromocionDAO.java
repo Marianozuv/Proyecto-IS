@@ -1,128 +1,252 @@
 package modelo;
 
+import java.util.List;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
+import modelo.pojo.Sucursal;
+import modelo.pojo.SucursalPromocion;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
 
-
 public class PromocionDAO {
-    
+
     public static Mensaje registrarUsuario(Promocion promocion) {
-        
+
         Mensaje mensaje = new Mensaje();
         mensaje.setError(true);
-        
-        
+
         SqlSession sqlSession = MyBatisUtil.getSession();
-        
-        if(sqlSession != null){
-            
+
+        if (sqlSession != null) {
+
             try {
-                
+
                 int filasAfectadas = sqlSession.delete("promociones.registrarPromocion", promocion);
-                
-                
+
                 if (filasAfectadas > 0) {
                     sqlSession.commit();
                     mensaje.setError(false);
                     mensaje.setMensaje("La promocion se ha registrado");
-                }else{
+                } else {
                     mensaje.setMensaje("No se pudo registrar la promocion");
                 }
-                
+
             } catch (Exception e) {
                 e.printStackTrace();
-            }finally{
+            } finally {
                 sqlSession.close();
             }
-            
-        }else {
+
+        } else {
             mensaje.setMensaje("No hay conexión a la base de datos");
-        }        
-        
-        
+        }
+
         return mensaje;
     }
-    
+
+    public static List<Promocion> obtenerPromocionByCategoria(int idCategoria) {
+
+        SqlSession sqlSession = MyBatisUtil.getSession();
+        List<Promocion> promociones = null;
+
+        try {
+            promociones = sqlSession.selectList("promociones.obtenerPromocionByIdCategoria", idCategoria);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            sqlSession.close();
+        }
+
+        return promociones;
+    }
+
     public static Promocion obtenerPromo(int idPromocion) {
-        
+
         SqlSession sqlSession = MyBatisUtil.getSession();
         Promocion promocion = null;
-        
+
         try {
             promocion = sqlSession.selectOne("promociones.obtenerPromocion", idPromocion);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return promocion;
     }
-    
+
     public static Mensaje editarPromocion(Promocion promocion) {
         Mensaje mensaje = new Mensaje();
         mensaje.setError(true);
-        
+
         SqlSession sqlSession = MyBatisUtil.getSession();
-        
+
         if (sqlSession != null) {
-            
+
             try {
-                
+
                 int filasAfectadas = sqlSession.update("promociones.editarPromocion", promocion);
-                
+
                 if (filasAfectadas > 0) {
                     sqlSession.commit();
                     mensaje.setError(false);
                     mensaje.setMensaje("Se ha editado la promocion");
-                }else{
+                } else {
                     mensaje.setMensaje("No se pudo editar la promocion");
                 }
-                
+
             } catch (Exception e) {
                 e.printStackTrace();
-            }finally{
+            } finally {
                 sqlSession.close();
             }
-            
-        }else{
+
+        } else {
             mensaje.setMensaje("No hay conexión a la base de datos");
         }
-        
+
         return mensaje;
     }
-    
+
     public static Mensaje eliminarPromocion(int idPromocion) {
-     
+
         Mensaje mensaje = new Mensaje();
         mensaje.setError(true);
-        
+
         SqlSession sqlSession = MyBatisUtil.getSession();
-        
+
         if (sqlSession != null) {
-            
+
             try {
-                
+
                 int filasAfectadas = sqlSession.delete("promociones.eliminarPromocion", idPromocion);
-                
+
                 if (filasAfectadas > 0) {
                     sqlSession.commit();
                     mensaje.setError(false);
                     mensaje.setMensaje("La promocion se ha eliminado");
-                }else{
+                } else {
                     mensaje.setMensaje("La promocion no se ha podido eliminar");
                 }
-                
+
             } catch (Exception e) {
                 e.printStackTrace();
-            }finally{
+            } finally {
                 sqlSession.close();
             }
-            
-        }else{
+
+        } else {
             mensaje.setMensaje("No hay conexión a la base de datos");
         }
-        
+
         return mensaje;
+    }
+
+    public static List<Sucursal> obtenerSucursalesAsociadas(int idPromocion) {
+
+        List<Sucursal> sucursales = null;
+
+        SqlSession sqlSession = mybatis.MyBatisUtil.getSession();
+
+        try {
+
+            sucursales = sqlSession.selectList("promociones.sucursalesAsociadas", idPromocion);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            sqlSession.commit();
+        }
+
+        return sucursales;
+    }
+
+    public static Mensaje asignarSucursal(SucursalPromocion sucursalPromocion) {
+
+        Mensaje mensaje = new Mensaje();
+        mensaje.setError(true);
+
+        SqlSession sqlSession = MyBatisUtil.getSession();
+
+        if (sqlSession != null) {
+
+            try {
+
+                int filasAfectadas = sqlSession.insert("promociones.asignarSucursalPromocion", sucursalPromocion);
+
+                if (filasAfectadas > 0) {
+                    mensaje.setError(false);
+                    mensaje.setMensaje("Se ha asignado la sucursal correctamente");
+                    sqlSession.commit();
+                } else {
+                    mensaje.setMensaje("No se pudo asignar la sucursal");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                mensaje.setMensaje(e.getMessage());
+            } finally {
+                sqlSession.close();
+            }
+
+        } else {
+            mensaje.setMensaje("No hay conexión a la base de datos");
+        }
+
+        return mensaje;
+    }
+
+    public static Mensaje subirImagen(int idPromocion, byte[] foto) {
+        Mensaje mensaje = new Mensaje();
+        mensaje.setError(true);
+
+        SqlSession sqlSession = MyBatisUtil.getSession();
+
+        if (sqlSession != null) {
+
+            try {
+                Promocion promocionImagen = new Promocion();
+                promocionImagen.setIdPromocion(idPromocion);
+                promocionImagen.setImagenPromocion(foto);
+                int filasAfectadas = sqlSession.update("promociones.subirImagenPromocion", promocionImagen);
+                sqlSession.commit();
+
+                if (filasAfectadas > 0) {
+
+                    mensaje.setError(false);
+                    mensaje.setMensaje("La imagen de la promocion ha sido guardada");
+
+                } else {
+
+                    mensaje.setMensaje("Hubo un error al intentar guardar la imagen de la promocion");
+                }
+            } catch (Exception e) {
+            }
+
+        } else {
+
+            mensaje.setMensaje("Lo sentimos, no hay conexión para subir la imagen");
+
+        }
+
+        return mensaje;
+    }
+
+    public static Promocion obtenerImagenPromocion(int idPromocion) {
+
+        Promocion promocion = new Promocion();
+        SqlSession conexionBD = MyBatisUtil.getSession();
+
+        if (conexionBD != null) {
+            try {
+                promocion = conexionBD.selectOne("promociones.obtenerImagenPromocion", idPromocion);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                conexionBD.close();
+            }
+        }
+
+        return promocion;
+
     }
 }
