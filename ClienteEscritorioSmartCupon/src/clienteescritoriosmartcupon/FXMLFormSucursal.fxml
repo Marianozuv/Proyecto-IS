@@ -26,7 +26,7 @@
       </Label>
       <HBox fx:id="vbBotones" alignment="TOP_RIGHT" layoutX="118.0" layoutY="480.0" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="43.0" prefWidth="663.0">
          <children>
-            <Button fx:id="btEliminar" maxWidth="140.0" mnemonicParsing="false" onAction="#btEliminarEmpresa" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #BF3131; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Eliminar" textFill="WHITE">
+            <Button fx:id="btEliminar" maxWidth="140.0" mnemonicParsing="false" onAction="#btEliminarSucursal" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #BF3131; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Eliminar" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
@@ -42,7 +42,7 @@
                   <Insets left="9.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btGuradarInfo" maxWidth="140.0" mnemonicParsing="false" onAction="#btSubirInfromacionEmpresa" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Guardar" textFill="WHITE">
+            <Button fx:id="btGuradarInfo" maxWidth="140.0" mnemonicParsing="false" onAction="#btSubirInfromacionSucursal" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Guardar" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
@@ -50,7 +50,7 @@
                   <Insets left="9.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btEditarEmpresa" maxWidth="140.0" mnemonicParsing="false" onAction="#btEditarInfromacionEmpresa" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Editar" textFill="WHITE">
+            <Button fx:id="btEditarSucursal" maxWidth="140.0" mnemonicParsing="false" onAction="#btEditarInfromacionSucursal" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Editar" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>

@@ -111,8 +111,8 @@ public class FXMLHomeController implements Initializable {
             FXMLModuloSucursalController controller = vistaLoad.getController();
 
             Stage stage = new Stage();
-            Scene escenaEditarPaciente = new Scene(vista);
-            stage.setScene(escenaEditarPaciente);
+            Scene escena = new Scene(vista);
+            stage.setScene(escena);
             stage.setTitle("Infromación de sucursales");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();

@@ -5,8 +5,11 @@
  */
 package clienteescritoriosmartcupon;
 
+import clienteescritoriosmartcupon.modelo.pojo.Empresa;
 import clienteescritoriosmartcupon.modelo.pojo.Sucursal;
 import clienteescritoriosmartcupon.modelo.pojo.dao.SucursalDAO;
+import clienteescritoriosmartcupon.utils.Utilidades;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Observable;
@@ -15,13 +18,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -57,9 +66,9 @@ public class FXMLModuloSucursalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         obtenerSucursales();
         cargarSucursales();
-    } 
-    
-    private void obtenerSucursales(){
+    }
+
+    private void obtenerSucursales() {
         try {
             sucursales = FXCollections.observableArrayList();
             List<Sucursal> info = SucursalDAO.obtenerSucursales();
@@ -69,8 +78,8 @@ public class FXMLModuloSucursalController implements Initializable {
             e.printStackTrace();
         }
     }
-    
-    private void cargarSucursales(){
+
+    private void cargarSucursales() {
         colNombre.setCellValueFactory(new PropertyValueFactory("nombreSucursal"));
         colNombreEncargado.setCellValueFactory(new PropertyValueFactory("nombreEncargado"));
         colCodigoPostal.setCellValueFactory(new PropertyValueFactory("codigoPostal"));
@@ -83,7 +92,31 @@ public class FXMLModuloSucursalController implements Initializable {
     }
 
     @FXML
-    private void btVerInfoSucursal(ActionEvent event) {
+    private void btVerInfoSucursal(ActionEvent event) throws IOException{
+        
+        int posicionSelecionada = tvSucursale.getSelectionModel().getSelectedIndex();
+
+        if (posicionSelecionada != -1) {
+
+            Sucursal sucursal = sucursales.get(posicionSelecionada);
+            Utilidades.mostrarAlertaSimple("Ver información empresa", "Ha selecionado la empresa: " + sucursal.getNombreSucursal(), Alert.AlertType.INFORMATION);
+
+            FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLFormSucursal.fxml"));
+            Parent vista = vistaLoad.load();
+
+            FXMLFormSucursalController controller = vistaLoad.getController();
+            controller.inicializarInformacion(sucursal, true);
+
+            Stage stage = new Stage();
+            Scene escenaEditarPaciente = new Scene(vista);
+            stage.setScene(escenaEditarPaciente);
+            stage.setTitle("Infromación sucursal");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+        } else {
+            Utilidades.mostrarAlertaSimple("Ver información sucursal", "Para poder modificar debes seleccionar una sucursal", Alert.AlertType.INFORMATION);
+        }
     }
-    
+
 }
