@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Sucursal;
+import modelo.pojo.SucursalPromocion;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
 
-
 public class SucursalDAO {
-    
+
     public List<Sucursal> obtenerLista() {
         List<Sucursal> usuario = null;
         SqlSession conexionDB = MyBatisUtil.getSession();
@@ -25,7 +25,7 @@ public class SucursalDAO {
         }
         return usuario;
     }
-    
+
     public List<Sucursal> obtenerSucursalPorIdEmpresa(Integer idEmpresa) {
         List<Sucursal> sucursal = null;
         SqlSession conexionDB = MyBatisUtil.getSession();
@@ -42,11 +42,11 @@ public class SucursalDAO {
         return sucursal;
     }
 
-    public Mensaje registrar(Sucursal sucursal){
-         
+    public Mensaje registrar(Sucursal sucursal) {
+
         Mensaje msj = new Mensaje();
         SqlSession conexionDB = MyBatisUtil.getSession();
-        
+
         if (conexionDB != null) {
             try {
                 int numeroFilasAfectadas = conexionDB.insert("sucursal.registrar", sucursal);
@@ -71,7 +71,7 @@ public class SucursalDAO {
 
         return msj;
     }
-    
+
     private HashMap<String, Object> toparam(Sucursal sucursal) {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("idSucursal", sucursal.getIdSucursal());
@@ -88,7 +88,7 @@ public class SucursalDAO {
 
         return parametros;
     }
-    
+
     public Mensaje editar(Sucursal sucursal) {
 
         Mensaje response = new Mensaje();
@@ -98,7 +98,7 @@ public class SucursalDAO {
 
         if (conn != null) {
             try {
-                if (sucursal.getIdSucursal()== 0) {
+                if (sucursal.getIdSucursal() == 0) {
                     response.setMensaje("ID necesario para actualizar");
                 }
                 Sucursal found = conn.selectOne("sucursal.obtenerPorId", sucursal.getIdSucursal());
@@ -128,18 +128,27 @@ public class SucursalDAO {
 
         Mensaje msj = new Mensaje();
         SqlSession conexionDB = MyBatisUtil.getSession();
+        List<SucursalPromocion> sucursalPromociones = null;
 
         if (conexionDB != null) {
             try {
-                int numeroFilasAfectadas = conexionDB.delete("sucursal.eliminar", (idSucursal));
-                conexionDB.commit();
-                if (numeroFilasAfectadas > 0) {
-                    msj.setError(false);
-                    msj.setMensaje("Información de la Sucursal eliminada con éxito");
+
+                sucursalPromociones = conexionDB.selectList("sucursal.obtenerPromocionBySucursal", idSucursal);
+
+                if (sucursalPromociones != null && !sucursalPromociones.isEmpty()) {
+                    msj.setMensaje("La sucursal no se puede eliminar, ya que tiene promociones asociadas");
                 } else {
-                    msj.setError(true);
-                    msj.setMensaje("Lo sentimos, no se pudo eliminar la información de la Sucursal.");
+                    int numeroFilasAfectadas = conexionDB.delete("sucursal.eliminar", (idSucursal));
+                    conexionDB.commit();
+                    if (numeroFilasAfectadas > 0) {
+                        msj.setError(false);
+                        msj.setMensaje("Información de la Sucursal eliminada con éxito");
+                    } else {
+                        msj.setError(true);
+                        msj.setMensaje("Lo sentimos, no se pudo eliminar la información de la Sucursal.");
+                    }
                 }
+
             } catch (Exception e) {
                 msj.setError(true);
                 msj.setMensaje("Error: " + e.getMessage());
