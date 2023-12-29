@@ -88,12 +88,28 @@ public class FXMLModuloSucursalController implements Initializable {
     }
 
     @FXML
-    private void btRegistroSucursal(ActionEvent event) {
+    private void btRegistroSucursal(ActionEvent event) throws IOException{
+
+        
+        Utilidades.mostrarAlertaSimple("Formulario para registro", "Registro para sucursal", Alert.AlertType.INFORMATION);
+
+        FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLFormSucursal.fxml"));
+        Parent vista = vistaLoad.load();
+
+        FXMLFormSucursalController controller = vistaLoad.getController();
+        controller.inicializarInformacion(null, false);
+
+        Stage stage = new Stage();
+        Scene escenaEditarPaciente = new Scene(vista);
+        stage.setScene(escenaEditarPaciente);
+        stage.setTitle("Registrar sucursal");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
     }
 
     @FXML
-    private void btVerInfoSucursal(ActionEvent event) throws IOException{
-        
+    private void btVerInfoSucursal(ActionEvent event) throws IOException {
+
         int posicionSelecionada = tvSucursale.getSelectionModel().getSelectedIndex();
 
         if (posicionSelecionada != -1) {

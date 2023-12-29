@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -11,8 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="clienteescritoriosmartcupon.FXMLFormSucursalController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriosmartcupon.FXMLFormSucursalController">
    <children>
       <ImageView fitHeight="577.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -62,7 +62,7 @@
       </HBox>
       <VBox layoutX="284.0" layoutY="124.0" prefHeight="320.0" prefWidth="240.0">
          <children>
-            <Label text="Nombre empresa" textFill="WHITE">
+            <Label text="Nombre sucursal" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -75,7 +75,7 @@
                   <Insets top="2.0" />
                </VBox.margin>
             </TextField>
-            <Label text="Nombre comercial" textFill="WHITE">
+            <Label text="Empresa pertenecinete" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -83,14 +83,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="tfNombreEmpresa" promptText="Empresa perteneciente">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="2.0" />
-               </VBox.margin>
-            </TextField>
+            <ComboBox fx:id="cbEmpresa" prefHeight="36.0" prefWidth="240.0" promptText="Vincular a empresa" />
             <Label text="Dirección" textFill="WHITE">
                <font>
                   <Font size="16.0" />

@@ -66,7 +66,7 @@ public class SucursalWS {
     }
     
     @DELETE
-    @Path("eliminar/{idPaciente}")
+    @Path("eliminar/{idSucursal}")
     @Produces(MediaType.APPLICATION_JSON)
     public Mensaje eliminarSucursal(@PathParam("idSucursal") Integer idSucursal){
         SucursalDAO dao = new SucursalDAO();

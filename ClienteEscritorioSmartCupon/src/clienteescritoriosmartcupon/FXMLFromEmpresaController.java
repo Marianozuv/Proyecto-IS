@@ -221,7 +221,7 @@ public class FXMLFromEmpresaController implements Initializable {
     private void registrarEmpresa(Empresa empresa) {
         Mensaje mensaje = EmpresaDAO.registrarEmpresa(empresa);
         if (!mensaje.isError()) {
-            Utilidades.mostrarAlertaSimple("Domicilio guardado", mensaje.getMensaje(), Alert.AlertType.INFORMATION);
+            Utilidades.mostrarAlertaSimple("Empresa guardada", mensaje.getMensaje(), Alert.AlertType.INFORMATION);
             cerrarVentana();
         } else {
             Utilidades.mostrarAlertaSimple("Error al registrar", mensaje.getMensaje(), Alert.AlertType.ERROR);
@@ -231,10 +231,10 @@ public class FXMLFromEmpresaController implements Initializable {
     private void editarEmpresa(Empresa empresa) {
         Mensaje mensaje = EmpresaDAO.editarEmpresa(empresa);
         if (!mensaje.isError()) {
-            Utilidades.mostrarAlertaSimple("Domicilio guardado", mensaje.getMensaje(), Alert.AlertType.INFORMATION);
+            Utilidades.mostrarAlertaSimple("Empresa editada", mensaje.getMensaje(), Alert.AlertType.INFORMATION);
             cerrarVentana();
         } else {
-            Utilidades.mostrarAlertaSimple("Error al registrar", mensaje.getMensaje(), Alert.AlertType.ERROR);
+            Utilidades.mostrarAlertaSimple("Error al editar", mensaje.getMensaje(), Alert.AlertType.ERROR);
         }
     }
 
