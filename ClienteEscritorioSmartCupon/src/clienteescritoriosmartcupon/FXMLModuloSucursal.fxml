@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="clienteescritoriosmartcupon.FXMLModuloSucursalController">
+   <children>
+      <ImageView fitHeight="577.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@recursos/fondo.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lbUsuario" layoutX="18.0" layoutY="14.0" text="Modulo sucursales" textFill="WHITE">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tvSucursale" layoutX="21.0" layoutY="149.0" prefHeight="383.0" prefWidth="755.0">
+         <columns>
+            <TableColumn fx:id="colNombre" prefWidth="130.0" text="Nombre" />
+            <TableColumn fx:id="colNombreEncargado" prefWidth="161.5" text="Encargado" />
+            <TableColumn fx:id="colCodigoPostal" prefWidth="124.0" text="Código postal" />
+            <TableColumn fx:id="colDireccion" prefWidth="179.0" text="Dirección" />
+            <TableColumn fx:id="colTelefono" prefWidth="159.5" text="Telefono" />
+         </columns>
+      </TableView>
+      <TextField fx:id="tfBuscador" layoutX="21.0" layoutY="94.0" promptText="Buscar">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </TextField>
+      <ComboBox fx:id="cbFiltroBuscado" layoutX="278.0" layoutY="94.0" prefHeight="37.0" prefWidth="111.0" />
+      <Button layoutX="411.0" layoutY="93.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btRegistroSucursal" prefHeight="39.0" prefWidth="174.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Registrar" textFill="WHITE">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+      <Button layoutX="600.0" layoutY="93.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btVerInfoSucursal" prefHeight="39.0" prefWidth="174.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Ver Información" textFill="WHITE">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

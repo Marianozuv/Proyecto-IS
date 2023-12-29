@@ -25,12 +25,12 @@
       </Label>
       <TableView fx:id="tvEmpresas" layoutX="20.0" layoutY="143.0" prefHeight="383.0" prefWidth="755.0">
         <columns>
-          <TableColumn fx:id="colNombre" prefWidth="104.0" text="Nombre" />
-          <TableColumn fx:id="colRepresentanteLegal" prefWidth="121.5" text="Representante legal" />
-            <TableColumn fx:id="colRFC" prefWidth="119.0" text="RFC" />
-            <TableColumn fx:id="colEstatus" prefWidth="110.0" text="Estatus" />
-            <TableColumn fx:id="colDireccion" prefWidth="163.0" text="Dirección" />
-            <TableColumn fx:id="colTelefono" prefWidth="136.5" text="Telefono" />
+          <TableColumn fx:id="colNombre" prefWidth="130.0" text="Nombre" />
+          <TableColumn fx:id="colRepresentanteLegal" prefWidth="161.5" text="Representante legal" />
+            <TableColumn fx:id="colRFC" prefWidth="124.0" text="RFC" />
+            <TableColumn fx:id="colDireccion" prefWidth="179.0" text="Dirección" />
+            <TableColumn fx:id="colTelefono" prefWidth="159.5" text="Telefono" />
+            <TableColumn fx:id="colEstatus" minWidth="0.0" prefWidth="0.0" text="Estatus" visible="false" />
         </columns>
       </TableView>
       <TextField fx:id="tfBuscador" layoutX="21.0" layoutY="91.0" promptText="Buscar">

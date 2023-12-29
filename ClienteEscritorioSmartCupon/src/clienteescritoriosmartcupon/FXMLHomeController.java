@@ -79,7 +79,7 @@ public class FXMLHomeController implements Initializable {
 
     @FXML
     private void btModuloEmpresas(ActionEvent event) {
-        
+
         try {
 
             FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLModuloEmpresa.fxml"));
@@ -97,11 +97,29 @@ public class FXMLHomeController implements Initializable {
         } catch (Exception e) {
             Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, e);
         }
-        
+
     }
 
     @FXML
     private void btModuloSucursales(ActionEvent event) {
+
+        try {
+
+            FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLModuloSucursal.fxml"));
+            Parent vista = vistaLoad.load();
+
+            FXMLModuloSucursalController controller = vistaLoad.getController();
+
+            Stage stage = new Stage();
+            Scene escenaEditarPaciente = new Scene(vista);
+            stage.setScene(escenaEditarPaciente);
+            stage.setTitle("Infromación de sucursales");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+        } catch (Exception e) {
+            Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     @FXML

@@ -92,7 +92,7 @@ public class FXMLModuloEmpresaController implements Initializable {
         colRFC.setCellValueFactory(new PropertyValueFactory("RFC"));
         colDireccion.setCellValueFactory(new PropertyValueFactory("direccion"));
         colTelefono.setCellValueFactory(new PropertyValueFactory("telefono"));
-        colEstatus.setCellValueFactory(new PropertyValueFactory("estatus"));
+        //colEstatus.setCellValueFactory(new PropertyValueFactory("estatus"));
     }
 
     @FXML
