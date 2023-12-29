@@ -34,6 +34,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         )
     </insert>
     
+    <update id="subirImagenPromocion" parameterType = "modelo.pojo.Promocion">
+        UPDATE promocion SET imagenPromocion = #{imagenPromocion} WHERE idPromocion = #{idPromocion}
+    </update>
+    
     <select id="obtenerPromocion" parameterType="int" resultType="modelo.pojo.Promocion">
         SELECT
         idPromocion,
@@ -122,6 +126,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         DELETE FROM promocion WHERE idPromocion = #{idPromocion}
     </delete>
 
+    <select id="obtenerImagenPromocion" parameterType="int" resultType="modelo.pojo.Promocion">
+        SELECT idPromocion, nombrePromocion, TO_BASE64(imagenPromocion) AS 'imagenPromocionBase64' FROM promocion WHERE idPromocion = #{idPromocion}
+    </select>
 </mapper>
 
 

@@ -15,12 +15,13 @@ public class Promocion {
     private Integer idCategoria;
     private int cuponesMaximos;
     private String codigoPromocion;
+    private byte[] imagenPromocion;
     private boolean estatus;
 
     public Promocion() {
     }
 
-    public Promocion(Integer idPromocion, Integer idEmpresa, String nombrePromocion, String descripcion, String imagenPromocionBase64, String fechaInicioPromocion, String fechaTerminoPromocion, String restricciones, Integer idTipoPromocion, Integer porcentaje_Costo, Integer idCategoria, int cuponesMaximos, String codigoPromocion, boolean estatus) {
+    public Promocion(Integer idPromocion, Integer idEmpresa, String nombrePromocion, String descripcion, String imagenPromocionBase64, String fechaInicioPromocion, String fechaTerminoPromocion, String restricciones, Integer idTipoPromocion, Integer porcentaje_Costo, Integer idCategoria, int cuponesMaximos, String codigoPromocion, byte[] imagenPromocion, boolean estatus) {
         this.idPromocion = idPromocion;
         this.idEmpresa = idEmpresa;
         this.nombrePromocion = nombrePromocion;
@@ -34,6 +35,7 @@ public class Promocion {
         this.idCategoria = idCategoria;
         this.cuponesMaximos = cuponesMaximos;
         this.codigoPromocion = codigoPromocion;
+        this.imagenPromocion = imagenPromocion;
         this.estatus = estatus;
     }
 
@@ -141,6 +143,14 @@ public class Promocion {
         this.codigoPromocion = codigoPromocion;
     }
 
+    public byte[] getImagenPromocion() {
+        return imagenPromocion;
+    }
+
+    public void setImagenPromocion(byte[] imagenPromocion) {
+        this.imagenPromocion = imagenPromocion;
+    }
+
     public boolean isEstatus() {
         return estatus;
     }
@@ -149,6 +159,6 @@ public class Promocion {
         this.estatus = estatus;
     }
 
-
+    
     
 }
