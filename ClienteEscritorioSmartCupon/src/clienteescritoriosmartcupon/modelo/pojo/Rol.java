@@ -37,4 +37,9 @@ public class Rol {
     public void setRol(String rol) {
         this.rol = rol;
     }
+    
+    @Override
+    public String toString() {
+        return rol; //To change body of generated methods, choose Tools | Templates.
+    }
 }

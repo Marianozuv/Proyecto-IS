@@ -154,4 +154,9 @@ public class Empresa {
     public void setEstatus(String estatus) {
         this.estatus = estatus;
     }
+    
+    @Override
+    public String toString() {
+        return nombre; //To change body of generated methods, choose Tools | Templates.
+    }
 }
