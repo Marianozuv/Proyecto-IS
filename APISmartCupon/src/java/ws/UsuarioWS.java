@@ -10,6 +10,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -50,6 +51,16 @@ public class UsuarioWS {
     public List<Usuario> obtenerUsuarioPorIdEmpresa(@PathParam("idEmpresa") Integer idEmpresa){
       UsuarioDAO dao = new UsuarioDAO();
       return dao.obtenerUsuarioPorIdEmpresa(idEmpresa);
+    }
+    
+    @GET
+    @Path("buscar")
+    public List<Usuario> buscarUsuario(
+            @QueryParam("nombre") String nombre,
+            @QueryParam("username") String username,
+            @QueryParam("rol") String rol) {
+        UsuarioDAO dao = new UsuarioDAO();
+        return dao.buscarUsuario(nombre, username, rol);
     }
     
     @POST

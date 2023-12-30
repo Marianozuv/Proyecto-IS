@@ -1,6 +1,8 @@
 package modelo;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
 import modelo.pojo.Sucursal;
@@ -10,7 +12,7 @@ import org.apache.ibatis.session.SqlSession;
 
 public class PromocionDAO {
 
-    public static Mensaje registrarUsuario(Promocion promocion) {
+    public static Mensaje registrarPromocion(Promocion promocion) {
 
         Mensaje mensaje = new Mensaje();
         mensaje.setError(true);
@@ -72,6 +74,34 @@ public class PromocionDAO {
         }
 
         return promocion;
+    }
+    
+    public List<Promocion> buscarPromocion(String fechaInicioPromocion, String fechaTerminoPromocion, String nombrePromocion) {
+        List<Promocion> promociones = null;
+        SqlSession conexionDB = MyBatisUtil.getSession();
+
+        if (conexionDB != null) {
+            try {
+                Map<String, Object> parametros = new HashMap<>();
+
+                if (fechaInicioPromocion != null && !fechaInicioPromocion.isEmpty()) {
+                    parametros.put("fechaInicioPromocion", fechaInicioPromocion);
+                }
+                if (fechaTerminoPromocion != null && !fechaTerminoPromocion.isEmpty()) {
+                    parametros.put("fechaTerminoPromocion", fechaTerminoPromocion);
+                }
+                if (nombrePromocion != null && !nombrePromocion.isEmpty()) {
+                    parametros.put("nombrePromocion", nombrePromocion);
+                }
+
+                promociones = conexionDB.selectList("promociones.buscar", parametros);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                conexionDB.close();
+            }
+        }
+        return promociones;
     }
 
     public static Mensaje editarPromocion(Promocion promocion) {

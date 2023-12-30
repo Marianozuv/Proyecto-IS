@@ -9,6 +9,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
@@ -37,6 +38,15 @@ public class SucursalWS {
     public List<Sucursal> obtenerSucursalPorIdEmpresa(@PathParam("idEmpresa") Integer idEmpresa){
       SucursalDAO dao = new SucursalDAO();
       return dao.obtenerSucursalPorIdEmpresa(idEmpresa);
+    }
+    
+    @GET
+    @Path("buscar")
+    public List<Sucursal> buscarSucursal(
+            @QueryParam("nombreSucursal") String nombreSucursal,
+            @QueryParam("direccion") String direccion) {
+        SucursalDAO dao = new SucursalDAO();
+        return dao.buscarSucursal(nombreSucursal, direccion);
     }
     
     @POST

@@ -38,6 +38,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM empresa WHERE idEmpresa = #{idEmpresa}
     </select>
     
+    <select id="buscar" parameterType="String" resultType="modelo.pojo.Empresa">
+        SELECT idEmpresa,
+        nombre,
+        nombreComercial,
+        nombreRepresentanteLegal,
+        email,
+        direccion,
+        codigoPostal,
+        ciudad,
+        telefono,
+        paginaWeb,
+        RFC,
+        estatus
+        FROM empresa
+        WHERE nombre = #{nombre} OR RFC = #{RFC} OR nombreRepresentanteLegal = #{nombreRepresentanteLegal};
+    </select>
+    
     <insert id="registrar" parameterType="modelo.pojo.Empresa">     
         INSERT INTO empresa (nombre, nombreComercial, nombreRepresentanteLegal, email, direccion, codigoPostal, ciudad, telefono, paginaWeb, RFC)
         VALUES (#{nombre}, #{nombreComercial}, #{nombreRepresentanteLegal}, #{email}, #{direccion}, #{codigoPostal}, #{ciudad}, #{telefono}, #{paginaWeb}, #{RFC})
@@ -70,8 +87,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <delete id="eliminar" parameterType="int">
         DELETE FROM empresa WHERE idEmpresa = #{idEmpresa}
     </delete>
-    
-    
     
     <update id="subirLogoEmpresa" parameterType="modelo.pojo.Empresa"  >
         UPDATE empresa

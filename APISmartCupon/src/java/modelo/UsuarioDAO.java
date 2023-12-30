@@ -2,6 +2,7 @@ package modelo;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Rol;
 import modelo.pojo.Usuario;
@@ -57,6 +58,34 @@ public class UsuarioDAO {
             }
         }
         return rol;
+    }
+    
+    public List<Usuario> buscarUsuario(String nombre, String username, String rol) {
+        List<Usuario> usuarios = null;
+        SqlSession conexionDB = MyBatisUtil.getSession();
+
+        if (conexionDB != null) {
+            try {
+                Map<String, Object> parametros = new HashMap<>();
+
+                if (nombre != null && !nombre.isEmpty()) {
+                    parametros.put("nombre", nombre);
+                }
+                if (username != null && !username.isEmpty()) {
+                    parametros.put("username", username);
+                }
+                if (rol != null && !rol.isEmpty()) {
+                    parametros.put("rol", rol);
+                }
+
+                usuarios = conexionDB.selectList("usuarios.buscar", parametros);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                conexionDB.close();
+            }
+        }
+        return usuarios;
     }
     
     public Mensaje registrar(Usuario usuario){

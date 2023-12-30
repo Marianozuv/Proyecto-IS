@@ -10,6 +10,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -37,11 +38,10 @@ public class PromocionWS {
         Promocion promocion = gson.fromJson(json, Promocion.class);
 
         if (promocion != null) {
-            return PromocionDAO.registrarUsuario(promocion);
+            return PromocionDAO.registrarPromocion(promocion);
         } else {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
-
     }
 
     @GET
@@ -54,7 +54,16 @@ public class PromocionWS {
         } else {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
-
+    }
+    
+    @GET
+    @Path("buscar")
+    public List<Promocion> buscarPromocion(
+            @QueryParam("fechaInicioPromocion") String fechaInicioPromocion,
+            @QueryParam("fechaTerminoPromocion") String fechaTerminoPromocion,
+            @QueryParam("nombrePromocion") String nombrePromocion) {
+        PromocionDAO dao = new PromocionDAO();
+        return dao.buscarPromocion(fechaInicioPromocion, fechaTerminoPromocion, nombrePromocion);
     }
 
     @POST

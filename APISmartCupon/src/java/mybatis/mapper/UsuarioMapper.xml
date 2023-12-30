@@ -14,8 +14,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM usuario WHERE idUsuario = #{idUsuario}
     </select>
     
-    <select id="obtenerUsuarioByEmpresa" parameterType="int" resultType="modelo.pojo.Usuario">
-        SELECT * FROM usuario WHERE idEmpresa = #{idEmpresa}
+    <select id="buscar" parameterType="String" resultType="modelo.pojo.Usuario">
+        SELECT u.*, r.rol FROM usuario u LEFT JOIN cat_rol r ON u.idRol = r.idRol WHERE u.nombre = #{nombre} OR u.username = #{username} OR r.rol = #{rol};
     </select>
     
     <insert id="registrar" parameterType="modelo.pojo.Usuario">

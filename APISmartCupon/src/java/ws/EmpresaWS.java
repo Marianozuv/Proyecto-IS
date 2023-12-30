@@ -10,6 +10,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -43,6 +44,16 @@ public class EmpresaWS {
     public List<Empresa> obtenerEmpresaPorId(@PathParam("idEmpresa") Integer idEmpresa) {
         EmpresaDAO dao = new EmpresaDAO();
         return dao.obtenerEmpresaById(idEmpresa);
+    }
+    
+    @GET
+    @Path("buscar")
+    public List<Empresa> buscarEmpresa(
+            @QueryParam("nombre") String nombre,
+            @QueryParam("RFC") String RFC,
+            @QueryParam("nombreRepresentanteLegal") String nombreRepresentanteLegal) {
+        EmpresaDAO dao = new EmpresaDAO();
+        return dao.buscarEmpresa(nombre, RFC, nombreRepresentanteLegal);
     }
 
     @POST

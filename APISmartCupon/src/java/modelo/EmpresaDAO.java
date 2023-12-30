@@ -2,6 +2,7 @@ package modelo;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import modelo.pojo.Empresa;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Sucursal;
@@ -40,6 +41,34 @@ public class EmpresaDAO {
             }
         }
         return empresa;
+    }
+    
+    public List<Empresa> buscarEmpresa(String nombre, String RFC, String nombreRepresentanteLegal) {
+        List<Empresa> empresas = null;
+        SqlSession conexionDB = MyBatisUtil.getSession();
+
+        if (conexionDB != null) {
+            try {
+                Map<String, Object> parametros = new HashMap<>();
+
+                if (nombre != null && !nombre.isEmpty()) {
+                    parametros.put("nombre", nombre);
+                }
+                if (RFC != null && !RFC.isEmpty()) {
+                    parametros.put("RFC", RFC);
+                }
+                if (nombreRepresentanteLegal != null && !nombreRepresentanteLegal.isEmpty()) {
+                    parametros.put("nombreRepresentanteLegal", nombreRepresentanteLegal);
+                }
+
+                empresas = conexionDB.selectList("empresa.buscar", parametros);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                conexionDB.close();
+            }
+        }
+        return empresas;
     }
 
     public Mensaje registrar(Empresa empresa) {

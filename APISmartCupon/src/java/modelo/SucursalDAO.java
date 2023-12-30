@@ -2,6 +2,7 @@ package modelo;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Sucursal;
 import modelo.pojo.SucursalPromocion;
@@ -40,6 +41,30 @@ public class SucursalDAO {
             }
         }
         return sucursal;
+    }
+    
+    public List<Sucursal> buscarSucursal(String nombreSucursal, String direccion) {
+        List<Sucursal> sucursales = null;
+        SqlSession conexionDB = MyBatisUtil.getSession();
+
+        if (conexionDB != null) {
+            try {
+                Map<String, Object> parametros = new HashMap<>();
+
+                if (nombreSucursal != null && !nombreSucursal.isEmpty()) {
+                    parametros.put("nombreSucursal", nombreSucursal);
+                }
+                if (direccion != null && !direccion.isEmpty()) {
+                    parametros.put("direccion", direccion);
+                }
+                sucursales = conexionDB.selectList("sucursal.buscar", parametros);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                conexionDB.close();
+            }
+        }
+        return sucursales;
     }
 
     public Mensaje registrar(Sucursal sucursal) {
