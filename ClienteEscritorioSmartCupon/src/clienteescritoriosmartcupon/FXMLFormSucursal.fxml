@@ -12,14 +12,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriosmartcupon.FXMLFormSucursalController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriosmartcupon.FXMLFormSucursalController">
    <children>
       <ImageView fitHeight="577.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@recursos/fondo.png" />
          </image>
       </ImageView>
-      <Label fx:id="lbUsuario" layoutX="13.0" layoutY="13.0" text="Información de la empresa" textFill="WHITE">
+      <Label fx:id="lbUsuario" layoutX="13.0" layoutY="13.0" text="Información de la Sucursal" textFill="WHITE">
          <font>
             <Font size="37.0" />
          </font>
@@ -60,7 +60,7 @@
             </Button>
          </children>
       </HBox>
-      <VBox layoutX="284.0" layoutY="124.0" prefHeight="320.0" prefWidth="240.0">
+      <VBox layoutX="85.0" layoutY="100.0" prefHeight="320.0" prefWidth="240.0">
          <children>
             <Label text="Nombre sucursal" textFill="WHITE">
                <font>
@@ -131,7 +131,7 @@
             </TextField>
          </children>
       </VBox>
-      <VBox layoutX="541.0" layoutY="123.0" prefHeight="320.0" prefWidth="240.0">
+      <VBox layoutX="450.0" layoutY="92.0" prefHeight="320.0" prefWidth="240.0">
          <children>
             <Label text="Ciudad" textFill="WHITE">
                <font>

@@ -11,16 +11,12 @@ import clienteescritoriosmartcupon.modelo.pojo.Rol;
 import clienteescritoriosmartcupon.modelo.pojo.Usuario;
 import clienteescritoriosmartcupon.modelo.pojo.dao.EmpresaDAO;
 import clienteescritoriosmartcupon.modelo.pojo.dao.UsuarioDAO;
-import static clienteescritoriosmartcupon.modelo.pojo.dao.UsuarioDAO.add;
-import static clienteescritoriosmartcupon.modelo.pojo.dao.UsuarioDAO.update;
 import clienteescritoriosmartcupon.utils.Utilidades;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -94,142 +90,56 @@ public class FXMLFormUsuarioController implements Initializable {
     }    
     
     public void inicializarInformacion(Usuario usuario, boolean isEdicion) {
-
-        tfNombre.setEditable(false);
-        tfApellidoPaterno.setEditable(false);
-        tfApellidoMaterno.setEditable(false);
-        tfCURP.setEditable(false);
-        tfEmail.setEditable(false);
-        tfUsername.setEditable(false);
-        tfPassword.setEditable(false);
-        cbRol.setEditable(false);
-        cbEmpresa.setEditable(false);
-
-        this.usuario = usuario;
         
-        this.isEdicion = isEdicion;
-
         if (isEdicion) {
-
-            vbBotones.getChildren().clear();
-
-            vbBotones.getChildren().remove(btCancelar);
-            vbBotones.getChildren().remove(btGuradarInfo);
-
-            vbBotones.getChildren().add(btEliminar);
-            vbBotones.getChildren().add(btEditarUsuario);
-
-            tfNombre.setText(usuario.getNombre());
-            tfApellidoPaterno.setText(usuario.getApellidoPaterno());
-            tfApellidoMaterno.setText(usuario.getApellidoMaterno());
-            tfCURP.setText(usuario.getCurp());
-            tfEmail.setText(usuario.getEmail());
-            tfUsername.setText(usuario.getUsername());
-            tfPassword.setText(usuario.getPassword());
-            int posicionRol = buscarIdRol(rol.getIdRol());
-            cbRol.getSelectionModel().select(posicionRol);
-            int posicionEmpresa = buscarIdEmpresa(empresa.getIdEmpresa());
-            cbEmpresa.getSelectionModel().select(posicionEmpresa);
-            
+            this.usuario = usuario;
+            this.isEdicion = isEdicion;
+            cargarDatos(usuario, isEdicion);
+            cargarInformacionRoles();
+            seleccionarRol(usuario.getIdRol());
+            cargarInformacionEmpresas();
+            seleccionarEmpresa(usuario.getIdEmpresa());
         } else {
-
-            vbBotones.getChildren().clear();
-
-            vbBotones.getChildren().add(btCancelar);
-            vbBotones.getChildren().add(btGuradarInfo);
-
-            vbBotones.getChildren().remove(btEliminar);
-            vbBotones.getChildren().remove(btEditarUsuario);
-
-            tfNombre.setEditable(true);
-            tfApellidoPaterno.setEditable(true);
-            tfApellidoMaterno.setEditable(true);
-            tfCURP.setEditable(true);
-            tfEmail.setEditable(true);
-            tfUsername.setEditable(true);
-            tfPassword.setEditable(true);
-            cbRol.setEditable(true);
-            cbEmpresa.setEditable(true);
-            cbRol.setEditable(true);
-            cbEmpresa.setEditable(true);
+            cargarDatos(null, isEdicion);
+            cargarInformacionRoles();
+            cargarInformacionEmpresas();
         }
     }
     
-    private void llenarCamposVentana() {
-        tfNombre.setText(usuario.getNombre());
-        tfApellidoPaterno.setText(usuario.getApellidoPaterno());
-        tfApellidoMaterno.setText(usuario.getApellidoMaterno());
-        tfCURP.setText(usuario.getCurp());
-        tfEmail.setText(usuario.getEmail());
-        tfUsername.setText(usuario.getUsername());
-        tfPassword.setText(usuario.getPassword());
-        int posicionRol = buscarIdRol(rol.getIdRol());
-        cbRol.getSelectionModel().select(posicionRol);
-        int posicionEmpresa = buscarIdEmpresa(empresa.getIdEmpresa());
-        cbEmpresa.getSelectionModel().select(posicionEmpresa);
+    private void seleccionarRol(int idRol) {
+        for(Rol rol : cbRol.getItems()){
+            if (rol.getIdRol()== idRol) {
+                cbRol.getSelectionModel().select(rol);
+                break;
+            }
+        }
+    }
+    
+    private void seleccionarEmpresa(int idEmpresa) {
+        for(Empresa empresa : cbEmpresa.getItems()){
+            if (empresa.getIdEmpresa() == idEmpresa) {
+                cbEmpresa.getSelectionModel().select(empresa);
+                break;
+            }
+        }
     }
 
     @FXML
     private void btSubirInfromacionUsuario(ActionEvent event) {
         
         if (isEdicion) {
-
-            usuario.setNombre(tfNombre.getText());
-            usuario.setApellidoPaterno(tfApellidoPaterno.getText());
-            usuario.setApellidoMaterno(tfApellidoMaterno.getText());
-            usuario.setCurp(tfCURP.getText());
-            usuario.setEmail(tfEmail.getText());
-            usuario.setUsername(tfUsername.getText());
-            usuario.setPassword(tfPassword.getText());
-            Rol rolSeleccion = roles.get(cbRol.getSelectionModel().getSelectedIndex());
-            usuario.setIdRol(rolSeleccion.getIdRol());
-            usuario.setIdUsuario(this.usuario.getIdUsuario());
-            Empresa empresaSeleccion = empresas.get(cbEmpresa.getSelectionModel().getSelectedIndex());
-            usuario.setIdEmpresa(empresaSeleccion.getIdEmpresa());
-            usuario.setIdUsuario(this.usuario.getIdUsuario());
-            
-            update(usuario);
-
+            recuperarDatos();
+            editarUsuario(usuario);
         } else {
-            usuario = new Usuario();
-            usuario.setNombre(tfNombre.getText());
-            usuario.setApellidoPaterno(tfApellidoPaterno.getText());
-            usuario.setApellidoMaterno(tfApellidoMaterno.getText());
-            usuario.setCurp(tfCURP.getText());
-            usuario.setEmail(tfEmail.getText());
-            usuario.setUsername(tfUsername.getText());
-            usuario.setPassword(tfPassword.getText());
-            Rol rolSeleccion = roles.get(cbRol.getSelectionModel().getSelectedIndex());
-            usuario.setIdRol(rolSeleccion.getIdRol());
-            usuario.setIdUsuario(this.usuario.getIdUsuario());
-            Empresa empresaSeleccion = empresas.get(cbEmpresa.getSelectionModel().getSelectedIndex());
-            usuario.setIdEmpresa(empresaSeleccion.getIdEmpresa());
-            usuario.setIdUsuario(this.usuario.getIdUsuario());
+            recuperarDatos();
+            registrarUsuario(usuario);
 
-            add(usuario);
         }
     }
 
     @FXML
     private void btEditarInfromacionUsuario(ActionEvent event) {
-        vbBotones.getChildren().clear();
-
-        vbBotones.getChildren().remove(btCancelar);
-        vbBotones.getChildren().remove(btGuradarInfo);
-
-        vbBotones.getChildren().add(btEliminar);
-        vbBotones.getChildren().add(btEditarUsuario);
-
-        tfNombre.setEditable(true);
-        tfApellidoPaterno.setEditable(true);
-        tfApellidoMaterno.setEditable(true);
-        tfCURP.setEditable(true);
-        tfEmail.setEditable(true);
-        tfNombre.setEditable(true);
-        tfUsername.setEditable(true);
-        tfPassword.setEditable(true);
-        cbRol.setEditable(true);
-        cbEmpresa.setEditable(true);
+        habilitarComponentes(false);
     }
     
     @FXML
@@ -252,34 +162,8 @@ public class FXMLFormUsuarioController implements Initializable {
     @FXML
     private void btCancelar(ActionEvent event) {
         if (isEdicion) {
-
-            vbBotones.getChildren().clear();
-
-            vbBotones.getChildren().remove(btCancelar);
-            vbBotones.getChildren().remove(btGuradarInfo);
-
-            vbBotones.getChildren().add(btEliminar);
-            vbBotones.getChildren().add(btEditarUsuario);
-            
-            tfNombre.setEditable(false);
-            tfApellidoPaterno.setEditable(false);
-            tfApellidoMaterno.setEditable(false);
-            tfCURP.setEditable(false);
-            tfEmail.setEditable(false);
-            tfNombre.setEditable(false);
-            tfUsername.setEditable(false);
-            tfPassword.setEditable(false);
-            cbRol.setEditable(false);
-            cbEmpresa.setEditable(false);
-            
-            tfNombre.setText(usuario.getNombre());
-            tfApellidoPaterno.setText(usuario.getApellidoPaterno());
-            tfApellidoMaterno.setText(usuario.getApellidoMaterno());
-            tfCURP.setText(usuario.getCurp());
-            tfEmail.setText(usuario.getEmail());
-            tfUsername.setText(usuario.getUsername());
-            tfPassword.setText(usuario.getPassword());
-            
+            habilitarComponentes(isEdicion);
+            cargarDatos(usuario, isEdicion);
         } else {
 
             try {
@@ -298,6 +182,82 @@ public class FXMLFormUsuarioController implements Initializable {
         }
     }
     
+    private void registrarUsuario(Usuario usuario) {
+        Mensaje mensaje = UsuarioDAO.add(usuario);
+        if (!mensaje.isError()) {
+            Utilidades.mostrarAlertaSimple("Usuario registrado", mensaje.getMensaje(), Alert.AlertType.INFORMATION);
+            cerrarVentana();
+        } else {
+            Utilidades.mostrarAlertaSimple("Error al registrar", mensaje.getMensaje(), Alert.AlertType.ERROR);
+        }
+    }
+
+    private void editarUsuario(Usuario usuario) {
+        Mensaje mensaje = UsuarioDAO.update(usuario);
+        if (!mensaje.isError()) {
+            Utilidades.mostrarAlertaSimple("Usuario editado", mensaje.getMensaje(), Alert.AlertType.INFORMATION);
+            cerrarVentana();
+        } else {
+            Utilidades.mostrarAlertaSimple("Error al editar", mensaje.getMensaje(), Alert.AlertType.ERROR);
+        }
+    }
+    
+    private void habilitarComponentes(boolean isEdicion) {
+
+        if (isEdicion) {
+
+            vbBotones.getChildren().clear();
+            vbBotones.getChildren().remove(btCancelar);
+            vbBotones.getChildren().remove(btGuradarInfo);
+            vbBotones.getChildren().add(btEliminar);
+            vbBotones.getChildren().add(btEditarUsuario);
+            habilitarTextEdit(false);
+
+        } else {
+
+            vbBotones.getChildren().clear();
+            vbBotones.getChildren().add(btCancelar);
+            vbBotones.getChildren().add(btGuradarInfo);
+            vbBotones.getChildren().remove(btEliminar);
+            vbBotones.getChildren().remove(btEditarUsuario);
+            habilitarTextEdit(true);
+
+        }
+
+    }
+    
+    private void cargarDatos(Usuario usuario, boolean isEdicion) {
+
+        if (isEdicion) {
+
+            habilitarComponentes(isEdicion);
+            tfNombre.setText(usuario.getNombre());
+            tfApellidoPaterno.setText(usuario.getApellidoPaterno());
+            tfApellidoMaterno.setText(usuario.getApellidoMaterno());
+            tfCURP.setText(usuario.getCurp());
+            tfEmail.setText(usuario.getEmail());
+            tfUsername.setText(usuario.getUsername());
+            tfPassword.setText(usuario.getPassword());
+            
+        } else {
+            habilitarComponentes(isEdicion);
+        }
+    }
+    
+    private void habilitarTextEdit(Boolean editable) {
+
+        tfNombre.setEditable(editable);
+        tfApellidoPaterno.setEditable(editable);
+        tfApellidoMaterno.setEditable(editable);
+        tfCURP.setEditable(editable);
+        tfEmail.setEditable(editable);
+        tfNombre.setEditable(editable);
+        tfUsername.setEditable(editable);
+        tfPassword.setEditable(editable);
+        cbRol.setDisable(true);
+        cbEmpresa.setDisable(!editable);
+    }
+    
     private void cargarInformacionRoles() {
         roles = FXCollections.observableArrayList();
         List<Rol> info = UsuarioDAO.obtenerRol();
@@ -312,9 +272,18 @@ public class FXMLFormUsuarioController implements Initializable {
         cbEmpresa.setItems(empresas);
     }
     
-    private void cerrarVentana() {
-        Stage stage = (Stage) tfNombre.getScene().getWindow();
-        stage.close();
+    private void recuperarDatos() {
+        usuario.setNombre(tfNombre.getText());
+        usuario.setApellidoPaterno(tfApellidoPaterno.getText());
+        usuario.setApellidoMaterno(tfApellidoMaterno.getText());
+        usuario.setCurp(tfCURP.getText());
+        usuario.setEmail(tfEmail.getText());
+        usuario.setUsername(tfUsername.getText());
+        usuario.setPassword(tfPassword.getText());
+        Rol rolSeleccion = roles.get(cbRol.getSelectionModel().getSelectedIndex());
+        usuario.setIdRol(rolSeleccion.getIdRol());
+        Empresa empresaSeleccion = empresas.get(cbEmpresa.getSelectionModel().getSelectedIndex());
+        usuario.setIdEmpresa(empresaSeleccion.getIdEmpresa());
     }
     
     private int buscarIdRol(int idRol) {
@@ -333,5 +302,10 @@ public class FXMLFormUsuarioController implements Initializable {
             }
         }
         return 0;
+    }
+    
+    private void cerrarVentana() {
+        Stage stage = (Stage) tfNombre.getScene().getWindow();
+        stage.close();
     }
 }
