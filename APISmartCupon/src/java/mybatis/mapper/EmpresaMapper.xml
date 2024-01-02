@@ -85,7 +85,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <delete id="eliminar" parameterType="int">
+<<<<<<< HEAD
         DELETE FROM empresa WHERE idEmpresa = #{idEmpresa} AND NOT EXISTS (SELECT * FROM sucursal WHERE sucursal.idEmpresa = empresa.idEmpresa);
+=======
+        DELETE FROM empresa
+        WHERE idEmpresa = #{idEmpresa}
+        AND NOT EXISTS (SELECT * FROM sucursal WHERE sucursal.idEmpresa = empresa.idEmpresa);
+>>>>>>> 0c9737b18f5f97701864b49a78ebc3ffdf1cc460
     </delete>
     
     <update id="subirLogoEmpresa" parameterType="modelo.pojo.Empresa"  >
