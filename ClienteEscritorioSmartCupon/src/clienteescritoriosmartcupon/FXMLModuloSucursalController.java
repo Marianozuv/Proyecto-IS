@@ -91,6 +91,7 @@ public class FXMLModuloSucursalController implements Initializable {
             List<Sucursal> info = SucursalDAO.obtenerSucursales();
             sucursales.addAll(info);
             tvSucursale.setItems(sucursales);
+            tvSucursale.refresh();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -122,6 +123,8 @@ public class FXMLModuloSucursalController implements Initializable {
         stage.setTitle("Registrar sucursal");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
+        
+        obtenerSucursales();
     }
 
     @FXML

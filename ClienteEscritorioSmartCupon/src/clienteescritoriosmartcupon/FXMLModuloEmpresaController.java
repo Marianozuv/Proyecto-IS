@@ -96,6 +96,7 @@ public class FXMLModuloEmpresaController implements Initializable {
             List<Empresa> info = EmpresaDAO.obtenerEmpresas();
             empresas.addAll(info);
             tvEmpresas.setItems(empresas);
+            tvEmpresas.refresh();
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -154,8 +155,7 @@ public class FXMLModuloEmpresaController implements Initializable {
         stage.setTitle("Registrar empresa");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
+        
+        obtenerEmpresas();
     }
-
-
-
 }
