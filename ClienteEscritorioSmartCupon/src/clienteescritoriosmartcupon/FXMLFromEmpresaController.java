@@ -53,6 +53,8 @@ public class FXMLFromEmpresaController implements Initializable {
     private boolean isEleminar;
 
     private File fotografia;
+    
+    private FXMLModuloEmpresaController moduloEmpresaController;
 
     @FXML
     private Label lbUsuario;
@@ -98,6 +100,11 @@ public class FXMLFromEmpresaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+    }
+
+    // Método para establecer la referencia al controlador FXMLModuloUsuarioController
+    public void setModuloEmpresaController(FXMLModuloEmpresaController controller) {
+        this.moduloEmpresaController = controller;
     }
 
     public void inicializarInformacion(Empresa empresa, boolean isEdicion) {
@@ -215,7 +222,10 @@ public class FXMLFromEmpresaController implements Initializable {
         } else {
             Utilidades.mostrarAlertaSimple("Operacion eliminar", "La operación eliminar se ha cancelado", Alert.AlertType.INFORMATION);
         }
-
+        
+        if (moduloEmpresaController != null) {
+            moduloEmpresaController.obtenerEmpresas();
+        }
     }
 
     private void registrarEmpresa(Empresa empresa) {

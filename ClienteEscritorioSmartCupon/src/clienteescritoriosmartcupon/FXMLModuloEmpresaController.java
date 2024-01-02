@@ -89,7 +89,7 @@ public class FXMLModuloEmpresaController implements Initializable {
         });
     }
 
-    private void obtenerEmpresas() {
+    void obtenerEmpresas() {
 
         try {
             empresas = FXCollections.observableArrayList();
@@ -126,6 +126,7 @@ public class FXMLModuloEmpresaController implements Initializable {
             Parent vista = vistaLoad.load();
 
             FXMLFromEmpresaController controller = vistaLoad.getController();
+            controller.setModuloEmpresaController(this);
             controller.inicializarInformacion(empresa, true);
 
             Stage stage = new Stage();
