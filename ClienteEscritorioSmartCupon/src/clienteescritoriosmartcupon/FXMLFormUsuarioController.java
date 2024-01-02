@@ -100,6 +100,7 @@ public class FXMLFormUsuarioController implements Initializable {
             cargarInformacionEmpresas();
             seleccionarEmpresa(usuario.getIdEmpresa());
         } else {
+            this.usuario = new Usuario();
             cargarDatos(null, isEdicion);
             cargarInformacionRoles();
             cargarInformacionEmpresas();
