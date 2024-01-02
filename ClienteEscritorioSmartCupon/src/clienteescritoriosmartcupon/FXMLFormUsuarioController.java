@@ -47,6 +47,7 @@ public class FXMLFormUsuarioController implements Initializable {
     private ObservableList<Rol> roles;
     private ObservableList<Empresa> empresas;
     private boolean isEleminar;
+    private FXMLModuloUsuarioController moduloUsuarioController;
 
     @FXML
     private Label lbUsuario;
@@ -87,7 +88,11 @@ public class FXMLFormUsuarioController implements Initializable {
         // TODO
         cargarInformacionRoles();
         cargarInformacionEmpresas();
-    }    
+    }   
+    
+    public void setModuloUsuarioController(FXMLModuloUsuarioController controller) {
+        this.moduloUsuarioController = controller;
+    }
     
     public void inicializarInformacion(Usuario usuario, boolean isEdicion) {
         
@@ -157,6 +162,10 @@ public class FXMLFormUsuarioController implements Initializable {
 
         } else {
             Utilidades.mostrarAlertaSimple("Operacion eliminar", "La operación eliminar se ha cancelado", Alert.AlertType.INFORMATION);
+        }
+        
+        if (moduloUsuarioController != null) {
+            moduloUsuarioController.consultarInformacionUsuario();
         }
     }
     

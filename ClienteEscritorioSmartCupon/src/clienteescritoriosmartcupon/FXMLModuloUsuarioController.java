@@ -109,6 +109,7 @@ public class FXMLModuloUsuarioController implements Initializable {
             Parent vista = vistaLoad.load();
 
             FXMLFormUsuarioController controller = vistaLoad.getController();
+            controller.setModuloUsuarioController(this);
             controller.inicializarInformacion(usuario, true);
 
             Stage stage = new Stage();
@@ -146,7 +147,7 @@ public class FXMLModuloUsuarioController implements Initializable {
         consultarInformacionUsuario();
     }
     
-    private void consultarInformacionUsuario() {
+    void consultarInformacionUsuario() {
         try {
             usuariosEmpresas = FXCollections.observableArrayList();
             List<Usuario> info = UsuarioDAO.get();

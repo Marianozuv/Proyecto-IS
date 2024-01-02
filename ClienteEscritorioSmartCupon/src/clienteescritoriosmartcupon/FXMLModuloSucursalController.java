@@ -85,7 +85,7 @@ public class FXMLModuloSucursalController implements Initializable {
         });
     }
 
-    private void obtenerSucursales() {
+    void obtenerSucursales() {
         try {
             sucursales = FXCollections.observableArrayList();
             List<Sucursal> info = SucursalDAO.obtenerSucursales();
@@ -141,6 +141,7 @@ public class FXMLModuloSucursalController implements Initializable {
             Parent vista = vistaLoad.load();
 
             FXMLFormSucursalController controller = vistaLoad.getController();
+            controller.setModuloSucursalController(this);
             controller.inicializarInformacion(sucursal, true);
 
             Stage stage = new Stage();

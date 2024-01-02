@@ -43,9 +43,9 @@ import javafx.stage.Stage;
 public class FXMLFormSucursalController implements Initializable {
 
     private Sucursal sucursal;
-
     private ObservableList<Empresa> empresas;
-
+    private FXMLModuloSucursalController moduloSucursalController;
+    
     private boolean isEdicion;
     @FXML
     private Label lbUsuario;
@@ -86,6 +86,10 @@ public class FXMLFormSucursalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+    }
+    
+    public void setModuloSucursalController(FXMLModuloSucursalController controller) {
+        this.moduloSucursalController = controller;
     }
 
     public void inicializarInformacion(Sucursal sucursal, boolean isEdicion) {
@@ -143,6 +147,10 @@ public class FXMLFormSucursalController implements Initializable {
 
         } else {
             Utilidades.mostrarAlertaSimple("Operacion eliminar", "La operación eliminar se ha cancelado", Alert.AlertType.INFORMATION);
+        }
+        
+        if (moduloSucursalController != null) {
+            moduloSucursalController.obtenerSucursales();
         }
     }
 
