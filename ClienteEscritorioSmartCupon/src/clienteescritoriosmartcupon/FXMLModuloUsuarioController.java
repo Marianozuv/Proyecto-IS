@@ -90,7 +90,8 @@ public class FXMLModuloUsuarioController implements Initializable {
 
                 // Aquí define tu lógica de filtrado basada en tus criterios
                 return usuario.getNombre().toLowerCase().contains(textoBusqueda)
-                        || usuario.getUsername().toLowerCase().contains(textoBusqueda);
+                        || usuario.getUsername().toLowerCase().contains(textoBusqueda)
+                        || usuario.getRol().toLowerCase().contains(textoBusqueda);
             });
         });
     }
@@ -136,6 +137,8 @@ public class FXMLModuloUsuarioController implements Initializable {
         stage.setTitle("Registrar usuario");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
+        
+        consultarInformacionUsuario();
     }
     
     public void inicializarInformacion(Usuario usuario) {
@@ -149,6 +152,7 @@ public class FXMLModuloUsuarioController implements Initializable {
             List<Usuario> info = UsuarioDAO.get();
             usuariosEmpresas.addAll(info);
             tvUsuario.setItems(usuariosEmpresas);
+            tvUsuario.refresh();
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -160,7 +164,7 @@ public class FXMLModuloUsuarioController implements Initializable {
         colApellidoMaterno.setCellValueFactory(new PropertyValueFactory("apellidoMaterno"));
         colCURP.setCellValueFactory(new PropertyValueFactory("curp"));
         colEmail.setCellValueFactory(new PropertyValueFactory("email"));
-        colRol.setCellValueFactory(new PropertyValueFactory("idRol"));
+        colRol.setCellValueFactory(new PropertyValueFactory("rol"));
         colUsername.setCellValueFactory(new PropertyValueFactory("username"));
     }
 }

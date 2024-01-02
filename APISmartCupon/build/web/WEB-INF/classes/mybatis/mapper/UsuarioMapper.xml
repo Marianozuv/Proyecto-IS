@@ -7,7 +7,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="usuarios">
     
     <select id="obtenerUsuarios" resultType="modelo.pojo.Usuario">
-        SELECT * FROM usuario
+        SELECT u.*, r.rol
+        FROM usuario u
+        LEFT JOIN cat_rol r ON u.idRol = r.idRol
     </select>
     
     <select id="obtenerUsuarioById" parameterType="int" resultType="modelo.pojo.Usuario">
