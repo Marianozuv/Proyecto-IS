@@ -41,6 +41,22 @@ public class UsuarioDAO {
         return usuarios;
     }
     
+    public static List<Usuario> getBuscar(){
+        List<Usuario> usuarios = null;
+        String url = Constantes.URL_WS + "usuario/buscar";
+        CodigoHTTP  codigoRespuesta = ConexionHTTP.peticionGET(url);
+        
+        if(codigoRespuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK){
+            Type tipoListaUsuario = new TypeToken<List<Usuario>>(){}.getType();
+            Gson gson = new Gson();
+            usuarios = gson.fromJson(codigoRespuesta.getContenido(), tipoListaUsuario);
+        }else{
+            System.out.println(codigoRespuesta.getContenido());
+            System.out.println(codigoRespuesta.getCodigoRespuesta());
+        }
+        return usuarios;
+    }
+    
     public static List<Rol> obtenerRol(){
         List<Rol> roles = new ArrayList<>();
         String url = Constantes.URL_WS + "usuario/listaRol";

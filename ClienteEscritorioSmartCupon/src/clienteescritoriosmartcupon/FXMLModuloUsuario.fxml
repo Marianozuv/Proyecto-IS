@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -26,11 +25,12 @@
       <TableView fx:id="tvUsuario" layoutX="20.0" layoutY="143.0" prefHeight="383.0" prefWidth="755.0">
         <columns>
           <TableColumn fx:id="colNombre" prefWidth="104.0" text="Nombre" />
-          <TableColumn fx:id="colApellidoPaterno" prefWidth="121.5" text="Apellido Paterno" />
-            <TableColumn fx:id="colApellidoMaterno" prefWidth="119.0" text="Apellido Materno" />
-            <TableColumn fx:id="colCURP" prefWidth="110.0" text="CURP" />
-            <TableColumn fx:id="colEmail" prefWidth="163.0" text="Email" />
-            <TableColumn fx:id="colRol" prefWidth="136.5" text="Rol" />
+          <TableColumn fx:id="colApellidoPaterno" prefWidth="113.5999755859375" text="Apellido Paterno" />
+            <TableColumn fx:id="colApellidoMaterno" prefWidth="137.60003662109375" text="Apellido Materno" />
+            <TableColumn fx:id="colCURP" minWidth="0.0" prefWidth="92.800048828125" text="CURP" />
+            <TableColumn fx:id="colEmail" prefWidth="93.5999755859375" text="Email" />
+            <TableColumn fx:id="colRol" minWidth="0.0" prefWidth="100.79998779296875" text="Rol" />
+            <TableColumn fx:id="colUsername" maxWidth="173.60002441406255" prefWidth="112.79998779296875" text="Username" />
         </columns>
       </TableView>
       <TextField fx:id="tfBuscador" layoutX="21.0" layoutY="91.0" promptText="Buscar">
@@ -38,7 +38,6 @@
             <Font size="19.0" />
          </font>
       </TextField>
-      <ComboBox fx:id="cbFiltroBuscado" layoutX="278.0" layoutY="91.0" prefHeight="37.0" prefWidth="111.0" />
       <Button layoutX="601.0" layoutY="90.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btVerInfoUsuario" prefHeight="39.0" prefWidth="174.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Ver Información" textFill="WHITE">
          <font>
             <Font size="19.0" />

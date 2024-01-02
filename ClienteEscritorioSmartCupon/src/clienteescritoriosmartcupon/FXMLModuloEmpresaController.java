@@ -10,13 +10,11 @@ import clienteescritoriosmartcupon.modelo.pojo.dao.EmpresaDAO;
 import clienteescritoriosmartcupon.utils.Utilidades;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +22,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -39,8 +36,10 @@ import javafx.stage.Stage;
  * @author mateo
  */
 public class FXMLModuloEmpresaController implements Initializable {
-
+    
+    private Empresa empresa;
     private ObservableList<Empresa> empresas;
+    private FilteredList<Empresa> filteredEmpresa;
 
     @FXML
     private Label lbUsuario;
@@ -60,8 +59,6 @@ public class FXMLModuloEmpresaController implements Initializable {
     private TableColumn colTelefono;
     @FXML
     private TextField tfBuscador;
-    @FXML
-    private ComboBox<?> cbFiltroBuscado;
 
     /**
      * Initializes the controller class.
@@ -70,7 +67,26 @@ public class FXMLModuloEmpresaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         obtenerEmpresas();
         cargarTablaEmpresas();
+        
+        filteredEmpresa = new FilteredList<>(empresas, p -> true);
+        tvEmpresas.setItems(filteredEmpresa);
+        
+        tfBuscador.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredEmpresa.setPredicate(empresa -> {
+                // Si el TextField está vacío, muestra todos los resultados
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
 
+                // Convertir el texto a minúsculas para hacer una búsqueda no sensible a mayúsculas
+                String textoBusqueda = newValue.toLowerCase();
+
+                // Aquí define tu lógica de filtrado basada en tus criterios
+                return empresa.getNombre().toLowerCase().contains(textoBusqueda)
+                        || empresa.getRFC().toLowerCase().contains(textoBusqueda)
+                        || empresa.getNombreRepresentanteLegal().toLowerCase().contains(textoBusqueda);
+            });
+        });
     }
 
     private void obtenerEmpresas() {

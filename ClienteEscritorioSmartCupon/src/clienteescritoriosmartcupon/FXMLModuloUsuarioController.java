@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +24,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -43,13 +43,12 @@ public class FXMLModuloUsuarioController implements Initializable {
     private Rol rol;
     private Empresa empresa;
     private ObservableList<Usuario> usuariosEmpresas;
+    private FilteredList<Usuario> filteredUsuarios;
 
     @FXML
     private Label lbUsuario;
     @FXML
     private TextField tfBuscador;
-    @FXML
-    private ComboBox<?> cbFiltroBuscado;
     @FXML
     private TableView<Usuario> tvUsuario;
     @FXML
@@ -64,6 +63,8 @@ public class FXMLModuloUsuarioController implements Initializable {
     private TableColumn colEmail;
     @FXML
     private TableColumn colRol;
+    @FXML
+    private TableColumn colUsername;
 
     /**
      * Initializes the controller class.
@@ -73,6 +74,25 @@ public class FXMLModuloUsuarioController implements Initializable {
         // TODO
         consultarInformacionUsuario();
         configurarColumnasTabla();
+        
+        filteredUsuarios = new FilteredList<>(usuariosEmpresas, p -> true);
+        tvUsuario.setItems(filteredUsuarios);
+        
+        tfBuscador.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredUsuarios.setPredicate(usuario -> {
+                // Si el TextField está vacío, muestra todos los resultados
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Convertir el texto a minúsculas para hacer una búsqueda no sensible a mayúsculas
+                String textoBusqueda = newValue.toLowerCase();
+
+                // Aquí define tu lógica de filtrado basada en tus criterios
+                return usuario.getNombre().toLowerCase().contains(textoBusqueda)
+                        || usuario.getUsername().toLowerCase().contains(textoBusqueda);
+            });
+        });
     }
 
     @FXML
@@ -141,5 +161,6 @@ public class FXMLModuloUsuarioController implements Initializable {
         colCURP.setCellValueFactory(new PropertyValueFactory("curp"));
         colEmail.setCellValueFactory(new PropertyValueFactory("email"));
         colRol.setCellValueFactory(new PropertyValueFactory("idRol"));
+        colUsername.setCellValueFactory(new PropertyValueFactory("username"));
     }
 }
