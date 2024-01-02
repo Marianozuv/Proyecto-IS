@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package clienteescritoriosmartcupon.modelo.pojo.dao;
 
 import clienteescritoriosmartcupon.modelo.ConexionHTTP;
@@ -12,10 +7,6 @@ import clienteescritoriosmartcupon.utils.Constantes;
 import com.google.gson.Gson;
 import java.net.HttpURLConnection;
 
-/**
- *
- * @author mateo
- */
 public class InicioDeSesionDAO {
     
     public static RespuestaLogin validarLogin(String username, String password) {

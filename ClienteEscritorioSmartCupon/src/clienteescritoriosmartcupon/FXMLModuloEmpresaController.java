@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package clienteescritoriosmartcupon;
 
 import clienteescritoriosmartcupon.modelo.pojo.Empresa;
@@ -30,11 +25,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author mateo
- */
 public class FXMLModuloEmpresaController implements Initializable {
     
     private Empresa empresa;
@@ -115,24 +105,24 @@ public class FXMLModuloEmpresaController implements Initializable {
     @FXML
     private void btVerInfoEmpresa(ActionEvent event) throws IOException {
 
-        int posicionSelecionada = tvEmpresas.getSelectionModel().getSelectedIndex();
+        int posicionSeleccionada = tvEmpresas.getSelectionModel().getSelectedIndex();
 
-        if (posicionSelecionada != -1) {
+        if (posicionSeleccionada != -1) {
 
-            Empresa empresa = empresas.get(posicionSelecionada);
-            Utilidades.mostrarAlertaSimple("Ver información empresa", "Ha selecionado la empresa: " + empresa.getNombre(), Alert.AlertType.INFORMATION);
+            Empresa empresa = empresas.get(posicionSeleccionada);
+            Utilidades.mostrarAlertaSimple("Ver información empresa", "Ha seleccionado la empresa: " + empresa.getNombre(), Alert.AlertType.INFORMATION);
 
-            FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLFromEmpresa.fxml"));
+            FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLFormEmpresa.fxml"));
             Parent vista = vistaLoad.load();
 
-            FXMLFromEmpresaController controller = vistaLoad.getController();
+            FXMLFormEmpresaController controller = vistaLoad.getController();
             controller.setModuloEmpresaController(this);
             controller.inicializarInformacion(empresa, true);
 
             Stage stage = new Stage();
             Scene escenaEditarPaciente = new Scene(vista);
             stage.setScene(escenaEditarPaciente);
-            stage.setTitle("Infromación empresa");
+            stage.setTitle("Información empresa");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
 
@@ -144,10 +134,10 @@ public class FXMLModuloEmpresaController implements Initializable {
     @FXML
     private void btRegistroEmpresa(ActionEvent event) throws IOException {
 
-        FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLFromEmpresa.fxml"));
+        FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLFormEmpresa.fxml"));
         Parent vista = vistaLoad.load();
 
-        FXMLFromEmpresaController controller = vistaLoad.getController();
+        FXMLFormEmpresaController controller = vistaLoad.getController();
         controller.inicializarInformacion(null, false);
 
         Stage stage = new Stage();

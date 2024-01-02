@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package clienteescritoriosmartcupon;
 
 import clienteescritoriosmartcupon.modelo.pojo.Empresa;
@@ -32,11 +27,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author andre
- */
 public class FXMLModuloUsuarioController implements Initializable {
     
     private Usuario usuario;
@@ -115,7 +105,7 @@ public class FXMLModuloUsuarioController implements Initializable {
             Stage stage = new Stage();
             Scene escenaEditarPaciente = new Scene(vista);
             stage.setScene(escenaEditarPaciente);
-            stage.setTitle("Infromación Usuario");
+            stage.setTitle("Información Usuario");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
 

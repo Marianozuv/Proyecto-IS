@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package clienteescritoriosmartcupon;
 
 import clienteescritoriosmartcupon.modelo.pojo.Sucursal;
@@ -30,11 +25,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author mateo
- */
 public class FXMLModuloSucursalController implements Initializable {
     
     private Sucursal sucursal;
@@ -42,21 +32,15 @@ public class FXMLModuloSucursalController implements Initializable {
     private FilteredList<Sucursal> filteredSucursal;
     @FXML
     private Label lbUsuario;
-    @FXML
     private TableView<Sucursal> tvSucursale;
-    @FXML
     private TableColumn colNombre;
-    @FXML
     private TableColumn colDireccion;
-    @FXML
     private TableColumn colTelefono;
     @FXML
     private TextField tfBuscador;
-    @FXML
     private TableColumn colNombreEncargado;
-    @FXML
     private TableColumn colCodigoPostal;
-
+    
     /**
      * Initializes the controller class.
      */
@@ -105,7 +89,6 @@ public class FXMLModuloSucursalController implements Initializable {
         colTelefono.setCellValueFactory(new PropertyValueFactory("telefono"));
     }
 
-    @FXML
     private void btRegistroSucursal(ActionEvent event) throws IOException{
 
         
@@ -127,15 +110,14 @@ public class FXMLModuloSucursalController implements Initializable {
         obtenerSucursales();
     }
 
-    @FXML
     private void btVerInfoSucursal(ActionEvent event) throws IOException {
 
-        int posicionSelecionada = tvSucursale.getSelectionModel().getSelectedIndex();
+        int posicionSeleccionada = tvSucursale.getSelectionModel().getSelectedIndex();
 
-        if (posicionSelecionada != -1) {
+        if (posicionSeleccionada != -1) {
 
-            Sucursal sucursal = sucursales.get(posicionSelecionada);
-            Utilidades.mostrarAlertaSimple("Ver información empresa", "Ha selecionado la empresa: " + sucursal.getNombreSucursal(), Alert.AlertType.INFORMATION);
+            Sucursal sucursal = sucursales.get(posicionSeleccionada);
+            Utilidades.mostrarAlertaSimple("Ver información sucursal", "Ha seleccionado la sucursal: " + sucursal.getNombreSucursal(), Alert.AlertType.INFORMATION);
 
             FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLFormSucursal.fxml"));
             Parent vista = vistaLoad.load();
@@ -147,7 +129,7 @@ public class FXMLModuloSucursalController implements Initializable {
             Stage stage = new Stage();
             Scene escenaEditarPaciente = new Scene(vista);
             stage.setScene(escenaEditarPaciente);
-            stage.setTitle("Infromación sucursal");
+            stage.setTitle("Información sucursal");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
 
@@ -155,5 +137,4 @@ public class FXMLModuloSucursalController implements Initializable {
             Utilidades.mostrarAlertaSimple("Ver información sucursal", "Para poder modificar debes seleccionar una sucursal", Alert.AlertType.INFORMATION);
         }
     }
-
 }

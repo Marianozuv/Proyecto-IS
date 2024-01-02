@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package clienteescritoriosmartcupon.modelo.pojo.dao;
 
 import clienteescritoriosmartcupon.modelo.ConexionHTTP;
@@ -16,10 +11,6 @@ import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.util.List;
 
-/**
- *
- * @author mateo
- */
 public class SucursalDAO {
 
     public static List<Sucursal> obtenerSucursales() {
@@ -89,7 +80,7 @@ public class SucursalDAO {
             mensaje = gson.fromJson(respuesta.getContenido(), Mensaje.class);
         } else {
             mensaje.setError(true);
-            mensaje.setMensaje("Error al eliminar la empresa");
+            mensaje.setMensaje("Error al eliminar la sucursal");
         }
         return mensaje;
     }
