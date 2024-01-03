@@ -8,8 +8,10 @@ package clienteescritoriosmartcupon;
 import clienteescritoriosmartcupon.modelo.pojo.Categoria;
 import clienteescritoriosmartcupon.modelo.pojo.Empresa;
 import clienteescritoriosmartcupon.modelo.pojo.Promocion;
+import clienteescritoriosmartcupon.modelo.pojo.TipoPromocion;
 import clienteescritoriosmartcupon.modelo.pojo.dao.CategoriasDAO;
 import clienteescritoriosmartcupon.modelo.pojo.dao.EmpresaDAO;
+import clienteescritoriosmartcupon.modelo.pojo.dao.PromocionDAO;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
@@ -38,6 +40,7 @@ import jdk.nashorn.internal.codegen.CompilerConstants;
 public class FXMLFormPromocionController implements Initializable {
 
     private ObservableList<Empresa> empresas;
+    private ObservableList<TipoPromocion> tipoPromociones;
     private ObservableList<Categoria> categorias;
     private boolean isEdicion;
     private Promocion promocion;
@@ -68,7 +71,7 @@ public class FXMLFormPromocionController implements Initializable {
     @FXML
     private TextField tfRestricciones;
     @FXML
-    private ComboBox<?> cbTipoPromocion;
+    private ComboBox<TipoPromocion> cbTipoPromocion;
     @FXML
     private TextField tfPorcentajeCosto;
     @FXML
@@ -99,6 +102,9 @@ public class FXMLFormPromocionController implements Initializable {
             cargarEmpresas();
             seleccionarEmpresa(promocion.getIdEmpresa());
             cargarCategorias();
+            seleccionarCategoria(promocion.getIdCategoria());
+            cargarTiposPromociones();
+            seleccionarTipoPromocion(promocion.getIdTipoPromocion());
         } else {
             this.isEdicion = isEdicion;
             this.promocion = new Promocion();
@@ -248,6 +254,37 @@ public class FXMLFormPromocionController implements Initializable {
         List<Categoria> info = CategoriasDAO.obtenerCategorias();
         categorias.addAll(info);
         cbCategorias.setItems(categorias);
+    }
+
+    private void seleccionarCategoria(int idCategoria) {
+
+        for (Categoria categoria : cbCategorias.getItems()) {
+
+            if (categoria.getIdCategoria() == idCategoria) {
+
+                cbCategorias.getSelectionModel().select(categoria);
+                break;
+            }
+        }
+    }
+
+    private void cargarTiposPromociones() {
+        tipoPromociones = FXCollections.observableArrayList();
+        List<TipoPromocion> info = PromocionDAO.obtenerTiposPromociones();
+        tipoPromociones.addAll(info);
+        cbTipoPromocion.setItems(tipoPromociones);
+    }
+
+    private void seleccionarTipoPromocion(int idTipoPromocion) {
+
+        for (TipoPromocion tipoPromocion : cbTipoPromocion.getItems()) {
+
+            if (tipoPromocion.getIdTipoPromocion()== idTipoPromocion) {
+
+                cbTipoPromocion.getSelectionModel().select(tipoPromocion);
+                break;
+            }
+        }
     }
 
 }
