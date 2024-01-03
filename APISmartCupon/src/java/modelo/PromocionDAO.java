@@ -7,6 +7,7 @@ import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
 import modelo.pojo.Sucursal;
 import modelo.pojo.SucursalPromocion;
+import modelo.pojo.TipoPromocion;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
 
@@ -44,6 +45,21 @@ public class PromocionDAO {
         }
 
         return mensaje;
+    }
+    
+    public static List<TipoPromocion> obtenerTiposPromociones() {
+        SqlSession sqlSession = MyBatisUtil.getSession();
+        List<TipoPromocion> tipoPromociones = null;
+        
+        try {
+            tipoPromociones = sqlSession.selectList("promociones.obtenerTiposPromociones");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            sqlSession.close();
+        }
+        
+        return tipoPromociones;
     }
 
     public static List<Promocion> obtenerPromociones() {
