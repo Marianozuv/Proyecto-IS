@@ -19,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import jdk.nashorn.internal.codegen.CompilerConstants;
 
 /**
@@ -28,6 +29,7 @@ import jdk.nashorn.internal.codegen.CompilerConstants;
  */
 public class FXMLFormPromocionController implements Initializable {
 
+    private boolean isEdicion;
     private Promocion promocion;
     @FXML
     private Label lbUsuario;
@@ -81,9 +83,11 @@ public class FXMLFormPromocionController implements Initializable {
     public void inicializarInformacion(Promocion promocion, boolean isEdicion) {
 
         if (isEdicion) {
+            this.isEdicion = isEdicion;
             this.promocion = promocion;
             cargarDatos(promocion, isEdicion);
         } else {
+            this.isEdicion = isEdicion;
             this.promocion = new Promocion();
             cargarDatos(null, isEdicion);
         }
@@ -94,9 +98,23 @@ public class FXMLFormPromocionController implements Initializable {
 
         if (isEdicion) {
             habilitarComponentes(isEdicion);
+            rellenarInputs(promocion);
         } else {
             habilitarComponentes(isEdicion);
         }
+
+    }
+
+    private void rellenarInputs(Promocion promocion) {
+        tfNombre.setText(promocion.getNombrePromocion());
+        tfDesc.setText(promocion.getDescripcion());
+
+        tfRestricciones.setText(promocion.getRestricciones());
+
+        tfPorcentajeCosto.setText(promocion.getPorcentaje_Costo().toString());
+
+        tfCupones.setText("" + promocion.getCuponesMaximos());
+        tfCodigoPromo.setText(promocion.getCodigoPromocion());
 
     }
 
@@ -108,14 +126,41 @@ public class FXMLFormPromocionController implements Initializable {
             vbBotones.getChildren().remove(btGuradarInfo);
             vbBotones.getChildren().add(btEliminar);
             vbBotones.getChildren().add(btEditarPromocion);
+            habilitarInputs(false);
+            habilitarFoto(true);
         } else {
             vbBotones.getChildren().clear();
             vbBotones.getChildren().add(btCancelar);
             vbBotones.getChildren().add(btGuradarInfo);
             vbBotones.getChildren().remove(btEliminar);
             vbBotones.getChildren().remove(btEditarPromocion);
+            habilitarInputs(true);
+            habilitarFoto(true);
         }
 
+    }
+
+    private void habilitarInputs(Boolean editable) {
+        tfNombre.setEditable(editable);
+        tfDesc.setEditable(editable);
+        dpFechaInicio.setEditable(editable);
+        dpFechaTermino.setEditable(editable);
+        tfRestricciones.setEditable(editable);
+        cbTipoPromocion.setEditable(editable);
+        tfPorcentajeCosto.setEditable(editable);
+        cbCategorias.setEditable(editable);
+        tfCupones.setEditable(editable);
+        tfCodigoPromo.setEditable(editable);
+        cbEmpresas.setEditable(editable);
+        tfEstatus.setEditable(editable);
+    }
+
+    private void habilitarFoto(Boolean editable) {
+        vbFoto.setDisable(editable);
+    }
+
+    private void habilitarFotoEdit(Boolean editable) {
+        vbFoto.setDisable(editable);
     }
 
     @FXML
@@ -124,6 +169,13 @@ public class FXMLFormPromocionController implements Initializable {
 
     @FXML
     private void btCancelar(ActionEvent event) {
+
+        if (isEdicion) {
+            habilitarComponentes(isEdicion);
+            cargarDatos(promocion, isEdicion);
+        } else {
+            cerrarVentana();
+        }
     }
 
     @FXML
@@ -132,6 +184,8 @@ public class FXMLFormPromocionController implements Initializable {
 
     @FXML
     private void btEditarInfromacionPromocion(ActionEvent event) {
+        habilitarComponentes(false);
+        habilitarFotoEdit(false);
     }
 
     @FXML
@@ -142,4 +196,8 @@ public class FXMLFormPromocionController implements Initializable {
     private void btSubirImagen(ActionEvent event) {
     }
 
+    private void cerrarVentana() {
+        Stage stage = (Stage) tfNombre.getScene().getWindow();
+        stage.close();
+    }
 }
