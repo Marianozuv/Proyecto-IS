@@ -165,4 +165,19 @@ public class PromocionWS {
         }
         return promocion;
     }
+    
+    @PUT
+    @Path("canjearCupon")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public static Mensaje canjearCupon(String json) {
+        Gson gson = new Gson();
+        Promocion promocion = gson.fromJson(json, Promocion.class);
+
+        if (promocion != null) {
+            return PromocionDAO.canjearCupon(promocion);
+        } else {
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+    }
 }
