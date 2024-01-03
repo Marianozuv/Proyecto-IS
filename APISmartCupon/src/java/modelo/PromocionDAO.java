@@ -46,6 +46,21 @@ public class PromocionDAO {
         return mensaje;
     }
 
+    public static List<Promocion> obtenerPromociones() {
+        SqlSession sqlSession = MyBatisUtil.getSession();
+        List<Promocion> promociones = null;
+
+        try {
+            promociones = sqlSession.selectList("promociones.listaPromociones");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            sqlSession.close();
+        }
+
+        return promociones;
+    }
+
     public static List<Promocion> obtenerPromocionByCategoria(int idCategoria) {
 
         SqlSession sqlSession = MyBatisUtil.getSession();
@@ -75,7 +90,7 @@ public class PromocionDAO {
 
         return promocion;
     }
-    
+
     public List<Promocion> buscarPromocion(String fechaInicioPromocion, String fechaTerminoPromocion, String nombrePromocion) {
         List<Promocion> promociones = null;
         SqlSession conexionDB = MyBatisUtil.getSession();
