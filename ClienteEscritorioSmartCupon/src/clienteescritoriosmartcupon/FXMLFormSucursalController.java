@@ -247,7 +247,7 @@ public class FXMLFormSucursalController implements Initializable {
         List<Empresa> info = EmpresaDAO.obtenerEmpresas();
         empresas.addAll(info);
         cbEmpresa.setItems(empresas);
-
+        
     }
 
     private void recuperarDatos() {

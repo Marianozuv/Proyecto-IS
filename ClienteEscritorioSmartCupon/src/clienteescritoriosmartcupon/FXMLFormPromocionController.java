@@ -5,9 +5,17 @@
  */
 package clienteescritoriosmartcupon;
 
+import clienteescritoriosmartcupon.modelo.pojo.Categoria;
+import clienteescritoriosmartcupon.modelo.pojo.Empresa;
 import clienteescritoriosmartcupon.modelo.pojo.Promocion;
+import clienteescritoriosmartcupon.modelo.pojo.dao.CategoriasDAO;
+import clienteescritoriosmartcupon.modelo.pojo.dao.EmpresaDAO;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,6 +37,8 @@ import jdk.nashorn.internal.codegen.CompilerConstants;
  */
 public class FXMLFormPromocionController implements Initializable {
 
+    private ObservableList<Empresa> empresas;
+    private ObservableList<Categoria> categorias;
     private boolean isEdicion;
     private Promocion promocion;
     @FXML
@@ -62,13 +72,13 @@ public class FXMLFormPromocionController implements Initializable {
     @FXML
     private TextField tfPorcentajeCosto;
     @FXML
-    private ComboBox<?> cbCategorias;
+    private ComboBox<Categoria> cbCategorias;
     @FXML
     private TextField tfCupones;
     @FXML
     private TextField tfCodigoPromo;
     @FXML
-    private ComboBox<?> cbEmpresas;
+    private ComboBox<Empresa> cbEmpresas;
     @FXML
     private TextField tfEstatus;
 
@@ -86,10 +96,15 @@ public class FXMLFormPromocionController implements Initializable {
             this.isEdicion = isEdicion;
             this.promocion = promocion;
             cargarDatos(promocion, isEdicion);
+            cargarEmpresas();
+            seleccionarEmpresa(promocion.getIdEmpresa());
+            cargarCategorias();
         } else {
             this.isEdicion = isEdicion;
             this.promocion = new Promocion();
             cargarDatos(null, isEdicion);
+            cargarEmpresas();
+            cargarCategorias();
         }
 
     }
@@ -106,9 +121,17 @@ public class FXMLFormPromocionController implements Initializable {
     }
 
     private void rellenarInputs(Promocion promocion) {
+
+        String fechaInicio = promocion.getFechaInicioPromocion();
+        LocalDate fechaStart = LocalDate.parse(fechaInicio);
+
+        String fechaTermino = promocion.getFechaTerminoPromocion();
+        LocalDate fechaEnd = LocalDate.parse(fechaTermino);
+
         tfNombre.setText(promocion.getNombrePromocion());
         tfDesc.setText(promocion.getDescripcion());
-
+        dpFechaInicio.setValue(fechaStart);
+        dpFechaTermino.setValue(fechaEnd);
         tfRestricciones.setText(promocion.getRestricciones());
 
         tfPorcentajeCosto.setText(promocion.getPorcentaje_Costo().toString());
@@ -200,4 +223,31 @@ public class FXMLFormPromocionController implements Initializable {
         Stage stage = (Stage) tfNombre.getScene().getWindow();
         stage.close();
     }
+
+    private void cargarEmpresas() {
+        empresas = FXCollections.observableArrayList();
+        List<Empresa> info = EmpresaDAO.obtenerEmpresas();
+        empresas.addAll(info);
+        cbEmpresas.setItems(empresas);
+    }
+
+    private void seleccionarEmpresa(int idEmpresa) {
+
+        for (Empresa empresa : cbEmpresas.getItems()) {
+
+            if (empresa.getIdEmpresa() == idEmpresa) {
+
+                cbEmpresas.getSelectionModel().select(empresa);
+                break;
+            }
+        }
+    }
+
+    private void cargarCategorias() {
+        categorias = FXCollections.observableArrayList();
+        List<Categoria> info = CategoriasDAO.obtenerCategorias();
+        categorias.addAll(info);
+        cbCategorias.setItems(categorias);
+    }
+
 }
