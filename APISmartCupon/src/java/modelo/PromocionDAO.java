@@ -303,8 +303,8 @@ public class PromocionDAO {
         if (sqlSession != null) {
             try {
                 // Obtener la promoción actual antes de intentar el canje
-                int idPromocion = promocion.getIdPromocion();
-                Promocion promocionActual = sqlSession.selectOne("promociones.obtenerPromocion", idPromocion);
+                String codigoPromocion = promocion.getCodigoPromocion();
+                Promocion promocionActual = sqlSession.selectOne("promociones.obtenerPromocionByCodigo", codigoPromocion);
 
                 if (promocionActual != null) {
                     // Verificar si hay cupones disponibles o si el estatus permite el canje
