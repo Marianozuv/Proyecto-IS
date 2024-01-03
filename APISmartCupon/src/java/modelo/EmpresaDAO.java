@@ -208,42 +208,41 @@ public class EmpresaDAO {
         return empresa;
     }
 
-public Mensaje eliminar(Integer idEmpresa) {
-    Mensaje msj = new Mensaje();
-    msj.setError(true);
-    SqlSession conexionDB = MyBatisUtil.getSession();
-    List<Sucursal> sucursales = null;
+    public Mensaje eliminar(Integer idEmpresa) {
+        Mensaje msj = new Mensaje();
+        msj.setError(true);
+        SqlSession conexionDB = MyBatisUtil.getSession();
+        List<Sucursal> sucursales = null;
 
-    if (conexionDB != null) {
-        try {
-            
-            sucursales = conexionDB.selectList("sucursal.obtenerPorIdEmpresa", idEmpresa);
+        if (conexionDB != null) {
+            try {
 
-            if (sucursales != null && !sucursales.isEmpty()) {
-                msj.setMensaje("La empresa no se puede eliminar, ya que tiene sucursales asociadas");
-            } else {
-                int numeroFilasAfectadas = conexionDB.delete("empresa.eliminar", idEmpresa);
-                conexionDB.commit();
+                sucursales = conexionDB.selectList("sucursal.obtenerPorIdEmpresa", idEmpresa);
 
-                if (numeroFilasAfectadas > 0) {
-                    msj.setError(false);
-                    msj.setMensaje("Información de la Empresa eliminada con éxito");
+                if (sucursales != null && !sucursales.isEmpty()) {
+                    msj.setMensaje("La empresa no se puede eliminar, ya que tiene sucursales asociadas");
                 } else {
-                    msj.setMensaje("Lo sentimos, no se pudo eliminar la información de la Empresa.");
+                    int numeroFilasAfectadas = conexionDB.delete("empresa.eliminar", idEmpresa);
+                    conexionDB.commit();
+
+                    if (numeroFilasAfectadas > 0) {
+                        msj.setError(false);
+                        msj.setMensaje("Información de la Empresa eliminada con éxito");
+                    } else {
+                        msj.setMensaje("Lo sentimos, no se pudo eliminar la información de la Empresa.");
+                    }
                 }
+            } catch (Exception e) {
+                msj.setMensaje("Error: " + e.getMessage());
+            } finally {
+                conexionDB.close();
             }
-        } catch (Exception e) {
-            msj.setMensaje("Error: " + e.getMessage());
-        } finally {
-            conexionDB.close();
+        } else {
+            msj.setMensaje("Por el momento no hay conexión con la base de datos.");
         }
-    } else {      
-        msj.setMensaje("Por el momento no hay conexión con la base de datos.");
+
+        return msj;
     }
-
-    return msj;
-}
-
 
     public static Mensaje subirLogoEmpresa(int idEmpresa, byte[] logo) {
         Mensaje msj = new Mensaje();

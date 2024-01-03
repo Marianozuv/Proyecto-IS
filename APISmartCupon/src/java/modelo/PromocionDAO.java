@@ -292,6 +292,45 @@ public class PromocionDAO {
         }
 
         return promocion;
+    }
+    
+    public static Mensaje canjearCupon(Promocion promocion) {
+        Mensaje mensaje = new Mensaje();
+        mensaje.setError(true);
 
+        SqlSession sqlSession = MyBatisUtil.getSession();
+
+        if (sqlSession != null) {
+
+            try {
+
+                int filasAfectadas = sqlSession.update("promociones.canjearCupon", promocion);
+
+                if (filasAfectadas > 0) {
+                    sqlSession.commit();
+                    mensaje.setError(false);
+                    mensaje.setMensaje("Se ha canjeado el Cupon");
+                    
+                    Promocion promocionActualizada = sqlSession.selectOne("promociones.obtenerPromocion", promocion.getIdPromocion());
+
+                    if (promocionActualizada.isEstatus()) {
+                        mensaje.setMensaje("Ya no hay cupones disponibles");
+                    }
+                    
+                } else {
+                    mensaje.setMensaje("No se pudo canjear el Cupon");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                sqlSession.close();
+            }
+
+        } else {
+            mensaje.setMensaje("No hay conexión a la base de datos");
+        }
+
+        return mensaje;
     }
 }

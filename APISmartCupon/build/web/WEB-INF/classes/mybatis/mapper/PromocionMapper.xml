@@ -165,6 +165,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             estatus
         FROM promocion
     </select>
+    
+    <update id="canjearCupon" parameterType="modelo.pojo.Promocion">
+        UPDATE promocion
+        SET cuponesMaximos = 
+        CASE
+        WHEN codigoPromocion = #{codigoPromocion} AND cuponesMaximos > 0 THEN cuponesMaximos - 1
+        ELSE cuponesMaximos
+        END,
+        estatus = 
+        CASE
+        WHEN cuponesMaximos = 0 THEN 0
+        ELSE estatus
+        END
+        WHERE codigoPromocion = #{codigoPromocion};
+    </update>
 </mapper>
 
 
