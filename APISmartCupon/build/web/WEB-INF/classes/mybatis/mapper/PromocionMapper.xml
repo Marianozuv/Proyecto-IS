@@ -147,6 +147,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="obtenerImagenPromocion" parameterType="int" resultType="modelo.pojo.Promocion">
         SELECT idPromocion, nombrePromocion, TO_BASE64(imagenPromocion) AS 'imagenPromocionBase64' FROM promocion WHERE idPromocion = #{idPromocion}
     </select>
+    
+    <select id="listaPromociones" resultType="modelo.pojo.Promocion">
+        SELECT
+            idPromocion,
+            idEmpresa,
+            nombrePromocion,
+            descripcion,
+            fechaInicioPromocion,
+            fechaTerminoPromocion,
+            restricciones,
+            idTipoPromocion,
+            porcentaje_Costo,
+            idCategoria,
+            cuponesMaximos,
+            codigoPromocion,
+            estatus
+        FROM promocion
+    </select>
 </mapper>
 
 

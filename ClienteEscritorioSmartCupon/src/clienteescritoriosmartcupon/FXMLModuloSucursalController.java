@@ -32,13 +32,19 @@ public class FXMLModuloSucursalController implements Initializable {
     private FilteredList<Sucursal> filteredSucursal;
     @FXML
     private Label lbUsuario;
+    @FXML
     private TableView<Sucursal> tvSucursale;
+    @FXML
     private TableColumn colNombre;
+    @FXML
     private TableColumn colDireccion;
+    @FXML
     private TableColumn colTelefono;
     @FXML
     private TextField tfBuscador;
+    @FXML
     private TableColumn colNombreEncargado;
+    @FXML
     private TableColumn colCodigoPostal;
     
     /**
@@ -89,6 +95,7 @@ public class FXMLModuloSucursalController implements Initializable {
         colTelefono.setCellValueFactory(new PropertyValueFactory("telefono"));
     }
 
+    @FXML
     private void btRegistroSucursal(ActionEvent event) throws IOException{
 
         
@@ -110,6 +117,7 @@ public class FXMLModuloSucursalController implements Initializable {
         obtenerSucursales();
     }
 
+    @FXML
     private void btVerInfoSucursal(ActionEvent event) throws IOException {
 
         int posicionSeleccionada = tvSucursale.getSelectionModel().getSelectedIndex();
