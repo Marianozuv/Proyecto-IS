@@ -5,10 +5,16 @@
  */
 package clienteescritoriosmartcupon;
 
+import clienteescritoriosmartcupon.modelo.pojo.Promocion;
+import clienteescritoriosmartcupon.modelo.pojo.dao.PromocionDAO;
 import clienteescritoriosmartcupon.utils.Utilidades;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -30,22 +37,24 @@ import javafx.stage.Stage;
  */
 public class FXMLModuloPromocionController implements Initializable {
 
+    private Promocion promocion;
+    private ObservableList<Promocion> promociones;
     @FXML
     private Label lbUsuario;
     @FXML
-    private TableView<?> tvPromociones;
+    private TableView<Promocion> tvPromociones;
     @FXML
-    private TableColumn<?, ?> colNombre;
+    private TableColumn colNombre;
     @FXML
-    private TableColumn<?, ?> colCuponesPromoción;
+    private TableColumn colCuponesPromoción;
     @FXML
-    private TableColumn<?, ?> colFechaInicio;
+    private TableColumn colFechaInicio;
     @FXML
-    private TableColumn<?, ?> colFechaTermino;
+    private TableColumn colFechaTermino;
     @FXML
-    private TableColumn<?, ?> colCodigoPromocion;
+    private TableColumn colCodigoPromocion;
     @FXML
-    private TableColumn<?, ?> colEstatus;
+    private TableColumn colEstatus;
     @FXML
     private TextField tfBuscador;
 
@@ -54,7 +63,29 @@ public class FXMLModuloPromocionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        obtenerPromociones();
+        cargarPromociones();
+    }
+
+    private void obtenerPromociones() {
+        try {
+            promociones = FXCollections.observableArrayList();
+            List<Promocion> info = PromocionDAO.obtenerPromociones();
+            promociones.addAll(info);
+            tvPromociones.setItems(promociones);
+            tvPromociones.refresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void cargarPromociones() {
+        colNombre.setCellValueFactory(new PropertyValueFactory("nombrePromocion"));
+        colCuponesPromoción.setCellValueFactory(new PropertyValueFactory("cuponesMaximos"));
+        colFechaInicio.setCellValueFactory(new PropertyValueFactory("fechaInicioPromocion"));
+        colFechaTermino.setCellValueFactory(new PropertyValueFactory("fechaTerminoPromocion"));
+        colCodigoPromocion.setCellValueFactory(new PropertyValueFactory("codigoPromocion"));
+
     }
 
     @FXML
@@ -67,7 +98,7 @@ public class FXMLModuloPromocionController implements Initializable {
 
         FXMLFormPromocionController controller = vistaLoad.getController();
         controller.inicializarInformacion(null, false);
-        
+
         Stage stage = new Stage();
         Scene scene = new Scene(vista);
         stage.setScene(scene);
@@ -78,7 +109,31 @@ public class FXMLModuloPromocionController implements Initializable {
     }
 
     @FXML
-    private void btVerInfoPromocion(ActionEvent event) {
+    private void btVerInfoPromocion(ActionEvent event) throws IOException{
+        
+        int posicionSeleccionada = tvPromociones.getSelectionModel().getSelectedIndex();
+
+        if (posicionSeleccionada != -1) {
+
+            Promocion promocion = promociones.get(posicionSeleccionada);
+            Utilidades.mostrarAlertaSimple("Ver información promocion", "Ha seleccionado la promocion: " + promocion.getNombrePromocion(), Alert.AlertType.INFORMATION);
+
+            FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLFormPromocion.fxml"));
+            Parent vista = vistaLoad.load();
+
+            FXMLFormPromocionController controller = vistaLoad.getController();
+            controller.inicializarInformacion(promocion, true);
+
+            Stage stage = new Stage();
+            Scene escenaEditarPaciente = new Scene(vista);
+            stage.setScene(escenaEditarPaciente);
+            stage.setTitle("Información promoción");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+        } else {
+            Utilidades.mostrarAlertaSimple("Ver información promoción", "Para poder modificar debes seleccionar una promoción", Alert.AlertType.INFORMATION);
+        }
     }
 
 }

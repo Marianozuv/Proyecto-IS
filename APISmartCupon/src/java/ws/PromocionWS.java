@@ -55,7 +55,16 @@ public class PromocionWS {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
     }
-    
+
+    @GET
+    @Path("lista")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Promocion> obtenerPromociones() {
+
+        return PromocionDAO.obtenerPromociones();
+
+    }
+
     @GET
     @Path("buscar")
     public List<Promocion> buscarPromocion(
