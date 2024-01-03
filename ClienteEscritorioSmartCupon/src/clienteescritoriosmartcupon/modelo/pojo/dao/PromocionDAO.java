@@ -128,6 +128,21 @@ public class PromocionDAO {
         return mensaje;
     }
     
-    
-    
+    public static Mensaje canjearCupon(Promocion promocion) {
+        Mensaje mensaje = new Mensaje();
+        String url = Constantes.URL_WS + "promocion/canjearCupon";
+
+        Gson gson = new Gson();
+        String parametros = gson.toJson(promocion);
+
+        CodigoHTTP codigoRespuesta = ConexionHTTP.peticionPUTJSON(url, parametros);
+
+        if (codigoRespuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK) {
+            mensaje = gson.fromJson(codigoRespuesta.getContenido(), Mensaje.class);
+        } else {
+            mensaje.setError(true);
+            mensaje.setMensaje("Error al editar la promocion");
+        }
+        return mensaje;
+    }
 }

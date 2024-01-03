@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriosmartcupon.FXMLModuloCuponesController">
+    <children>
+      <ImageView fitHeight="577.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@recursos/fondo.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lbCupones" layoutX="20.0" layoutY="14.0" text="Modulo Cupones" textFill="WHITE">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbCodigo" layoutX="284.0" layoutY="165.0" text="Ingresa el Código" textFill="WHITE">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfCodigo" layoutX="282.0" layoutY="234.0" promptText="code0101">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </TextField>
+      <Button layoutX="313.0" layoutY="327.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btCanjearCupon" prefHeight="39.0" prefWidth="174.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Canjear" textFill="WHITE">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

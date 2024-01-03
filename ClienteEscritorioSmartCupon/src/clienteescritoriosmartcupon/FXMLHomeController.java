@@ -114,6 +114,23 @@ public class FXMLHomeController implements Initializable {
 
     @FXML
     private void btModuloCupones(ActionEvent event) {
+        try {
+
+            FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLModuloCupones.fxml"));
+            Parent vista = vistaLoad.load();
+
+            FXMLModuloCuponesController controller = vistaLoad.getController();
+
+            Stage stage = new Stage();
+            Scene escenaEditarPaciente = new Scene(vista);
+            stage.setScene(escenaEditarPaciente);
+            stage.setTitle("Canje Cupones");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+        } catch (Exception e) {
+            Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     @FXML
