@@ -295,46 +295,47 @@ public class PromocionDAO {
     }
     
     public static Mensaje canjearCupon(Promocion promocion) {
-    Mensaje mensaje = new Mensaje();
-    mensaje.setError(true);
+        Mensaje mensaje = new Mensaje();
+        mensaje.setError(true);
 
-    SqlSession sqlSession = MyBatisUtil.getSession();
+        SqlSession sqlSession = MyBatisUtil.getSession();
 
-    if (sqlSession != null) {
-        try {
-            // Obtener la promoción actual antes de intentar el canje
-            Promocion promocionActual = sqlSession.selectOne("promociones.obtenerPromocion", promocion.getIdPromocion());
+        if (sqlSession != null) {
+            try {
+                // Obtener la promoción actual antes de intentar el canje
+                int idPromocion = promocion.getIdPromocion();
+                Promocion promocionActual = sqlSession.selectOne("promociones.obtenerPromocion", idPromocion);
 
-            if (promocionActual != null) {
-                // Verificar si hay cupones disponibles o si el estatus permite el canje
-                if (promocionActual.getCuponesMaximos() > 0 && promocionActual.isEstatus() != true) {
-                    
-                    int filasAfectadas = sqlSession.update("promociones.canjearCupon", promocion);
+                if (promocionActual != null) {
+                    // Verificar si hay cupones disponibles o si el estatus permite el canje
+                    if (promocionActual.getCuponesMaximos() > 0 && promocionActual.isEstatus() == true) {
 
-                    if (filasAfectadas > 0) {
-                        sqlSession.commit();
-                        mensaje.setError(false);
-                        mensaje.setMensaje("Se ha canjeado el Cupon");
+                        int filasAfectadas = sqlSession.update("promociones.canjearCupon", promocion);
+
+                        if (filasAfectadas > 0) {
+                            sqlSession.commit();
+                            mensaje.setError(false);
+                            mensaje.setMensaje("Se ha canjeado el Cupon");
+                        } else {
+                            mensaje.setMensaje("No se pudo canjear el Cupon");
+                        }
                     } else {
-                        mensaje.setMensaje("No se pudo canjear el Cupon");
+                        mensaje.setMensaje("Ya no hay cupones disponibles o la promoción está inactiva");
                     }
                 } else {
-                    mensaje.setMensaje("Ya no hay cupones disponibles o la promoción está inactiva");
+                    mensaje.setMensaje("No se encontró la promoción");
                 }
-            } else {
-                mensaje.setMensaje("No se encontró la promoción");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                sqlSession.close();
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            sqlSession.close();
+        } else {
+            mensaje.setMensaje("No hay conexión a la base de datos");
         }
 
-    } else {
-        mensaje.setMensaje("No hay conexión a la base de datos");
+        return mensaje;
     }
-
-    return mensaje;
-}
 }
