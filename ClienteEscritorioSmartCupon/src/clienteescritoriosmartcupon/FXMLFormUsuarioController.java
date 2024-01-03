@@ -255,7 +255,7 @@ public class FXMLFormUsuarioController implements Initializable {
         tfNombre.setEditable(editable);
         tfUsername.setEditable(editable);
         tfPassword.setEditable(editable);
-        cbRol.setDisable(!editable);
+        cbRol.setDisable(editable);
         cbEmpresa.setDisable(!editable);
     }
     

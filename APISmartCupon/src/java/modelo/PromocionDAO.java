@@ -307,7 +307,7 @@ public class PromocionDAO {
 
             if (promocionActual != null) {
                 // Verificar si hay cupones disponibles o si el estatus permite el canje
-                if (promocionActual.getCuponesMaximos() > 0 && promocionActual.isEstatus()) {
+                if (promocionActual.getCuponesMaximos() > 0 && promocionActual.isEstatus() != true) {
                     
                     int filasAfectadas = sqlSession.update("promociones.canjearCupon", promocion);
 
