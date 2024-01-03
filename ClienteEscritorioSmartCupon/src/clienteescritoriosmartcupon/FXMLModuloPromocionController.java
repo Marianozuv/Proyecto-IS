@@ -99,6 +99,7 @@ public class FXMLModuloPromocionController implements Initializable {
         
     }
 
+    @FXML
     private void btRegistroPromocion(ActionEvent event) throws IOException{
 
         
@@ -120,6 +121,7 @@ public class FXMLModuloPromocionController implements Initializable {
         obtenerPromociones();
     }
 
+    @FXML
     private void btVerInfoPromocion(ActionEvent event) throws IOException {
 
         int posicionSeleccionada = tvPromocion.getSelectionModel().getSelectedIndex();

@@ -139,6 +139,25 @@ public class FXMLHomeController implements Initializable {
 
     @FXML
     private void btModuloPromociones(ActionEvent event) {
+        
+        try {
+
+            FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLModuloPromocion.fxml"));
+            Parent vista = vistaLoad.load();
+
+            FXMLModuloPromocionController controller = vistaLoad.getController();
+
+            Stage stage = new Stage();
+            Scene escenaEditarPaciente = new Scene(vista);
+            stage.setScene(escenaEditarPaciente);
+            stage.setTitle("Información promociones");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+        } catch (Exception e) {
+            Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, e);
+        }
+        
     }
 
 }
