@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.paint.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -19,171 +14,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriosmartcupon.FXMLFormPromocionController">
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="clienteescritoriosmartcupon.FXMLFormPromocionController">
    <children>
       <ImageView fitHeight="577.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@recursos/fondo.png" />
          </image>
       </ImageView>
-      <Label fx:id="lbUsuario" layoutX="19.0" layoutY="14.0" text="Información de la promoción" textFill="WHITE">
+      <Label fx:id="lbUsuario" layoutX="17.0" layoutY="14.0" text="Información de la promoción" textFill="WHITE">
          <font>
             <Font size="37.0" />
          </font>
       </Label>
-      <VBox layoutX="531.0" layoutY="113.0" prefHeight="320.0" prefWidth="240.0">
+      <HBox fx:id="vbBotones" alignment="TOP_RIGHT" layoutX="121.0" layoutY="479.0" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="43.0" prefWidth="663.0">
          <children>
-            <Label text="Asignar a una sucursal" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Label>
-            <ComboBox fx:id="cbAsignarSucursal" onAction="#cbAsignarSucursal" prefHeight="31.0" prefWidth="244.0">
-               <VBox.margin>
-                  <Insets top="2.0" />
-               </VBox.margin>
-            </ComboBox>
-            <Label text="Fecha de Inicio" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </Label>
-            <DatePicker fx:id="dpFechaInicio" onAction="#dpFechaInicio" prefHeight="35.0" prefWidth="218.0">
-               <VBox.margin>
-                  <Insets top="2.0" />
-               </VBox.margin>
-            </DatePicker>
-            <Label text="Fecha de Fin" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            <DatePicker fx:id="dpFechaFin" onAction="#dpFechafin" prefHeight="35.0" prefWidth="218.0">
-               <VBox.margin>
-                  <Insets top="2.0" />
-               </VBox.margin>
-            </DatePicker>
-            <Label text="Número de cupones" textFill="WHITE">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="tfNumCupones" prefHeight="31.0" prefWidth="151.0">
-               <VBox.margin>
-                  <Insets top="2.0" />
-               </VBox.margin>
-            </TextField>
-         </children>
-      </VBox>
-      <VBox layoutX="274.0" layoutY="114.0" prefHeight="320.0" prefWidth="240.0">
-         <children>
-            <Label text="Nombre promoción" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <TextField fx:id="tfNombrePromocion" promptText="Nombre promoción">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="2.0" />
-               </VBox.margin>
-            </TextField>
-            <Label text="Descripción" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="tfDescripcion" promptText="Descripcion">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="2.0" />
-               </VBox.margin>
-            </TextField>
-            <Label text="Restricciones" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="tfRestricciones" promptText="Restricciones">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="2.0" />
-               </VBox.margin>
-            </TextField>
-            <Label text="Categoría" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            <ComboBox fx:id="cbCategoria" onAction="#cbCategoria" prefHeight="31.0" prefWidth="241.0">
-               <VBox.margin>
-                  <Insets top="2.0" />
-               </VBox.margin>
-            </ComboBox>
-         </children>
-      </VBox>
-      <VBox fx:id="vbFoto" alignment="TOP_CENTER" layoutX="9.0" layoutY="135.0" prefHeight="279.0" prefWidth="240.0" style="-fx-background-color: #0C356A; -fx-background-radius: 15;">
-         <children>
-            <Pane prefHeight="170.0" prefWidth="150.0" style="-fx-border-color: white; -fx-border-radius: 15; -fx-border-style: dashed; -fx-border-width: 4;">
-               <VBox.margin>
-                  <Insets left="25.0" right="25.0" top="25.0" />
-               </VBox.margin>
-               <children>
-                  <ImageView fx:id="ivImagenPromocion" fitHeight="150.0" fitWidth="140.0" layoutX="17.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-               </children>
-            </Pane>
-            <HBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="52.0" prefWidth="235.0">
-               <children>
-                  <Button fx:id="btVerImagen" maxWidth="110.0" mnemonicParsing="false" onAction="#btVerImagen" prefHeight="31.0" prefWidth="105.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Ver Imagen" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="3.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="btSubirImagen" maxWidth="122.0" mnemonicParsing="false" onAction="#btSubirImagen" prefHeight="31.0" prefWidth="110.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Subir Imagen" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="9.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-               <VBox.margin>
-                  <Insets top="34.0" />
-               </VBox.margin>
-            </HBox>
-         </children>
-      </VBox>
-      <HBox fx:id="vbBotones" alignment="TOP_RIGHT" layoutX="111.0" layoutY="469.0" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="43.0" prefWidth="663.0">
-         <children>
-            <Button fx:id="btEliminarPromocion" maxWidth="140.0" mnemonicParsing="false" onAction="#btEliminarPromocion" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #BF3131; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Eliminar" textFill="WHITE">
+            <Button fx:id="btEliminar" maxWidth="140.0" mnemonicParsing="false" onAction="#btEliminarPromocion" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #BF3131; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Eliminar" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
@@ -199,7 +45,7 @@
                   <Insets left="9.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btGuardarPromocion" maxWidth="140.0" mnemonicParsing="false" onAction="" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Guardar" textFill="WHITE">
+            <Button fx:id="btGuradarInfo" maxWidth="140.0" mnemonicParsing="false" onAction="#btSubirInfromacionPromocion" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Guardar" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
@@ -207,7 +53,7 @@
                   <Insets left="9.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btEditarPromocion" maxWidth="140.0" mnemonicParsing="false" onAction="#btEditarInformacionPromocion" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Editar" textFill="WHITE">
+            <Button fx:id="btEditarPromocion" maxWidth="140.0" mnemonicParsing="false" onAction="#btEditarInfromacionPromocion" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Editar" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
@@ -217,5 +63,194 @@
             </Button>
          </children>
       </HBox>
+      <VBox fx:id="vbFoto" alignment="TOP_CENTER" layoutX="39.0" layoutY="142.0" prefHeight="279.0" prefWidth="220.0" style="-fx-background-color: #0C356A; -fx-background-radius: 15;">
+         <children>
+            <Pane prefHeight="170.0" prefWidth="150.0" style="-fx-border-color: white; -fx-border-radius: 15; -fx-border-style: dashed; -fx-border-width: 4;">
+               <VBox.margin>
+                  <Insets left="25.0" right="25.0" top="25.0" />
+               </VBox.margin>
+               <children>
+                  <ImageView fx:id="ivImagenPromocion" fitHeight="150.0" fitWidth="140.0" layoutX="17.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <HBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="43.0" prefWidth="220.0">
+               <children>
+                  <Button maxWidth="110.0" mnemonicParsing="false" onAction="#btCargarImagen" prefHeight="29.0" prefWidth="95.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Cargar foto" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="3.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button maxWidth="122.0" mnemonicParsing="false" onAction="#btSubirImagen" prefHeight="29.0" prefWidth="95.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Subir foto" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="9.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets top="34.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="284.0" layoutY="81.0" prefHeight="371.0" prefWidth="240.0">
+         <children>
+            <Label text="Nombre promoción" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfNombre" promptText="Nombre promoción">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Descripción" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="tfDesc" promptText="Descripción">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Fecha inicio" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <DatePicker fx:id="dpFechaInicio" prefHeight="30.0" prefWidth="240.0" />
+            <Label text="Fecha termino" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <DatePicker fx:id="dpFechaTermino" prefHeight="30.0" prefWidth="240.0" />
+            <Label text="Restricciónes" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="tfRestricciones" promptText="Restricciónes">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Tipo de promoción" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+            <ComboBox fx:id="cbTipoPromocion" prefHeight="36.0" prefWidth="240.0" promptText="Tipo de promoción" />
+         </children>
+      </VBox>
+      <VBox layoutX="541.0" layoutY="71.0" prefHeight="385.0" prefWidth="240.0">
+         <children>
+            <Label text="Porcentaje costo" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="tfPorcentajeCosto" promptText="Porcentaje costo">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Categoría" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <ComboBox fx:id="cbCategorias" prefHeight="36.0" prefWidth="240.0" promptText="Categoría" />
+            <Label text="Cupones maximos" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="tfCupones" promptText="Cupones maximos">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Código promoción" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="tfCodigoPromo" promptText="Código">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="2.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Empresa" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <ComboBox fx:id="cbEmpresas" prefHeight="36.0" prefWidth="240.0" promptText="Empresa" />
+            <TextField fx:id="tfEstatus" prefHeight="36.0" prefWidth="240.0" promptText="Estatus">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
