@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriosmartcupon.FXMLFromEmpresaController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriosmartcupon.FXMLFormPromocionController">
    <children>
       <ImageView fitHeight="577.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -199,7 +199,7 @@
                   <Insets left="9.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btGuardarPromocion" maxWidth="140.0" mnemonicParsing="false" onAction="#btSubirInfromacionPromocion" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Guardar" textFill="WHITE">
+            <Button fx:id="btGuardarPromocion" maxWidth="140.0" mnemonicParsing="false" onAction="" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Guardar" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
