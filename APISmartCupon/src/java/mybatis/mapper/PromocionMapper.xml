@@ -88,6 +88,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE codigoPromocion = #{codigoPromocion}
     </select>
     
+    <select id="obtenerPromocionByEstatus" parameterType="boolean" resultType="modelo.pojo.Promocion">
+        SELECT
+        idPromocion,
+        idEmpresa,
+        nombrePromocion,
+        descripcion,   
+        fechaInicioPromocion,
+        fechaTerminoPromocion,
+        restricciones,
+        idTipoPromocion,
+        porcentaje_Costo,
+        idCategoria,
+        cuponesMaximos,
+        codigoPromocion,
+        estatus
+        FROM promocion
+        WHERE estatus = #{estaus}
+    </select>
+    
     <select id="buscar" parameterType="String" resultType="modelo.pojo.Promocion">
         SELECT
         idPromocion,

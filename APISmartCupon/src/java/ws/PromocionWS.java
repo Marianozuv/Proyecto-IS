@@ -75,7 +75,19 @@ public class PromocionWS {
         return PromocionDAO.obtenerTiposPromociones();
 
     }
+    
+    @GET
+    @Path("obtenerByEstatus/{estatus}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Promocion> obtenerPromocionByEstatus(@PathParam("estatus") boolean estatus) {
 
+        if (estatus = true) {
+            return PromocionDAO.obtenerPromocionByEstatus(estatus);
+        } else {
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+    }
+    
     @GET
     @Path("buscar")
     public List<Promocion> buscarPromocion(

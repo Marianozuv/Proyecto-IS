@@ -107,6 +107,22 @@ public class PromocionDAO {
 
         return promocion;
     }
+    
+    public static List<Promocion> obtenerPromocionByEstatus(boolean estatus) {
+
+        SqlSession sqlSession = MyBatisUtil.getSession();
+        List<Promocion> promociones = null;
+
+        try {
+            promociones = sqlSession.selectList("promociones.obtenerPromocionByEstatus", estatus);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            sqlSession.close();
+        }
+
+        return promociones;
+    }
 
     public List<Promocion> buscarPromocion(String fechaInicioPromocion, String fechaTerminoPromocion, String nombrePromocion) {
         List<Promocion> promociones = null;
