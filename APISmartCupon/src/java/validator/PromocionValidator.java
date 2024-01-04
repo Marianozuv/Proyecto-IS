@@ -65,6 +65,11 @@ public class PromocionValidator {
         
         if (isNullOrEmpty(promocion.getCodigoPromocion())) {
             response.setMensaje("Codigo");
+        } else {
+            // Validar si el código es alfanumérico y tiene 8 caracteres
+            if (!promocion.getCodigoPromocion().matches("[a-zA-Z0-9]{8}")) {
+                response.setMensaje("Codigo debe ser alfanumérico y tener 8 caracteres");
+            }
         }
 
         if (!response.getMensaje().equals("OK")) {

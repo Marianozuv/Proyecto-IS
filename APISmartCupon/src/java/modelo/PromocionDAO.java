@@ -185,7 +185,7 @@ public class PromocionDAO {
         return mensaje;
     }
     
-    private HashMap<String, Object> toparam(Promocion promocion) {
+    /*private HashMap<String, Object> toparam(Promocion promocion) {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("idPromocion", promocion.getIdPromocion());
         parametros.put("idEmpresa", promocion.getIdEmpresa());
@@ -203,7 +203,7 @@ public class PromocionDAO {
         return parametros;
     }
 
-    /*public Mensaje editar(Promocion promocion) {
+    public Mensaje editar(Promocion promocion) {
 
         Mensaje response = new Mensaje();
         HashMap<String, Object> parametros = toparam(promocion);
