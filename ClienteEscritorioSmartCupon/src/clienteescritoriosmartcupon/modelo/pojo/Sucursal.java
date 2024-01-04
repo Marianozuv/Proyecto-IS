@@ -118,4 +118,9 @@ public class Sucursal {
     public void setNombreEncargado(String nombreEncargado) {
         this.nombreEncargado = nombreEncargado;
     }
+
+    @Override
+    public String toString() {
+        return "-" + nombreSucursal; //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -23,12 +23,17 @@ import java.time.LocalDate;
 import java.util.Base64;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -40,6 +45,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import jdk.nashorn.internal.codegen.CompilerConstants;
@@ -209,7 +215,7 @@ public class FXMLFormPromocionController implements Initializable {
 
     @FXML
     private void btEliminarPromocion(ActionEvent event) {
-        
+
         if (Utilidades.mostrarAlertaConfirmacion("Eliminar promocion", "¿Está seguro de eliminar la promocion?")) {
             Mensaje mensaje = PromocionDAO.eliminarPromocion(promocion);
 
@@ -363,7 +369,28 @@ public class FXMLFormPromocionController implements Initializable {
         Mensaje mensaje = PromocionDAO.registrarPromocion(promocion);
         if (!mensaje.isError()) {
             Utilidades.mostrarAlertaSimple("Promocion guardada", mensaje.getMensaje(), Alert.AlertType.INFORMATION);
+            
+            try {
+
+                FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLAsignarSucursal.fxml"));
+                Parent vista = vistaLoad.load();
+
+                FXMLAsignarSucursalController controller = vistaLoad.getController();
+                controller.inicializarInfomracion(promocion);
+
+                Stage stage = new Stage();
+                Scene scene = new Scene(vista);
+                stage.setScene(scene);
+                stage.setTitle("Asignar sucursales");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+
+            } catch (Exception e) {
+                Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, e);
+            }
+            
             cerrarVentana();
+            
         } else {
             Utilidades.mostrarAlertaSimple("Error al registrar", mensaje.getMensaje(), Alert.AlertType.ERROR);
         }

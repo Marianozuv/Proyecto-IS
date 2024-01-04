@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="clienteescritoriosmartcupon.FXMLAsignarSucursalController">
+   <children>
+      <ImageView fitHeight="577.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@recursos/fondo.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lbUsuario" layoutX="18.0" layoutY="13.0" text="Asignar sucursal" textFill="WHITE">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <VBox fx:id="vbFoto" layoutX="154.0" layoutY="159.0" prefHeight="279.0" prefWidth="227.0" style="-fx-background-color: #0C356A; -fx-background-radius: 15;">
+         <children>
+            <Label alignment="TOP_CENTER" prefHeight="24.0" prefWidth="227.0" text="Información promoción" textAlignment="CENTER" textFill="WHITE">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label text="Nombre promoción" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="6.0" top="20.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="tfNombre" disable="true" editable="false" promptText="Nombre promoción">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="6.0" right="6.0" top="2.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Cupones" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="6.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="tfCupones" disable="true" editable="false" promptText="Nombre empresa">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="6.0" right="6.0" top="2.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Código" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="6.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="tfCodigo" disable="true" editable="false" promptText="Tipo categoría">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="6.0" right="6.0" top="2.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+      <VBox layoutX="407.0" layoutY="159.0" prefHeight="281.0" prefWidth="240.0">
+         <children>
+            <Label text="Seleccionar sucursal a asignar" textFill="WHITE">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cbSucursales" prefHeight="36.0" prefWidth="240.0" promptText="Sucursales">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </ComboBox>
+            <Button maxWidth="296.0" mnemonicParsing="false" onAction="#btAsignarSucursal" prefHeight="37.0" prefWidth="296.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Asignar" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button maxWidth="307.0" mnemonicParsing="false" onAction="#btConcluir" prefHeight="37.0" prefWidth="307.0" style="-fx-background-color: #BF3131; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Concluir" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
