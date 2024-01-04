@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,6 +40,8 @@ public class FXMLModuloPromocionController implements Initializable {
 
     private Promocion promocion;
     private ObservableList<Promocion> promociones;
+    private FilteredList<Promocion> filteredPromocion;
+    
     @FXML
     private Label lbUsuario;
     @FXML
@@ -65,6 +68,24 @@ public class FXMLModuloPromocionController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         obtenerPromociones();
         cargarPromociones();
+        
+        filteredPromocion = new FilteredList<>(promociones, p -> true);
+        tvPromociones.setItems(filteredPromocion);
+        
+        tfBuscador.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredPromocion.setPredicate(promocion -> {
+                // Si el TextField está vacío, muestra todos los resultados
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                // Convertir el texto a minúsculas para hacer una búsqueda no sensible a mayúsculas
+                String textoBusqueda = newValue.toLowerCase();
+                // Aquí define tu lógica de filtrado basada en tus criterios
+                return promocion.getNombrePromocion().toLowerCase().contains(textoBusqueda)
+                        || promocion.getFechaInicioPromocion().toLowerCase().contains(textoBusqueda)
+                        || promocion.getFechaTerminoPromocion().toLowerCase().contains(textoBusqueda);
+            });
+        });
     }
 
     private void obtenerPromociones() {
