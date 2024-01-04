@@ -23,6 +23,7 @@ import modelo.pojo.PromocionSucursal;
 import modelo.pojo.Sucursal;
 import modelo.pojo.SucursalPromocion;
 import modelo.pojo.TipoPromocion;
+import validator.PromocionValidator;
 
 @Path("promocion")
 public class PromocionWS {
@@ -141,7 +142,7 @@ public class PromocionWS {
 
     }
 
-    @PUT
+    /*@PUT
     @Path("editarPromocion")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -155,7 +156,19 @@ public class PromocionWS {
         } else {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
-
+    }*/
+    
+    @PUT
+    @Path("editar")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje editar(Promocion promocion){
+        Mensaje mensaje = PromocionValidator.isValid(promocion);
+        if(mensaje.isError()) {
+            return mensaje;
+        }
+        PromocionDAO dao = new PromocionDAO();
+        return dao.editar(promocion);
     }
 
     @DELETE

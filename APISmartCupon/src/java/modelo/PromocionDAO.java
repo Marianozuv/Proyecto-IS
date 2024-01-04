@@ -152,7 +152,7 @@ public class PromocionDAO {
         return promociones;
     }
 
-    public static Mensaje editarPromocion(Promocion promocion) {
+    /*public static Mensaje editarPromocion(Promocion promocion) {
         Mensaje mensaje = new Mensaje();
         mensaje.setError(true);
 
@@ -183,6 +183,59 @@ public class PromocionDAO {
         }
 
         return mensaje;
+    }*/
+    
+    private HashMap<String, Object> toparam(Promocion promocion) {
+        HashMap<String, Object> parametros = new HashMap<>();
+        parametros.put("idPromocion", promocion.getIdPromocion());
+        parametros.put("idEmpresa", promocion.getIdEmpresa());
+        parametros.put("nombrePromocion", promocion.getNombrePromocion());
+        parametros.put("descripcion", promocion.getDescripcion());
+        parametros.put("fechaInicioPromocion", promocion.getFechaInicioPromocion());
+        parametros.put("fechaTerminoPromocion", promocion.getFechaTerminoPromocion());
+        parametros.put("restricciones", promocion.getRestricciones());
+        parametros.put("idTipoPromocion", promocion.getIdTipoPromocion());
+        parametros.put("porcentaje_Costo", promocion.getPorcentaje_Costo());
+        parametros.put("idCategoria", promocion.getIdCategoria());
+        parametros.put("cuponesMaximos", promocion.getCuponesMaximos());
+        parametros.put("codigoPromocion", promocion.getCodigoPromocion());
+
+        return parametros;
+    }
+
+    public Mensaje editar(Promocion promocion) {
+
+        Mensaje response = new Mensaje();
+        HashMap<String, Object> parametros = toparam(promocion);
+        SqlSession conn = MyBatisUtil.getSession();
+        response.setMensaje("OK");
+
+        if (conn != null) {
+            try {
+                if (promocion.getIdPromocion()== 0) {
+                    response.setMensaje("ID necesario para actualizar");
+                }
+                Promocion found = conn.selectOne("promociones.obtenerPromocion", promocion.getIdPromocion());
+                if (found != null) {
+                    int count = conn.update("promociones.editarPromocion", parametros);
+                    conn.commit();
+                    if (count > 0) {
+                        response.setMensaje("Promocion actualizada con éxito.");
+                    } else {
+                        response.setMensaje("Lo sentimos, no se pudo actualizar la información del Usuario.");
+                    }
+                }
+            } catch (Exception e) {
+                response.setError(true);
+                response.setMensaje("Error: " + e.getMessage());
+            } finally {
+                conn.close();
+            }
+        } else {
+            response.setMensaje("Por el momento no hay conexión con la base de datos.");
+        }
+
+        return response;
     }
 
     public static Mensaje eliminarPromocion(int idPromocion) {
