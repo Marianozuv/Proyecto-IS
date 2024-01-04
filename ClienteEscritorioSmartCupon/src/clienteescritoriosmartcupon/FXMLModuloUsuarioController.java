@@ -153,7 +153,7 @@ public class FXMLModuloUsuarioController implements Initializable {
         colNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
         colApellidoPaterno.setCellValueFactory(new PropertyValueFactory("apellidoPaterno"));
         colApellidoMaterno.setCellValueFactory(new PropertyValueFactory("apellidoMaterno"));
-        colCURP.setCellValueFactory(new PropertyValueFactory("curp"));
+        colCURP.setCellValueFactory(new PropertyValueFactory("CURP"));
         colEmail.setCellValueFactory(new PropertyValueFactory("email"));
         colRol.setCellValueFactory(new PropertyValueFactory("rol"));
         colUsername.setCellValueFactory(new PropertyValueFactory("username"));

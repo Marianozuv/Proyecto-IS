@@ -235,7 +235,7 @@ public class FXMLFormUsuarioController implements Initializable {
             tfNombre.setText(usuario.getNombre());
             tfApellidoPaterno.setText(usuario.getApellidoPaterno());
             tfApellidoMaterno.setText(usuario.getApellidoMaterno());
-            tfCURP.setText(usuario.getCurp());
+            tfCURP.setText(usuario.getCURP());
             tfEmail.setText(usuario.getEmail());
             tfUsername.setText(usuario.getUsername());
             tfPassword.setText(usuario.getPassword());
@@ -277,7 +277,7 @@ public class FXMLFormUsuarioController implements Initializable {
         usuario.setNombre(tfNombre.getText());
         usuario.setApellidoPaterno(tfApellidoPaterno.getText());
         usuario.setApellidoMaterno(tfApellidoMaterno.getText());
-        usuario.setCurp(tfCURP.getText());
+        usuario.setCURP(tfCURP.getText());
         usuario.setEmail(tfEmail.getText());
         usuario.setUsername(tfUsername.getText());
         usuario.setPassword(tfPassword.getText());

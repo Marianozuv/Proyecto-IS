@@ -12,7 +12,7 @@ public class JsonUtility {
                 .append(addChild("nombre", usuario.getNombre(), true))
                 .append(addChild("apellidoPaterno", usuario.getApellidoPaterno(), true))
                 .append(addChild("apellidoMaterno", usuario.getApellidoMaterno(), true))
-                .append(addChild("CURP", usuario.getCurp()+ "", true))
+                .append(addChild("CURP", usuario.getCURP()+ "", true))
                 .append(addChild("email", usuario.getEmail()+ "", true))
                 .append(addChild("username", usuario.getUsername()+ "", true))
                 .append(addChild("password", usuario.getPassword(), false))
