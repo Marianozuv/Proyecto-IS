@@ -19,6 +19,7 @@ import javax.ws.rs.core.UriInfo;
 import modelo.PromocionDAO;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
+import modelo.pojo.PromocionSucursal;
 import modelo.pojo.Sucursal;
 import modelo.pojo.SucursalPromocion;
 import modelo.pojo.TipoPromocion;
@@ -92,10 +93,10 @@ public class PromocionWS {
     public Mensaje asignarSucursalPromocion(String json) {
 
         Gson gson = new Gson();
-        SucursalPromocion sucursalPromocion = gson.fromJson(json, SucursalPromocion.class);
+        PromocionSucursal promocionSucursal = gson.fromJson(json, PromocionSucursal.class);
 
-        if (sucursalPromocion != null) {
-            return PromocionDAO.asignarSucursal(sucursalPromocion);
+        if (promocionSucursal != null) {
+            return PromocionDAO.asignarSucursal(promocionSucursal);
         } else {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }

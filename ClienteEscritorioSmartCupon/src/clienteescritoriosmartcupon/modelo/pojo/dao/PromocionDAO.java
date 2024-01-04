@@ -4,6 +4,7 @@ import clienteescritoriosmartcupon.modelo.ConexionHTTP;
 import clienteescritoriosmartcupon.modelo.pojo.CodigoHTTP;
 import clienteescritoriosmartcupon.modelo.pojo.Promocion;
 import clienteescritoriosmartcupon.modelo.pojo.Mensaje;
+import clienteescritoriosmartcupon.modelo.pojo.PromocionSucursal;
 import clienteescritoriosmartcupon.modelo.pojo.TipoPromocion;
 import clienteescritoriosmartcupon.utils.Constantes;
 import com.google.gson.Gson;
@@ -69,6 +70,25 @@ public class PromocionDAO {
         } else {
             mensaje.setError(true);
             mensaje.setMensaje("Error al registrar la promoción: " + codigoRespuesta.getContenido());
+        }
+
+        return mensaje;
+    }
+
+    public static Mensaje asignarSucursal(PromocionSucursal promocionSucursal) {
+        Mensaje mensaje = new Mensaje();
+        String url = Constantes.URL_WS + "promocion/asignarSucursal";
+
+        Gson gson = new Gson();
+        String parametros = gson.toJson(promocionSucursal);
+
+        CodigoHTTP codigoRespuesta = ConexionHTTP.peticionPOSTJSON(url, parametros);
+
+        if (codigoRespuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK) {
+            mensaje = gson.fromJson(codigoRespuesta.getContenido(), Mensaje.class);
+        } else {
+            mensaje.setError(true);
+            mensaje.setMensaje("Error al asignar la sucursal: " + codigoRespuesta.getContenido());
         }
 
         return mensaje;

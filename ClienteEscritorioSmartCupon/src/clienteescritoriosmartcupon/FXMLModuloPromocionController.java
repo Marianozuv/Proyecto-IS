@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -41,7 +43,7 @@ public class FXMLModuloPromocionController implements Initializable {
     private Promocion promocion;
     private ObservableList<Promocion> promociones;
     private FilteredList<Promocion> filteredPromocion;
-    
+
     @FXML
     private Label lbUsuario;
     @FXML
@@ -68,10 +70,10 @@ public class FXMLModuloPromocionController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         obtenerPromociones();
         cargarPromociones();
-        
+
         filteredPromocion = new FilteredList<>(promociones, p -> true);
         tvPromociones.setItems(filteredPromocion);
-        
+
         tfBuscador.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredPromocion.setPredicate(promocion -> {
                 // Si el TextField está vacío, muestra todos los resultados
@@ -131,8 +133,8 @@ public class FXMLModuloPromocionController implements Initializable {
     }
 
     @FXML
-    private void btVerInfoPromocion(ActionEvent event) throws IOException{
-        
+    private void btVerInfoPromocion(ActionEvent event) throws IOException {
+
         int posicionSeleccionada = tvPromociones.getSelectionModel().getSelectedIndex();
 
         if (posicionSeleccionada != -1) {
@@ -156,6 +158,36 @@ public class FXMLModuloPromocionController implements Initializable {
 
         } else {
             Utilidades.mostrarAlertaSimple("Ver información promoción", "Para poder modificar debes seleccionar una promoción", Alert.AlertType.INFORMATION);
+        }
+    }
+
+    @FXML
+    private void btAsignarSucursal(ActionEvent event) {
+
+        int posicionSeleccionada = tvPromociones.getSelectionModel().getSelectedIndex();
+
+        if (posicionSeleccionada != -1) {
+            try {
+                Promocion promocion = promociones.get(posicionSeleccionada);
+                
+                FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLAsignarSucursal.fxml"));
+                Parent vista = vistaLoad.load();
+
+                FXMLAsignarSucursalController controller = vistaLoad.getController();
+                controller.inicializarInfomracion(promocion);
+
+                Stage stage = new Stage();
+                Scene scene = new Scene(vista);
+                stage.setScene(scene);
+                stage.setTitle("Asignar sucursales");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+
+            } catch (Exception e) {
+                Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, e);
+            }
+        } else {
+            Utilidades.mostrarAlertaSimple("Asignar sucursal", "Para poder asignar sucursales debes seleccionar una promoción", Alert.AlertType.INFORMATION);
         }
     }
 

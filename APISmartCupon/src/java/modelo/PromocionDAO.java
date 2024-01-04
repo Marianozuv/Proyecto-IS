@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
+import modelo.pojo.PromocionSucursal;
 import modelo.pojo.Sucursal;
 import modelo.pojo.SucursalPromocion;
 import modelo.pojo.TipoPromocion;
@@ -221,7 +222,7 @@ public class PromocionDAO {
         return sucursales;
     }
 
-    public static Mensaje asignarSucursal(SucursalPromocion sucursalPromocion) {
+    public static Mensaje asignarSucursal(PromocionSucursal promocionSucursal) {
 
         Mensaje mensaje = new Mensaje();
         mensaje.setError(true);
@@ -232,7 +233,7 @@ public class PromocionDAO {
 
             try {
 
-                int filasAfectadas = sqlSession.insert("promociones.asignarSucursalPromocion", sucursalPromocion);
+                int filasAfectadas = sqlSession.insert("promociones.asignarPromocionSucursal", promocionSucursal);
 
                 if (filasAfectadas > 0) {
                     mensaje.setError(false);
@@ -244,7 +245,7 @@ public class PromocionDAO {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                mensaje.setMensaje(e.getMessage());
+                mensaje.setMensaje("La sucursal seleccionada ya esta asignada");
             } finally {
                 sqlSession.close();
             }

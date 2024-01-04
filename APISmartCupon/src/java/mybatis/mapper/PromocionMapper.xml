@@ -38,6 +38,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         UPDATE promocion SET imagenPromocion = #{imagenPromocion} WHERE idPromocion = #{idPromocion}
     </update>
     
+    <insert id="asignarPromocionSucursal" parameterType="modelo.pojo.PromocionSucursal">
+        INSERT INTO promocion_sucursal (idPromocion, idSucursal)
+        VALUES (#{idPromocion}, #{idSucursal})
+    </insert>
+    
     <select id="obtenerPromocion" parameterType="int" resultType="modelo.pojo.Promocion">
         SELECT
         idPromocion,

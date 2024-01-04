@@ -380,28 +380,7 @@ public class FXMLFormPromocionController implements Initializable {
         Mensaje mensaje = PromocionDAO.registrarPromocion(promocion);
         if (!mensaje.isError()) {
             Utilidades.mostrarAlertaSimple("Promocion guardada", mensaje.getMensaje(), Alert.AlertType.INFORMATION);
-            
-            try {
-
-                FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLAsignarSucursal.fxml"));
-                Parent vista = vistaLoad.load();
-
-                FXMLAsignarSucursalController controller = vistaLoad.getController();
-                controller.inicializarInfomracion(promocion);
-
-                Stage stage = new Stage();
-                Scene scene = new Scene(vista);
-                stage.setScene(scene);
-                stage.setTitle("Asignar sucursales");
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.showAndWait();
-
-            } catch (Exception e) {
-                Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, e);
-            }
-            
-            cerrarVentana();
-            
+            cerrarVentana();     
         } else {
             Utilidades.mostrarAlertaSimple("Error al registrar", mensaje.getMensaje(), Alert.AlertType.ERROR);
         }

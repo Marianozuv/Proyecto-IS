@@ -5,9 +5,13 @@
  */
 package clienteescritoriosmartcupon;
 
+import clienteescritoriosmartcupon.modelo.pojo.Mensaje;
 import clienteescritoriosmartcupon.modelo.pojo.Promocion;
+import clienteescritoriosmartcupon.modelo.pojo.PromocionSucursal;
 import clienteescritoriosmartcupon.modelo.pojo.Sucursal;
+import clienteescritoriosmartcupon.modelo.pojo.dao.PromocionDAO;
 import clienteescritoriosmartcupon.modelo.pojo.dao.SucursalDAO;
+import clienteescritoriosmartcupon.utils.Utilidades;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -16,6 +20,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -29,6 +34,7 @@ import javafx.stage.Stage;
  */
 public class FXMLAsignarSucursalController implements Initializable {
 
+    private PromocionSucursal promocionSucursal;
     private ObservableList<Sucursal> sucursales;
     private Promocion promocion;
     @FXML
@@ -54,6 +60,7 @@ public class FXMLAsignarSucursalController implements Initializable {
 
     public void inicializarInfomracion(Promocion promocion) {
         this.promocion = promocion;
+        promocionSucursal = new PromocionSucursal();
         cargarDatos(promocion);
         cargarSucursales();
     }
@@ -66,6 +73,20 @@ public class FXMLAsignarSucursalController implements Initializable {
 
     @FXML
     private void btAsignarSucursal(ActionEvent event) {
+        promocionSucursal.setIdPromocion(promocion.getIdPromocion());
+        Sucursal sucursalSeleccion = sucursales.get(cbSucursales.getSelectionModel().getSelectedIndex());
+        promocionSucursal.setIdSucursal(sucursalSeleccion.getIdSucursal());
+        
+        asignarSucursal(promocionSucursal);
+    }
+
+    private void asignarSucursal(PromocionSucursal promocionSucursal) {
+        Mensaje mensaje = PromocionDAO.asignarSucursal(promocionSucursal);
+        if (!mensaje.isError()) {
+            Utilidades.mostrarAlertaSimple("Sucursal asignada", mensaje.getMensaje(), Alert.AlertType.INFORMATION);
+        } else {
+            Utilidades.mostrarAlertaSimple("Error al asignar", mensaje.getMensaje(), Alert.AlertType.ERROR);
+        }
     }
 
     @FXML
