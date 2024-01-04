@@ -57,7 +57,7 @@ public class PromocionDAO {
 
     public static Mensaje registrarPromocion(Promocion promocion) {
         Mensaje mensaje = new Mensaje();
-        String url = Constantes.URL_WS + "promocion/registrar";
+        String url = Constantes.URL_WS + "promocion/registrarPromocion";
 
         Gson gson = new Gson();
         String parametros = gson.toJson(promocion);
@@ -68,7 +68,7 @@ public class PromocionDAO {
             mensaje = gson.fromJson(codigoRespuesta.getContenido(), Mensaje.class);
         } else {
             mensaje.setError(true);
-            mensaje.setMensaje("Error al registrar la promoción");
+            mensaje.setMensaje("Error al registrar la promoción: " + codigoRespuesta.getContenido());
         }
 
         return mensaje;
@@ -76,7 +76,7 @@ public class PromocionDAO {
 
     public static Mensaje editarPromocion(Promocion promocion) {
         Mensaje mensaje = new Mensaje();
-        String url = Constantes.URL_WS + "promocion/editar";
+        String url = Constantes.URL_WS + "promocion/editarPromocion";
 
         Gson gson = new Gson();
         String parametros = gson.toJson(promocion);
@@ -99,7 +99,7 @@ public class PromocionDAO {
 
         try {
 
-            String url = Constantes.URL_WS + "empresa/subirImagenPromocion/" + idPromocion;
+            String url = Constantes.URL_WS + "promocion/registrarImagen/" + idPromocion;
             byte[] imagen = Files.readAllBytes(fotoFile.toPath());
             CodigoHTTP respuesta = ConexionHTTP.peticionPUTImagen(url, imagen);
             if (respuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK) {
@@ -120,7 +120,7 @@ public class PromocionDAO {
 
     public static Promocion obtenerImagenPromocion(int idPromocion) {
         Promocion promocion = null;
-        String url = Constantes.URL_WS + "empresa/obtenerImagenPromocion/" + idPromocion;
+        String url = Constantes.URL_WS + "promocion/obtenerImgen/" + idPromocion;
         CodigoHTTP respuesta = ConexionHTTP.peticionGET(url);
         if (respuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK) {
             Gson gson = new Gson();

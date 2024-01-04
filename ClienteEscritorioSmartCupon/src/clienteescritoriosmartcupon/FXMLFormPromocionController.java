@@ -7,29 +7,41 @@ package clienteescritoriosmartcupon;
 
 import clienteescritoriosmartcupon.modelo.pojo.Categoria;
 import clienteescritoriosmartcupon.modelo.pojo.Empresa;
+import clienteescritoriosmartcupon.modelo.pojo.Mensaje;
 import clienteescritoriosmartcupon.modelo.pojo.Promocion;
 import clienteescritoriosmartcupon.modelo.pojo.TipoPromocion;
 import clienteescritoriosmartcupon.modelo.pojo.dao.CategoriasDAO;
 import clienteescritoriosmartcupon.modelo.pojo.dao.EmpresaDAO;
 import clienteescritoriosmartcupon.modelo.pojo.dao.PromocionDAO;
+import clienteescritoriosmartcupon.utils.Utilidades;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 import jdk.nashorn.internal.codegen.CompilerConstants;
 
 /**
@@ -44,6 +56,7 @@ public class FXMLFormPromocionController implements Initializable {
     private ObservableList<Categoria> categorias;
     private boolean isEdicion;
     private Promocion promocion;
+    private File imagenPromo;
     @FXML
     private Label lbUsuario;
     @FXML
@@ -99,6 +112,7 @@ public class FXMLFormPromocionController implements Initializable {
             this.isEdicion = isEdicion;
             this.promocion = promocion;
             cargarDatos(promocion, isEdicion);
+            obtenerImagenPromocion(promocion.getIdPromocion());
             cargarEmpresas();
             seleccionarEmpresa(promocion.getIdEmpresa());
             cargarCategorias();
@@ -111,6 +125,7 @@ public class FXMLFormPromocionController implements Initializable {
             cargarDatos(null, isEdicion);
             cargarEmpresas();
             cargarCategorias();
+            cargarTiposPromociones();
         }
 
     }
@@ -172,15 +187,15 @@ public class FXMLFormPromocionController implements Initializable {
     private void habilitarInputs(Boolean editable) {
         tfNombre.setEditable(editable);
         tfDesc.setEditable(editable);
-        dpFechaInicio.setEditable(editable);
-        dpFechaTermino.setEditable(editable);
+        dpFechaInicio.setDisable(!editable);
+        dpFechaTermino.setDisable(!editable);
         tfRestricciones.setEditable(editable);
-        cbTipoPromocion.setEditable(editable);
+        cbTipoPromocion.setDisable(!editable);
         tfPorcentajeCosto.setEditable(editable);
-        cbCategorias.setEditable(editable);
+        cbCategorias.setDisable(!editable);
         tfCupones.setEditable(editable);
         tfCodigoPromo.setEditable(editable);
-        cbEmpresas.setEditable(editable);
+        cbEmpresas.setDisable(!editable);
         tfEstatus.setEditable(editable);
     }
 
@@ -202,6 +217,7 @@ public class FXMLFormPromocionController implements Initializable {
         if (isEdicion) {
             habilitarComponentes(isEdicion);
             cargarDatos(promocion, isEdicion);
+            obtenerImagenPromocion(promocion.getIdPromocion());
         } else {
             cerrarVentana();
         }
@@ -209,20 +225,45 @@ public class FXMLFormPromocionController implements Initializable {
 
     @FXML
     private void btSubirInfromacionPromocion(ActionEvent event) {
+
+        if (isEdicion) {
+            recuperarDatos();
+            editarPromocion(promocion);
+        } else {
+            recuperarDatos();
+            registrarPromocion(promocion);
+            cerrarVentana();
+        }
     }
 
     @FXML
     private void btEditarInfromacionPromocion(ActionEvent event) {
         habilitarComponentes(false);
         habilitarFotoEdit(false);
+        seleccionarEmpresa(promocion.getIdEmpresa());
+        seleccionarCategoria(promocion.getIdCategoria());
+        seleccionarTipoPromocion(promocion.getIdTipoPromocion());
+
     }
 
     @FXML
     private void btCargarImagen(ActionEvent event) {
+        imagenPromo = mostrarDialogoSeleccion();
+        if (imagenPromo != null) {
+            mostrarImagenSeleccionada(imagenPromo);
+        }
     }
 
     @FXML
     private void btSubirImagen(ActionEvent event) {
+        if (imagenPromo != null) {
+            Mensaje msj = PromocionDAO.subirImagenPromocion(imagenPromo, promocion.getIdPromocion());
+            if (!msj.isError()) {
+                Utilidades.mostrarAlertaSimple("Fotografia guardad", msj.getMensaje(), Alert.AlertType.INFORMATION);
+            } else {
+                Utilidades.mostrarAlertaSimple("Error", msj.getMensaje(), Alert.AlertType.ERROR);
+            }
+        }
     }
 
     private void cerrarVentana() {
@@ -279,7 +320,7 @@ public class FXMLFormPromocionController implements Initializable {
 
         for (TipoPromocion tipoPromocion : cbTipoPromocion.getItems()) {
 
-            if (tipoPromocion.getIdTipoPromocion()== idTipoPromocion) {
+            if (tipoPromocion.getIdTipoPromocion() == idTipoPromocion) {
 
                 cbTipoPromocion.getSelectionModel().select(tipoPromocion);
                 break;
@@ -287,4 +328,77 @@ public class FXMLFormPromocionController implements Initializable {
         }
     }
 
+    private void recuperarDatos() {
+        promocion.setNombrePromocion(tfNombre.getText());
+        promocion.setDescripcion(tfDesc.getText());
+        promocion.setFechaInicioPromocion(dpFechaInicio.getValue().toString());
+        promocion.setFechaTerminoPromocion(dpFechaTermino.getValue().toString());
+        promocion.setRestricciones(tfRestricciones.getText());
+        TipoPromocion tipoPromocionSeleccion = tipoPromociones.get(cbTipoPromocion.getSelectionModel().getSelectedIndex());
+        promocion.setIdTipoPromocion(tipoPromocionSeleccion.getIdTipoPromocion());
+        promocion.setPorcentaje_Costo(Integer.parseInt(tfPorcentajeCosto.getText()));
+        Categoria categoriaSeleccion = categorias.get(cbCategorias.getSelectionModel().getSelectedIndex());
+        promocion.setIdCategoria(categoriaSeleccion.getIdCategoria());
+        promocion.setCuponesMaximos(Integer.parseInt(tfCupones.getText()));
+        promocion.setCodigoPromocion(tfCodigoPromo.getText());
+        Empresa empresaSeleccion = empresas.get(cbEmpresas.getSelectionModel().getSelectedIndex());
+        promocion.setIdEmpresa(empresaSeleccion.getIdEmpresa());
+    }
+
+    private void registrarPromocion(Promocion promocion) {
+        Mensaje mensaje = PromocionDAO.registrarPromocion(promocion);
+        if (!mensaje.isError()) {
+            Utilidades.mostrarAlertaSimple("Promocion guardada", mensaje.getMensaje(), Alert.AlertType.INFORMATION);
+            cerrarVentana();
+        } else {
+            Utilidades.mostrarAlertaSimple("Error al registrar", mensaje.getMensaje(), Alert.AlertType.ERROR);
+        }
+    }
+
+    private void editarPromocion(Promocion promocion) {
+        Mensaje mensaje = PromocionDAO.editarPromocion(promocion);
+        if (!mensaje.isError()) {
+            Utilidades.mostrarAlertaSimple("Promocion editada", mensaje.getMensaje(), Alert.AlertType.INFORMATION);
+            cerrarVentana();
+        } else {
+            Utilidades.mostrarAlertaSimple("Error al editar", mensaje.getMensaje(), Alert.AlertType.ERROR);
+        }
+    }
+
+    private void obtenerImagenPromocion(int idPromocion) {
+
+        Promocion promocionImagen = PromocionDAO.obtenerImagenPromocion(idPromocion);
+        if (promocionImagen != null && promocionImagen.getImagenPromocionBase64() != null && promocionImagen.getImagenPromocionBase64().length() > 0) {
+            byte[] decodeImg = Base64.getDecoder().decode(promocionImagen.getImagenPromocionBase64().replaceAll("\\n", ""));
+            Image image = new Image(new ByteArrayInputStream(decodeImg));
+            ivImagenPromocion.setImage(image);
+        }
+
+    }
+
+    private void mostrarImagenSeleccionada(File fotoFile) {
+
+        try {
+
+            BufferedImage bufferedImage = ImageIO.read(fotoFile);
+            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            ivImagenPromocion.setImage(image);
+
+        } catch (IOException e) {
+
+            Utilidades.mostrarAlertaSimple("Error al cargar", "Error al intentar mostrar la imagen seleccionada", Alert.AlertType.ERROR);
+
+        }
+    }
+
+    private File mostrarDialogoSeleccion() {
+        FileChooser dialogoSeleccionImg = new FileChooser();
+        dialogoSeleccionImg.setTitle("Selecciona una imagen");
+        //Configuración para restringir tipos de archivos
+        FileChooser.ExtensionFilter filtroArchivos = new FileChooser.ExtensionFilter("Archivos PNG (*.png, *.jpg, *.jpeg)", "*.png", "*.jpg", "*.jpeg");
+        dialogoSeleccionImg.getExtensionFilters().add(filtroArchivos);
+        //Obtener imagen
+        Stage escenario = (Stage) tfNombre.getScene().getWindow();
+        return dialogoSeleccionImg.showOpenDialog(escenario);
+    }
 }
