@@ -57,6 +57,9 @@ public class FXMLFormPromocionController implements Initializable {
     private boolean isEdicion;
     private Promocion promocion;
     private File imagenPromo;
+    
+    private FXMLModuloPromocionController moduloPromocionController;
+    
     @FXML
     private Label lbUsuario;
     @FXML
@@ -104,6 +107,10 @@ public class FXMLFormPromocionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+    }
+    
+    public void setModuloPromocionController(FXMLModuloPromocionController controller) {
+        this.moduloPromocionController = controller;
     }
 
     public void inicializarInformacion(Promocion promocion, boolean isEdicion) {
@@ -222,6 +229,10 @@ public class FXMLFormPromocionController implements Initializable {
 
         } else {
             Utilidades.mostrarAlertaSimple("Operacion eliminar", "La operación eliminar se ha cancelado", Alert.AlertType.INFORMATION);
+        }
+        
+        if (moduloPromocionController != null) {
+            moduloPromocionController.obtenerPromociones();
         }
     }
 

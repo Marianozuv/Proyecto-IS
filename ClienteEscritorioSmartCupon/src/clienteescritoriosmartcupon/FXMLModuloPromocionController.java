@@ -88,7 +88,7 @@ public class FXMLModuloPromocionController implements Initializable {
         });
     }
 
-    private void obtenerPromociones() {
+    void obtenerPromociones() {
         try {
             promociones = FXCollections.observableArrayList();
             List<Promocion> info = PromocionDAO.obtenerPromociones();
@@ -127,6 +127,7 @@ public class FXMLModuloPromocionController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
 
+        obtenerPromociones();
     }
 
     @FXML
@@ -143,6 +144,7 @@ public class FXMLModuloPromocionController implements Initializable {
             Parent vista = vistaLoad.load();
 
             FXMLFormPromocionController controller = vistaLoad.getController();
+            controller.setModuloPromocionController(this);
             controller.inicializarInformacion(promocion, true);
 
             Stage stage = new Stage();
