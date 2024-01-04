@@ -127,7 +127,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         s.longitud,
         s.nombreEncargado
         FROM sucursal s
-        NATURAL JOIN sucursal_promocion sp
+        NATURAL JOIN promocion_sucursal sp
         WHERE idPromocion = #{idPromocion}
     </select>
     
