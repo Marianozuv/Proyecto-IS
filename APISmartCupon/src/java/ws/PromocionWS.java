@@ -142,7 +142,7 @@ public class PromocionWS {
 
     }
 
-    /*@PUT
+    @PUT
     @Path("editarPromocion")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -156,7 +156,7 @@ public class PromocionWS {
         } else {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
-    }*/
+    }
     
     @PUT
     @Path("editar")

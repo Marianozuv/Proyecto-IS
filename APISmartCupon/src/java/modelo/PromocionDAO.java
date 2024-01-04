@@ -152,7 +152,7 @@ public class PromocionDAO {
         return promociones;
     }
 
-    /*public static Mensaje editarPromocion(Promocion promocion) {
+    public static Mensaje editarPromocion(Promocion promocion) {
         Mensaje mensaje = new Mensaje();
         mensaje.setError(true);
 
@@ -183,7 +183,7 @@ public class PromocionDAO {
         }
 
         return mensaje;
-    }*/
+    }
     
     private HashMap<String, Object> toparam(Promocion promocion) {
         HashMap<String, Object> parametros = new HashMap<>();
