@@ -158,7 +158,7 @@ public class PromocionWS {
         }
     }
     
-    @PUT
+    /*@PUT
     @Path("editar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -169,7 +169,7 @@ public class PromocionWS {
         }
         PromocionDAO dao = new PromocionDAO();
         return dao.editar(promocion);
-    }
+    }*/
 
     @DELETE
     @Path("eliminarPromocion/{idPromocion}")
