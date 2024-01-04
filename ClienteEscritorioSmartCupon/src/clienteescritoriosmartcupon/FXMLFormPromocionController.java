@@ -209,6 +209,20 @@ public class FXMLFormPromocionController implements Initializable {
 
     @FXML
     private void btEliminarPromocion(ActionEvent event) {
+        
+        if (Utilidades.mostrarAlertaConfirmacion("Eliminar promocion", "¿Está seguro de eliminar la promocion?")) {
+            Mensaje mensaje = PromocionDAO.eliminarPromocion(promocion);
+
+            if (!mensaje.isError()) {
+                Utilidades.mostrarAlertaSimple("Eliminar promocion", mensaje.getMensaje(), Alert.AlertType.INFORMATION);
+                cerrarVentana();
+            } else {
+                Utilidades.mostrarAlertaSimple("Eliminar promocion", mensaje.getMensaje(), Alert.AlertType.INFORMATION);
+            }
+
+        } else {
+            Utilidades.mostrarAlertaSimple("Operacion eliminar", "La operación eliminar se ha cancelado", Alert.AlertType.INFORMATION);
+        }
     }
 
     @FXML

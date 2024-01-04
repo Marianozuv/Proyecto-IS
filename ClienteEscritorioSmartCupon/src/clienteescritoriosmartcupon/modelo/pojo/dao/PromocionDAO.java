@@ -132,7 +132,7 @@ public class PromocionDAO {
 
     public static Mensaje eliminarPromocion(Promocion promocion) {
         Mensaje mensaje = new Mensaje();
-        String url = Constantes.URL_WS + "promocion/eliminar/" + promocion.getIdPromocion();
+        String url = Constantes.URL_WS + "promocion/eliminarPromocion/" + promocion.getIdPromocion();
         Gson gson = new Gson();
 
         CodigoHTTP respuesta = ConexionHTTP.peticionDELETE(url);
