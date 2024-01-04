@@ -4,6 +4,7 @@ import clienteescritoriosmartcupon.modelo.ConexionHTTP;
 import clienteescritoriosmartcupon.modelo.pojo.CodigoHTTP;
 import clienteescritoriosmartcupon.modelo.pojo.Promocion;
 import clienteescritoriosmartcupon.modelo.pojo.Mensaje;
+import clienteescritoriosmartcupon.modelo.pojo.TipoPromocion;
 import clienteescritoriosmartcupon.utils.Constantes;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -34,7 +35,25 @@ public class PromocionDAO {
 
         return promociones;
     }
-    
+
+    public static List<TipoPromocion> obtenerTiposPromociones() {
+        List<TipoPromocion> tipoPromociones = null;
+
+        String url = Constantes.URL_WS + "promocion/tipoPromociones";
+        CodigoHTTP respuesta = ConexionHTTP.peticionGET(url);
+
+        if (respuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK) {
+            Gson gson = new Gson();
+            Type tipoListadoPromociones = new TypeToken<List<TipoPromocion>>() {
+            }.getType();
+            tipoPromociones = gson.fromJson(respuesta.getContenido(), tipoListadoPromociones);
+        } else {
+            System.out.println(respuesta.getContenido());
+            System.out.println(respuesta.getCodigoRespuesta());
+        }
+
+        return tipoPromociones;
+    }
 
     public static Mensaje registrarPromocion(Promocion promocion) {
         Mensaje mensaje = new Mensaje();
@@ -110,16 +129,14 @@ public class PromocionDAO {
 
         return promocion;
     }
-    
-    
-    
+
     public static Mensaje eliminarPromocion(Promocion promocion) {
         Mensaje mensaje = new Mensaje();
-        String url = Constantes.URL_WS + "promocion/eliminar/" +promocion.getIdPromocion();
+        String url = Constantes.URL_WS + "promocion/eliminar/" + promocion.getIdPromocion();
         Gson gson = new Gson();
-        
+
         CodigoHTTP respuesta = ConexionHTTP.peticionDELETE(url);
-        if(respuesta.getCodigoRespuesta()== HttpURLConnection.HTTP_OK){
+        if (respuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK) {
             mensaje = gson.fromJson(respuesta.getContenido(), Mensaje.class);
         } else {
             mensaje.setError(true);
@@ -127,7 +144,7 @@ public class PromocionDAO {
         }
         return mensaje;
     }
-    
+
     public static Mensaje canjearCupon(Promocion promocion) {
         Mensaje mensaje = new Mensaje();
         String url = Constantes.URL_WS + "promocion/canjearCupon";

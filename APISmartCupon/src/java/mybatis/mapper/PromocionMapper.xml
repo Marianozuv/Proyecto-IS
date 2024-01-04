@@ -57,6 +57,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE idPromocion = #{idPromocion}
     </select>
     
+    <select id="obtenerTiposPromociones" resultType="modelo.pojo.TipoPromocion">
+        SELECT
+        idTipoPromocion,
+        TipoPoromocion
+        FROM cat_tipopromocion
+    </select>
+    
     <select id="obtenerPromocionByCodigo" parameterType="String" resultType="modelo.pojo.Promocion">
         SELECT
         idPromocion,
@@ -97,23 +104,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <insert id="asignarSucursalPromocion" parameterType="modelo.pojo.SucursalPromocion">
         INSERT INTO sucursal_promocion 
-               (idSucursal, idPromocion) 
+        (idSucursal, idPromocion) 
         VALUES (#{idSucursal}, #{idPromocion})
     </insert>
     
     
     <select id="sucursalesAsociadas" parameterType="int" resultType="modelo.pojo.Sucursal" >
         SELECT
-            s.idSucursal, 
-            s.nombreSucursal,
-            s.direccion,
-            s.codigoPostal,
-            s.colonia,
-            s.ciudad,
-            s.telefono,
-            s.latitud,
-            s.longitud,
-            s.nombreEncargado
+        s.idSucursal, 
+        s.nombreSucursal,
+        s.direccion,
+        s.codigoPostal,
+        s.colonia,
+        s.ciudad,
+        s.telefono,
+        s.latitud,
+        s.longitud,
+        s.nombreEncargado
         FROM sucursal s
         NATURAL JOIN sucursal_promocion sp
         WHERE idPromocion = #{idPromocion}
@@ -121,19 +128,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="obtenerPromocionByIdCategoria" parameterType="int" resultType="modelo.pojo.Promocion">
         SELECT
-            p.idPromocion,
-            e.nombreComercial,
-            p.nombrePromocion,
-            p.descripcion,   
-            p.fechaInicioPromocion,
-            p.fechaTerminoPromocion,
-            p.restricciones,
-            cp.TipoPoromocion,
-            p.porcentaje_Costo,
-            cc.categoria,
-            cuponesMaximos,
-            codigoPromocion,
-            estatus
+        p.idPromocion,
+        e.nombreComercial,
+        p.nombrePromocion,
+        p.descripcion,   
+        p.fechaInicioPromocion,
+        p.fechaTerminoPromocion,
+        p.restricciones,
+        cp.TipoPoromocion,
+        p.porcentaje_Costo,
+        cc.categoria,
+        cuponesMaximos,
+        codigoPromocion,
+        estatus
         FROM promocion p 
         NATURAL JOIN empresa e 
         NATURAL JOIN cat_tipopromocion cp
@@ -169,19 +176,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="listaPromociones" resultType="modelo.pojo.Promocion">
         SELECT
-            idPromocion,
-            idEmpresa,
-            nombrePromocion,
-            descripcion,
-            fechaInicioPromocion,
-            fechaTerminoPromocion,
-            restricciones,
-            idTipoPromocion,
-            porcentaje_Costo,
-            idCategoria,
-            cuponesMaximos,
-            codigoPromocion,
-            estatus
+        idPromocion,
+        idEmpresa,
+        nombrePromocion,
+        descripcion,
+        fechaInicioPromocion,
+        fechaTerminoPromocion,
+        restricciones,
+        idTipoPromocion,
+        porcentaje_Costo,
+        idCategoria,
+        cuponesMaximos,
+        codigoPromocion,
+        estatus
         FROM promocion
     </select>
     

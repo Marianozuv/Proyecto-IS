@@ -21,6 +21,7 @@ import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
 import modelo.pojo.Sucursal;
 import modelo.pojo.SucursalPromocion;
+import modelo.pojo.TipoPromocion;
 
 @Path("promocion")
 public class PromocionWS {
@@ -62,6 +63,15 @@ public class PromocionWS {
     public List<Promocion> obtenerPromociones() {
 
         return PromocionDAO.obtenerPromociones();
+
+    }
+
+    @GET
+    @Path("tipoPromociones")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<TipoPromocion> obtenerTipos() {
+
+        return PromocionDAO.obtenerTiposPromociones();
 
     }
 
@@ -174,7 +184,7 @@ public class PromocionWS {
         }
         return promocion;
     }
-    
+
     @PUT
     @Path("canjearCupon")
     @Consumes(MediaType.APPLICATION_JSON)
