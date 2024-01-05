@@ -94,6 +94,9 @@ public class FXMLFormSucursalController implements Initializable {
             this.sucursal = new Sucursal();
             cargarDatos(null, isEdicion);
             cargarEmpresas();
+            if (!empresas.isEmpty()) {
+                cbEmpresa.setValue(empresas.get(0)); // Esto seleccionará el primer rol
+            }
         }
 
     }
