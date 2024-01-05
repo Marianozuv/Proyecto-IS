@@ -39,6 +39,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -57,15 +58,16 @@ import jdk.nashorn.internal.codegen.CompilerConstants;
  */
 public class FXMLFormPromocionController implements Initializable {
 
+    private boolean isEstatus;
     private ObservableList<Empresa> empresas;
     private ObservableList<TipoPromocion> tipoPromociones;
     private ObservableList<Categoria> categorias;
     private boolean isEdicion;
     private Promocion promocion;
     private File imagenPromo;
-    
+
     private FXMLModuloPromocionController moduloPromocionController;
-    
+
     @FXML
     private Label lbUsuario;
     @FXML
@@ -114,7 +116,7 @@ public class FXMLFormPromocionController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-    
+
     public void setModuloPromocionController(FXMLModuloPromocionController controller) {
         this.moduloPromocionController = controller;
     }
@@ -132,6 +134,16 @@ public class FXMLFormPromocionController implements Initializable {
             seleccionarCategoria(promocion.getIdCategoria());
             cargarTiposPromociones();
             seleccionarTipoPromocion(promocion.getIdTipoPromocion());
+            if (promocion.isEstatus()) {
+                tfEstatus.setText("Activo");
+            }
+
+            if (!promocion.isEstatus()) {
+                tfEstatus.setText("Inactivo");
+            }
+
+            System.out.println(promocion.isEstatus());
+
         } else {
             this.isEdicion = isEdicion;
             this.promocion = new Promocion();
@@ -236,7 +248,7 @@ public class FXMLFormPromocionController implements Initializable {
         } else {
             Utilidades.mostrarAlertaSimple("Operacion eliminar", "La operación eliminar se ha cancelado", Alert.AlertType.INFORMATION);
         }
-        
+
         if (moduloPromocionController != null) {
             moduloPromocionController.obtenerPromociones();
         }
@@ -374,13 +386,25 @@ public class FXMLFormPromocionController implements Initializable {
         promocion.setCodigoPromocion(tfCodigoPromo.getText());
         Empresa empresaSeleccion = empresas.get(cbEmpresas.getSelectionModel().getSelectedIndex());
         promocion.setIdEmpresa(empresaSeleccion.getIdEmpresa());
+
+        String estatusTF = tfEstatus.getText();
+
+        if (estatusTF.equals("Activo")) {
+            isEstatus = true;
+        }
+
+        if (estatusTF.equals("Inactivo")) {
+            isEstatus = false;
+        }
+        promocion.setEstatus(isEstatus);
+        System.out.println(isEstatus);
     }
 
     private void registrarPromocion(Promocion promocion) {
         Mensaje mensaje = PromocionDAO.registrarPromocion(promocion);
         if (!mensaje.isError()) {
             Utilidades.mostrarAlertaSimple("Promocion guardada", mensaje.getMensaje(), Alert.AlertType.INFORMATION);
-            cerrarVentana();     
+            cerrarVentana();
         } else {
             Utilidades.mostrarAlertaSimple("Error al registrar", mensaje.getMensaje(), Alert.AlertType.ERROR);
         }

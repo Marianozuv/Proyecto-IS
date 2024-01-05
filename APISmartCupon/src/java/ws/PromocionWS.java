@@ -77,6 +77,19 @@ public class PromocionWS {
     }
 
     @GET
+    @Path("obtenerByEstatus/{estatus}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Promocion> obtenerPromocionByEstatus(@PathParam("estatus") boolean estatus) {
+
+        if (estatus = true) {
+            return PromocionDAO.obtenerPromocionByEstatus(estatus);
+        } else {
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+    }
+
+    
+    @GET
     @Path("buscar")
     public List<Promocion> buscarPromocion(
             @QueryParam("fechaInicioPromocion") String fechaInicioPromocion,
@@ -140,6 +153,22 @@ public class PromocionWS {
 
         if (promocion != null) {
             return PromocionDAO.editarPromocion(promocion);
+        } else {
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+
+    }
+
+    @DELETE
+    @Path("desvincularPromocion")
+    @Produces(MediaType.APPLICATION_JSON)
+    public static Mensaje desvincularPromocion(String json) {
+
+        Gson gson = new Gson();
+        PromocionSucursal promocionSucursal = gson.fromJson(json, PromocionSucursal.class);
+
+        if (promocionSucursal != null) {
+            return PromocionDAO.desvincularSucursal(promocionSucursal);
         } else {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }

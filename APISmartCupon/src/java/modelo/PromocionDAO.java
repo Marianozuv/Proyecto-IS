@@ -47,19 +47,19 @@ public class PromocionDAO {
 
         return mensaje;
     }
-    
+
     public static List<TipoPromocion> obtenerTiposPromociones() {
         SqlSession sqlSession = MyBatisUtil.getSession();
         List<TipoPromocion> tipoPromociones = null;
-        
+
         try {
             tipoPromociones = sqlSession.selectList("promociones.obtenerTiposPromociones");
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             sqlSession.close();
         }
-        
+
         return tipoPromociones;
     }
 
@@ -192,6 +192,7 @@ public class PromocionDAO {
 
             } catch (Exception e) {
                 e.printStackTrace();
+                mensaje.setMensaje("No se puede eliminar, ya que esta asociada a una sucursal");
             } finally {
                 sqlSession.close();
             }
@@ -310,7 +311,7 @@ public class PromocionDAO {
 
         return promocion;
     }
-    
+
     public static Mensaje canjearCupon(Promocion promocion) {
         Mensaje mensaje = new Mensaje();
         mensaje.setError(true);
@@ -345,6 +346,7 @@ public class PromocionDAO {
 
             } catch (Exception e) {
                 e.printStackTrace();
+                mensaje.setMensaje(e.getMessage());
             } finally {
                 sqlSession.close();
             }
@@ -355,4 +357,55 @@ public class PromocionDAO {
 
         return mensaje;
     }
+
+    public static List<Promocion> obtenerPromocionByEstatus(boolean estatus) {
+
+        SqlSession sqlSession = MyBatisUtil.getSession();
+        List<Promocion> promociones = null;
+
+        try {
+            promociones = sqlSession.selectList("promociones.obtenerPromocionByEstatus", estatus);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            sqlSession.close();
+        }
+
+        return promociones;
+    }
+
+    public static Mensaje desvincularSucursal(PromocionSucursal promocionSucursal) {
+        Mensaje mensaje = new Mensaje();
+        mensaje.setError(true);
+
+        SqlSession sqlSession = MyBatisUtil.getSession();
+
+        if (sqlSession != null) {
+
+            try {
+
+                int filasAfectadas = sqlSession.delete("promociones.desvincularSucursal", promocionSucursal);
+
+                if (filasAfectadas > 0) {
+                    sqlSession.commit();
+                    mensaje.setError(false);
+                    mensaje.setMensaje("La sucursal se ha desvinculado");
+                } else {
+                    mensaje.setMensaje("La sucursal no se ha podido desvincular");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                mensaje.setMensaje("No se puede eliminar");
+            } finally {
+                sqlSession.close();
+            }
+
+        } else {
+            mensaje.setMensaje("No hay conexión a la base de datos");
+        }
+
+        return mensaje;
+    }
+
 }

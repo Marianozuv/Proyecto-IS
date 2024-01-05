@@ -94,6 +94,25 @@ public class PromocionDAO {
         return mensaje;
     }
 
+    public static Mensaje desvincularSucursal(PromocionSucursal promocionSucursal) {
+        Mensaje mensaje = new Mensaje();
+        String url = Constantes.URL_WS + "promocion/desvincularPromocion";
+
+        Gson gson = new Gson();
+        String parametros = gson.toJson(promocionSucursal);
+
+        CodigoHTTP codigoRespuesta = ConexionHTTP.peticionDELETEJSON(url, parametros);
+
+        if (codigoRespuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK) {
+            mensaje = gson.fromJson(codigoRespuesta.getContenido(), Mensaje.class);
+        } else {
+            mensaje.setError(true);
+            mensaje.setMensaje("Error al desvincular la sucursal: " + codigoRespuesta.getContenido());
+        }
+
+        return mensaje;
+    }
+
     public static Mensaje editarPromocion(Promocion promocion) {
         Mensaje mensaje = new Mensaje();
         String url = Constantes.URL_WS + "promocion/editarPromocion";
@@ -160,7 +179,7 @@ public class PromocionDAO {
             mensaje = gson.fromJson(respuesta.getContenido(), Mensaje.class);
         } else {
             mensaje.setError(true);
-            mensaje.setMensaje("Error al eliminar la promoción");
+            mensaje.setMensaje("Error al eliminar la promoción"+ respuesta.getContenido());
         }
         return mensaje;
     }

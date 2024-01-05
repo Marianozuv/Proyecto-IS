@@ -49,8 +49,8 @@ public class ConexionHTTP {
 
         return respuesta;
     }
-    
-        public static CodigoHTTP peticionDELETE(String url) {
+
+    public static CodigoHTTP peticionDELETE(String url) {
         CodigoHTTP respuesta = new CodigoHTTP();
 
         try {
@@ -161,6 +161,45 @@ public class ConexionHTTP {
 
         return respuesta;
     }
+    
+    
+    public static CodigoHTTP peticionDELETEJSON(String url, String json) {
+        CodigoHTTP respuesta = new CodigoHTTP();
+
+        try {
+
+            URL urlServicio = new URL(url);
+            HttpURLConnection conexionHttp = (HttpURLConnection) urlServicio.openConnection();
+            conexionHttp.setRequestMethod("DELETE");
+            conexionHttp.setRequestProperty("Content-Type", "application/json");
+            conexionHttp.setDoOutput(true);
+            //Escribir datos en el cuerpo de la petición
+            OutputStream os = conexionHttp.getOutputStream();
+            os.write(json.getBytes());
+            os.flush();
+            os.close();//Termina la escritura
+            int codigoRespuesta = conexionHttp.getResponseCode();
+            respuesta.setCodigoRespuesta(codigoRespuesta);
+            if (codigoRespuesta == HttpURLConnection.HTTP_OK) {
+                respuesta.setContenido(convertirContenido(conexionHttp.getInputStream()));
+            } else {
+                respuesta.setContenido("CODE ERROR: " + codigoRespuesta);
+            }
+
+        } catch (MalformedURLException ex) {
+
+            respuesta.setCodigoRespuesta(Constantes.ERROR_URL);
+            respuesta.setContenido("Error" + ex.getMessage());
+
+        } catch (IOException iox) {
+
+            respuesta.setCodigoRespuesta(Constantes.ERROR_PETICION);
+            respuesta.setContenido("Error" + iox.getMessage());
+
+        }
+
+        return respuesta;
+    }
 
     public static CodigoHTTP peticionPUTJSON(String url, String json) {
         CodigoHTTP respuesta = new CodigoHTTP();
@@ -216,8 +255,8 @@ public class ConexionHTTP {
         return cadenaBuffer.toString();
 
     }
-    
-        public static CodigoHTTP peticionPUTImagen(String url, byte[] imagen) {
+
+    public static CodigoHTTP peticionPUTImagen(String url, byte[] imagen) {
         CodigoHTTP respuesta = new CodigoHTTP();
 
         try {
@@ -254,7 +293,7 @@ public class ConexionHTTP {
         return respuesta;
 
     }
-        
+
     public static CodigoHTTP postRequest(String url, Usuario usuario) {
 
         CodigoHTTP respuesta = new CodigoHTTP();
@@ -295,7 +334,7 @@ public class ConexionHTTP {
         return respuesta;
     }
 
-     public static CodigoHTTP putRequest(String url, Usuario usuario) {
+    public static CodigoHTTP putRequest(String url, Usuario usuario) {
 
         CodigoHTTP respuesta = new CodigoHTTP();
         String jsonBody = JsonUtility.createJson(usuario);

@@ -2,6 +2,7 @@ package clienteescritoriosmartcupon;
 
 import clienteescritoriosmartcupon.modelo.pojo.Usuario;
 import clienteescritoriosmartcupon.utils.Roles;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -175,6 +176,21 @@ public class FXMLHomeController implements Initializable {
             Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, e);
         }
         
+    }
+
+    @FXML
+    private void btCerrarSesion(ActionEvent event) throws  IOException{
+        
+            FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLLogin.fxml"));
+            Parent vista = vistaLoad.load();
+
+            FXMLLoginController controller = vistaLoad.getController();
+
+            Stage stage = new Stage();
+            Scene scene = new Scene(vista);
+            stage.setScene(scene);
+            stage.setTitle("Login");
+            stage.initModality(Modality.APPLICATION_MODAL);
     }
 
 }

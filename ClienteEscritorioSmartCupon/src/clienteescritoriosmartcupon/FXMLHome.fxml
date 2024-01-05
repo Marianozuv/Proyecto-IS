@@ -173,5 +173,10 @@
             <Font size="21.0" />
          </font>
       </Label>
+      <Button layoutX="611.0" layoutY="19.0" maxWidth="140.0" mnemonicParsing="false" onAction="#btCerrarSesion" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #BF3131; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Cerrar sesión" textFill="WHITE" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

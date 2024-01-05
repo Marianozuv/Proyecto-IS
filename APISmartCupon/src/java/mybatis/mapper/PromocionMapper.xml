@@ -41,7 +41,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="asignarPromocionSucursal" parameterType="modelo.pojo.PromocionSucursal">
         INSERT INTO promocion_sucursal (idPromocion, idSucursal)
         VALUES (#{idPromocion}, #{idSucursal})
+        
     </insert>
+    
+    <select id="obtenerPromocionByEstatus" parameterType="boolean" resultType="modelo.pojo.Promocion">
+        SELECT
+        idPromocion,
+        idEmpresa,
+        nombrePromocion,
+        descripcion,   
+        fechaInicioPromocion,
+        fechaTerminoPromocion,
+        restricciones,
+        idTipoPromocion,
+        porcentaje_Costo,
+        idCategoria,
+        cuponesMaximos,
+        codigoPromocion,
+        estatus
+        FROM promocion
+        WHERE estatus = #{estaus}
+    </select>
     
     <select id="obtenerPromocion" parameterType="int" resultType="modelo.pojo.Promocion">
         SELECT
@@ -124,7 +144,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         s.ciudad,
         s.telefono,
         s.latitud,
-        s.longitud,
+        s.longitud, 
         s.nombreEncargado
         FROM sucursal s
         NATURAL JOIN promocion_sucursal sp
@@ -150,7 +170,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         NATURAL JOIN empresa e 
         NATURAL JOIN cat_tipopromocion cp
         NATURAL JOIN cat_categoria cc
-        WHERE idCategoria  = #{idCategoria}
+        WHERE idCategoria  = #{idCategoria} AND estatus = true
     </select>
     
     <update id="editarPromocion" parameterType="modelo.pojo.Promocion">
@@ -211,6 +231,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         END
         WHERE codigoPromocion = #{codigoPromocion};
     </update>
+    
+    <delete id="desvincularSucursal" parameterType="modelo.pojo.PromocionSucursal">
+        DELETE FROM
+        promocion_sucursal
+        WHERE idPromocion = #{idPromocion} AND idSucursal = #{idSucursal}
+    </delete>
 </mapper>
 
 

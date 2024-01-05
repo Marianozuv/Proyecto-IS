@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="clienteescritoriosmartcupon.FXMLAsignarSucursalController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriosmartcupon.FXMLAsignarSucursalController">
    <children>
       <ImageView fitHeight="577.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -97,6 +96,14 @@
                </VBox.margin>
             </ComboBox>
             <Button maxWidth="296.0" mnemonicParsing="false" onAction="#btAsignarSucursal" prefHeight="37.0" prefWidth="296.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Asignar" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button maxWidth="307.0" mnemonicParsing="false" onAction="#btDesvincular" prefHeight="37.0" prefWidth="307.0" style="-fx-background-color: #BF3131; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Desvincular" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>

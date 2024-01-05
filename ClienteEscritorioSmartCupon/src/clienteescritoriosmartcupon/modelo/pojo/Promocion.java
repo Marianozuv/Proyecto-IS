@@ -16,7 +16,7 @@ public class Promocion {
     private int cuponesMaximos;
     private String codigoPromocion;
     private byte[] imagenPromocion;
-    private boolean estado;
+    private boolean estatus;
 
     public Promocion() {
     }
@@ -36,7 +36,7 @@ public class Promocion {
         this.cuponesMaximos = cuponesMaximos;
         this.codigoPromocion = codigoPromocion;
         this.imagenPromocion = imagenPromocion;
-        this.estado = estatus;
+        this.estatus = estatus;
     }
 
     public Integer getIdPromocion() {
@@ -151,14 +151,15 @@ public class Promocion {
         this.imagenPromocion = imagenPromocion;
     }
 
-    public boolean isEstado() {
-        return estado;
+    public boolean isEstatus() {
+        return estatus;
     }
 
-    public void setEstado(boolean estado) {
-        this.estado = estado;
+    public void setEstatus(boolean estatus) {
+        this.estatus = estatus;
     }
 
-    
+
+
     
 }

@@ -76,7 +76,7 @@ public class FXMLAsignarSucursalController implements Initializable {
         promocionSucursal.setIdPromocion(promocion.getIdPromocion());
         Sucursal sucursalSeleccion = sucursales.get(cbSucursales.getSelectionModel().getSelectedIndex());
         promocionSucursal.setIdSucursal(sucursalSeleccion.getIdSucursal());
-        
+
         asignarSucursal(promocionSucursal);
     }
 
@@ -104,6 +104,24 @@ public class FXMLAsignarSucursalController implements Initializable {
     private void cerrarVentana() {
         Stage stage = (Stage) tfNombre.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    private void btDesvincular(ActionEvent event) {
+        promocionSucursal.setIdPromocion(promocion.getIdPromocion());
+        Sucursal sucursalSeleccion = sucursales.get(cbSucursales.getSelectionModel().getSelectedIndex());
+        promocionSucursal.setIdSucursal(sucursalSeleccion.getIdSucursal());
+        
+        desvincularSucursal(promocionSucursal);
+    }
+
+    private void desvincularSucursal(PromocionSucursal promocionSucursal) {
+        Mensaje mensaje = PromocionDAO.desvincularSucursal(promocionSucursal);
+        if (!mensaje.isError()) {
+            Utilidades.mostrarAlertaSimple("Sucursal desvinculada", mensaje.getMensaje(), Alert.AlertType.INFORMATION);
+        } else {
+            Utilidades.mostrarAlertaSimple("Error al asignar", mensaje.getMensaje(), Alert.AlertType.ERROR);
+        }
     }
 
 }
