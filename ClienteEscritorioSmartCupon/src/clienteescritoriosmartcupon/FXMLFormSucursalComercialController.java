@@ -160,9 +160,11 @@ public class FXMLFormSucursalComercialController implements Initializable {
         } else {
             recuperarDatos();
             registrarSucursal(sucursal);
-
         }
-
+        
+        if (moduloSucursalController != null) {
+            moduloSucursalController.obtenerSucursales();
+        }
     }
 
     private void registrarSucursal(Sucursal sucursal) {

@@ -146,6 +146,10 @@ public class FXMLFormUsuarioController implements Initializable {
             recuperarDatos();
             registrarUsuario(usuario);
         }
+        
+        if (moduloUsuarioController != null) {
+            moduloUsuarioController.consultarInformacionUsuario();
+        }
     }
 
     @FXML

@@ -269,6 +269,10 @@ public class FXMLFormPromocionComercialController implements Initializable {
             registrarPromocion(promocion);
             cerrarVentana();
         }
+        
+        if (moduloPromocionController != null) {
+            moduloPromocionController.obtenerPromociones(promocion.getIdEmpresa());
+        }
     }
 
     @FXML
@@ -278,7 +282,6 @@ public class FXMLFormPromocionComercialController implements Initializable {
         seleccionarEmpresa(promocion.getIdEmpresa());
         seleccionarCategoria(promocion.getIdCategoria());
         seleccionarTipoPromocion(promocion.getIdTipoPromocion());
-
     }
 
     @FXML

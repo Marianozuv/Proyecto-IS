@@ -178,6 +178,10 @@ public class FXMLFormEmpresaController implements Initializable {
             empresa.setCodigoPostal(tfCodigoPostal.getText());
 
             editarEmpresa(empresa);
+            
+            if (moduloEmpresaController != null) {
+                moduloEmpresaController.obtenerEmpresas();
+            }
 
         } else {
             empresa = new Empresa();
@@ -194,7 +198,6 @@ public class FXMLFormEmpresaController implements Initializable {
 
             registrarEmpresa(empresa);
         }
-
     }
 
     @FXML

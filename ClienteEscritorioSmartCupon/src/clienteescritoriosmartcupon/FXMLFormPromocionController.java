@@ -284,6 +284,10 @@ public class FXMLFormPromocionController implements Initializable {
             registrarPromocion(promocion);
             cerrarVentana();
         }
+        
+        if (moduloPromocionController != null) {
+            moduloPromocionController.obtenerPromociones();
+        }
     }
 
     @FXML

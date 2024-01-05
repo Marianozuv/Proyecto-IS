@@ -158,7 +158,10 @@ public class FXMLFormSucursalController implements Initializable {
             registrarSucursal(sucursal);
 
         }
-
+        
+        if (moduloSucursalController != null) {
+            moduloSucursalController.obtenerSucursales();
+        }
     }
 
     private void registrarSucursal(Sucursal sucursal) {
