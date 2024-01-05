@@ -95,6 +95,7 @@ public class FXMLFormUsuarioController implements Initializable {
             seleccionarRol(usuario.getIdRol());
             cargarInformacionEmpresas();
             seleccionarEmpresa(usuario.getIdEmpresa());
+            
         } else {
             this.usuario = new Usuario();
             cargarDatos(null, isEdicion);
@@ -231,6 +232,7 @@ public class FXMLFormUsuarioController implements Initializable {
             vbBotones.getChildren().add(btEliminar);
             vbBotones.getChildren().add(btEditarUsuario);
             habilitarTextEdit(false);
+            
 
         } else {
 
@@ -240,10 +242,13 @@ public class FXMLFormUsuarioController implements Initializable {
             vbBotones.getChildren().remove(btEliminar);
             vbBotones.getChildren().remove(btEditarUsuario);
             habilitarTextEdit(true);
+            
 
         }
 
     }
+    
+    
     
     private void cargarDatos(Usuario usuario, boolean isEdicion) {
 
@@ -273,7 +278,6 @@ public class FXMLFormUsuarioController implements Initializable {
         tfNombre.setEditable(editable);
         tfUsername.setEditable(editable);
         tfPassword.setEditable(editable);
-        cbRol.setDisable(!editable);
         cbEmpresa.setDisable(!editable);
     }
     
@@ -282,6 +286,10 @@ public class FXMLFormUsuarioController implements Initializable {
         List<Rol> info = UsuarioDAO.obtenerRol();
         roles.addAll(info);
         cbRol.setItems(roles);
+        
+        if (isEdicion) {
+            cbRol.setDisable(true);
+        }
     }
     
     private void cargarInformacionEmpresas() {
