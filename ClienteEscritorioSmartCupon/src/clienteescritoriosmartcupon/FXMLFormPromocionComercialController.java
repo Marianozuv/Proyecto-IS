@@ -169,7 +169,6 @@ public class FXMLFormPromocionComercialController implements Initializable {
                 && !tfPorcentajeCosto.getText().isEmpty()
                 && cbCategorias.getValue() != null
                 && !tfCupones.getText().isEmpty()
-                && !tfCodigoPromo.getText().isEmpty()
                 && cbEmpresas.getValue() != null
                 && !tfEstatus.getText().isEmpty();
     }
@@ -284,10 +283,15 @@ public class FXMLFormPromocionComercialController implements Initializable {
 
         if (isEdicion) {
             if (camposEstanLLenos()) {
-                recuperarDatos();
-                editarPromocion(promocion);
+                if (validarCodigoPromo()) {
+                    recuperarDatos();
+                    editarPromocion(promocion);
+                } else {
+                    // Muestra un mensaje de error si el código promo no cumple con los requisitos
+                    Utilidades.mostrarAlertaSimple("Código de la promoción inválido", "El código promo debe ser alfanumérico y tener 8 caracteres.", Alert.AlertType.WARNING);
+                }
             } else {
-                // Muestra un mensaje de error o realiza alguna acción cuando los campos estén vacíos
+                // Muestra un mensaje si algún campo está vacío
                 Utilidades.mostrarAlertaSimple("Campos vacíos", "Por favor, completa todos los campos obligatorios.", Alert.AlertType.WARNING);
             }
         } else {
@@ -295,7 +299,7 @@ public class FXMLFormPromocionComercialController implements Initializable {
             registrarPromocion(promocion);
             cerrarVentana();
         }
-        
+
         if (moduloPromocionController != null) {
             moduloPromocionController.obtenerPromociones(promocion.getIdEmpresa());
         }
