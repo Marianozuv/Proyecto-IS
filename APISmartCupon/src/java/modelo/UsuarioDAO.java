@@ -99,7 +99,7 @@ public class UsuarioDAO {
                 conexionDB.commit();
                 if (numeroFilasAfectadas > 0) {
                     msj.setError(false);
-                    msj.setMensaje("OK, " + numeroFilasAfectadas + "," + usuario.getNombre());
+                    msj.setMensaje("Usuario registrado con éxito!!");
                 } else {
                     msj.setError(true);
                     msj.setMensaje("Lo sentimos, no se pudo registrar la información del Usuario.");

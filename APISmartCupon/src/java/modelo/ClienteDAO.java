@@ -53,7 +53,7 @@ public class ClienteDAO {
                 conexionDB.commit();
                 if (numeroFilasAfectadas > 0) {
                     msj.setError(false);
-                    msj.setMensaje("OK, " + numeroFilasAfectadas + "," + cliente.getNombre());
+                    msj.setMensaje("Cliente registrado con éxito!!");
                 } else {
                     msj.setError(true);
                     msj.setMensaje("Lo sentimos, no se pudo registrar la información del Cliente.");

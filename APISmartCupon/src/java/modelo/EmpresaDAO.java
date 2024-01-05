@@ -82,7 +82,7 @@ public class EmpresaDAO {
                 conexionDB.commit();
                 if (numeroFilasAfectadas > 0) {
                     msj.setError(false);
-                    msj.setMensaje("OK, " + numeroFilasAfectadas + "," + empresa.getNombre());
+                    msj.setMensaje("Empresa registrada con éxito!!");
                 } else {
                     msj.setError(true);
                     msj.setMensaje("Lo sentimos, no se pudo registrar la información del Paciente.");
