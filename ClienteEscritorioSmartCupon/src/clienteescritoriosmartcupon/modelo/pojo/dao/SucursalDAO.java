@@ -31,6 +31,25 @@ public class SucursalDAO {
 
         return sucursales;
     }
+    
+        public static List<Sucursal> obtenerSucursalesByEmpresa(int idEmpresa) {
+        List<Sucursal> sucursales = null;
+
+        String url = Constantes.URL_WS + "sucursal/obtenerPorEmpresa/"+idEmpresa;
+        CodigoHTTP respuesta = ConexionHTTP.peticionGET(url);
+
+        if (respuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK) {
+            Gson gson = new Gson();
+            Type tipoListadoSucursal = new TypeToken<List<Sucursal>>() {
+            }.getType();
+            sucursales = gson.fromJson(respuesta.getContenido(), tipoListadoSucursal);
+        } else {
+            System.out.println(respuesta.getContenido());
+            System.out.println(respuesta.getCodigoRespuesta());
+        }
+
+        return sucursales;
+    }
 
     public static Mensaje registrarSucursal(Sucursal sucursal) {
         Mensaje mensaje = new Mensaje();

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="clienteescritoriosmartcupon.FXMLModuloPromocionComercialController">
+   <children>
+      <ImageView fitHeight="577.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@recursos/fondo.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lbUsuario" layoutX="14.0" layoutY="14.0" text="Modulo promociones" textFill="WHITE">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <Button layoutX="616.0" layoutY="92.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btVerInfoPromocion" prefHeight="39.0" prefWidth="160.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Ver Información" textFill="WHITE">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+      <TableView fx:id="tvPromociones" layoutX="23.0" layoutY="146.0" prefHeight="383.0" prefWidth="755.0">
+         <columns>
+            <TableColumn fx:id="colNombre" prefWidth="130.0" text="Nombre" />
+            <TableColumn fx:id="colCuponesPromoción" prefWidth="161.5" text="Cupones " />
+            <TableColumn fx:id="colFechaInicio" prefWidth="124.0" text="Fecha inicio" />
+            <TableColumn fx:id="colFechaTermino" prefWidth="179.0" text="Fecha termino" />
+            <TableColumn fx:id="colCodigoPromocion" prefWidth="159.5" text="Código" />
+            <TableColumn fx:id="colEstatus" minWidth="0.0" prefWidth="0.0" text="Estatus" visible="false" />
+         </columns>
+      </TableView>
+      <Button layoutX="456.0" layoutY="92.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btRegistroPromocion" prefHeight="39.0" prefWidth="154.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Registrar" textFill="WHITE" visible="false">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+      <Button layoutX="279.0" layoutY="92.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btAsignarSucursal" prefHeight="39.0" prefWidth="166.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Asignar sucursal" textFill="WHITE" visible="false">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+      <TextField fx:id="tfBuscador" layoutX="29.0" layoutY="93.0" promptText="Buscar">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

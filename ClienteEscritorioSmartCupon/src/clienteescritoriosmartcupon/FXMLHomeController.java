@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 public class FXMLHomeController implements Initializable {
 
+    private String tipoAdmin;
     private Usuario usuarioSesion;
     @FXML
     private Label lbUsuario;
@@ -52,6 +53,7 @@ public class FXMLHomeController implements Initializable {
 
         this.usuarioSesion = usuarioSesion;
         lbUsuario.setText(usuarioSesion.getNombre() + " " + usuarioSesion.getApellidoPaterno());
+        tipoAdmin = usuarioSesion.getRol();
 
         if (usuarioSesion.getRol().equals(Roles.ADMIN_GENERAL)) {
             pModuloCupones.setVisible(true);
@@ -94,23 +96,45 @@ public class FXMLHomeController implements Initializable {
     @FXML
     private void btModuloSucursales(ActionEvent event) {
 
-        try {
+        if (tipoAdmin.equals(Roles.ADMIN_GENERAL)) {
+            try {
 
-            FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLModuloSucursal.fxml"));
-            Parent vista = vistaLoad.load();
+                FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLModuloSucursal.fxml"));
+                Parent vista = vistaLoad.load();
 
-            FXMLModuloSucursalController controller = vistaLoad.getController();
+                FXMLModuloSucursalController controller = vistaLoad.getController();
 
-            Stage stage = new Stage();
-            Scene escena = new Scene(vista);
-            stage.setScene(escena);
-            stage.setTitle("Infromación de sucursales");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
+                Stage stage = new Stage();
+                Scene escena = new Scene(vista);
+                stage.setScene(escena);
+                stage.setTitle("Infromación de sucursales");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
 
-        } catch (Exception e) {
-            Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, e);
+            } catch (Exception e) {
+                Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, e);
+            }
+        } else {
+            try {
+
+                FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLModuloSucursalComercial.fxml"));
+                Parent vista = vistaLoad.load();
+
+                FXMLModuloSucursalComercialController controller = vistaLoad.getController();
+                controller.inicializarInformaciom(usuarioSesion.getIdEmpresa());
+
+                Stage stage = new Stage();
+                Scene escena = new Scene(vista);
+                stage.setScene(escena);
+                stage.setTitle("Infromación de sucursales");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+
+            } catch (Exception e) {
+                Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, e);
+            }
         }
+
     }
 
     @FXML
@@ -123,8 +147,8 @@ public class FXMLHomeController implements Initializable {
             FXMLModuloCuponesController controller = vistaLoad.getController();
 
             Stage stage = new Stage();
-            Scene escenaEditarPaciente = new Scene(vista);
-            stage.setScene(escenaEditarPaciente);
+            Scene scene = new Scene(vista);
+            stage.setScene(scene);
             stage.setTitle("Canje Cupones");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
@@ -144,8 +168,8 @@ public class FXMLHomeController implements Initializable {
             FXMLModuloUsuarioController controller = vistaLoad.getController();
 
             Stage stage = new Stage();
-            Scene escenaEditarPaciente = new Scene(vista);
-            stage.setScene(escenaEditarPaciente);
+            Scene scene = new Scene(vista);
+            stage.setScene(scene);
             stage.setTitle("Infromación de Usuarios");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
@@ -157,40 +181,62 @@ public class FXMLHomeController implements Initializable {
 
     @FXML
     private void btModuloPromociones(ActionEvent event) {
-        
-        try {
 
-            FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLModuloPromocion.fxml"));
-            Parent vista = vistaLoad.load();
+        if (tipoAdmin.equals(Roles.ADMIN_GENERAL)) {
+            try {
 
-            FXMLModuloPromocionController controller = vistaLoad.getController();
+                FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLModuloPromocion.fxml"));
+                Parent vista = vistaLoad.load();
 
-            Stage stage = new Stage();
-            Scene escenaEditarPaciente = new Scene(vista);
-            stage.setScene(escenaEditarPaciente);
-            stage.setTitle("Información promociones");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
+                FXMLModuloPromocionController controller = vistaLoad.getController();
 
-        } catch (Exception e) {
-            Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, e);
+                Stage stage = new Stage();
+                Scene scene = new Scene(vista);
+                stage.setScene(scene);
+                stage.setTitle("Información promociones");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+
+            } catch (Exception e) {
+                Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, e);
+            }
+
+        } else {
+            try {
+
+                FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLModuloPromocionComercial.fxml"));
+                Parent vista = vistaLoad.load();
+
+                FXMLModuloPromocionComercialController controller = vistaLoad.getController();
+                controller.inicializarInformaciom(usuarioSesion.getIdEmpresa());
+                
+                Stage stage = new Stage();
+                Scene scene = new Scene(vista);
+                stage.setScene(scene);
+                stage.setTitle("Información promociones");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+
+            } catch (Exception e) {
+                Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, e);
+            }
         }
-        
+
     }
 
     @FXML
-    private void btCerrarSesion(ActionEvent event) throws  IOException{
-        
-            FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLLogin.fxml"));
-            Parent vista = vistaLoad.load();
+    private void btCerrarSesion(ActionEvent event) throws IOException {
 
-            FXMLLoginController controller = vistaLoad.getController();
+        FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLLogin.fxml"));
+        Parent vista = vistaLoad.load();
 
-            Stage stage = new Stage();
-            Scene scene = new Scene(vista);
-            stage.setScene(scene);
-            stage.setTitle("Login");
-            stage.initModality(Modality.APPLICATION_MODAL);
+        FXMLLoginController controller = vistaLoad.getController();
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(vista);
+        stage.setScene(scene);
+        stage.setTitle("Login");
+        stage.initModality(Modality.APPLICATION_MODAL);
     }
 
 }

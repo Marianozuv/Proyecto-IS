@@ -37,6 +37,25 @@ public class PromocionDAO {
         return promociones;
     }
 
+    public static List<Promocion> obtenerPromocionesByEmpresa(int idEmpresa) {
+        List<Promocion> promociones = null;
+
+        String url = Constantes.URL_WS + "promocion/obtenerByEmpresa/"+idEmpresa;
+        CodigoHTTP respuesta = ConexionHTTP.peticionGET(url);
+
+        if (respuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK) {
+            Gson gson = new Gson();
+            Type tipoListadoPromocion = new TypeToken<List<Promocion>>() {
+            }.getType();
+            promociones = gson.fromJson(respuesta.getContenido(), tipoListadoPromocion);
+        } else {
+            System.out.println(respuesta.getContenido());
+            System.out.println(respuesta.getCodigoRespuesta());
+        }
+
+        return promociones;
+    }
+
     public static List<TipoPromocion> obtenerTiposPromociones() {
         List<TipoPromocion> tipoPromociones = null;
 
@@ -179,7 +198,7 @@ public class PromocionDAO {
             mensaje = gson.fromJson(respuesta.getContenido(), Mensaje.class);
         } else {
             mensaje.setError(true);
-            mensaje.setMensaje("Error al eliminar la promoción"+ respuesta.getContenido());
+            mensaje.setMensaje("Error al eliminar la promoción" + respuesta.getContenido());
         }
         return mensaje;
     }

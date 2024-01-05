@@ -94,6 +94,22 @@ public class PromocionDAO {
         return promociones;
     }
 
+    public static List<Promocion> obtenerPromocionByEmpresa(int idEmpresa) {
+
+        SqlSession sqlSession = MyBatisUtil.getSession();
+        List<Promocion> promociones = null;
+
+        try {
+            promociones = sqlSession.selectList("promociones.listaPromocionesByEmpresa", idEmpresa);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            sqlSession.close();
+        }
+
+        return promociones;
+    }
+
     public static Promocion obtenerPromo(int idPromocion) {
 
         SqlSession sqlSession = MyBatisUtil.getSession();
@@ -107,7 +123,7 @@ public class PromocionDAO {
 
         return promocion;
     }
-    
+
     public static List<Promocion> obtenerPromocionByEstatus(boolean estatus) {
 
         SqlSession sqlSession = MyBatisUtil.getSession();
@@ -184,7 +200,7 @@ public class PromocionDAO {
 
         return mensaje;
     }
-    
+
     /*private HashMap<String, Object> toparam(Promocion promocion) {
         HashMap<String, Object> parametros = new HashMap<>();
         parametros.put("idPromocion", promocion.getIdPromocion());
@@ -237,7 +253,6 @@ public class PromocionDAO {
 
         return response;
     }*/
-
     public static Mensaje eliminarPromocion(int idPromocion) {
 
         Mensaje mensaje = new Mensaje();

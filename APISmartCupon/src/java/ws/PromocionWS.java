@@ -76,7 +76,7 @@ public class PromocionWS {
         return PromocionDAO.obtenerTiposPromociones();
 
     }
-    
+
     @GET
     @Path("obtenerByEstatus/{estatus}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -88,8 +88,19 @@ public class PromocionWS {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
     }
-    
-    
+
+    @GET
+    @Path("obtenerByEmpresa/{idEmpresa}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Promocion> obtenerPromocionByEmpresa(@PathParam("idEmpresa") Integer idEmpresa) {
+
+        if (idEmpresa != null && idEmpresa > 0) {
+            return PromocionDAO.obtenerPromocionByEmpresa(idEmpresa);
+        } else {
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+    }
+
     @GET
     @Path("buscar")
     public List<Promocion> buscarPromocion(
@@ -158,7 +169,7 @@ public class PromocionWS {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
     }
-    
+
     /*@PUT
     @Path("editar")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -171,7 +182,6 @@ public class PromocionWS {
         PromocionDAO dao = new PromocionDAO();
         return dao.editar(promocion);
     }*/
-
     @DELETE
     @Path("desvincularPromocion")
     @Produces(MediaType.APPLICATION_JSON)
