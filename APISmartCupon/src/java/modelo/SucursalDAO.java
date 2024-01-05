@@ -176,7 +176,7 @@ public class SucursalDAO {
 
             } catch (Exception e) {
                 msj.setError(true);
-                msj.setMensaje("Error: " + e.getMessage());
+                msj.setMensaje("No se puede eliminar, la promocion tiene sucursales asignadas");
             } finally {
                 conexionDB.close();
             }

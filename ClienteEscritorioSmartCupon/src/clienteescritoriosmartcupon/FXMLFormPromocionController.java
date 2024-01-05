@@ -99,14 +99,19 @@ public class FXMLFormPromocionController implements Initializable {
     @FXML
     private ComboBox<Empresa> cbEmpresas;
     @FXML
-    private TextField tfEstatus;
+    private ComboBox<String> cbEstatus;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        ObservableList<String> items = FXCollections.observableArrayList(
+                "Activo",
+                "Inactivo"
+        );
+
+        cbEstatus.setItems(items);
     }
 
     public void setModuloPromocionController(FXMLModuloPromocionController controller) {
@@ -127,13 +132,10 @@ public class FXMLFormPromocionController implements Initializable {
             cargarTiposPromociones();
             seleccionarTipoPromocion(promocion.getIdTipoPromocion());
             if (promocion.isEstatus()) {
-                tfEstatus.setText("Activo");
+                cbEstatus.setValue("Activo");
+            } else {
+                cbEstatus.setValue("Inactivo");
             }
-
-            if (!promocion.isEstatus()) {
-                tfEstatus.setText("Inactivo");
-            }
-
             System.out.println(promocion.isEstatus());
 
         } else {
@@ -143,19 +145,19 @@ public class FXMLFormPromocionController implements Initializable {
             cargarEmpresas();
             cargarCategorias();
             cargarTiposPromociones();
-            
+
             if (!empresas.isEmpty()) {
                 cbEmpresas.setValue(empresas.get(0)); // Esto seleccionará el primer rol
             }
-            
+
             if (!tipoPromociones.isEmpty()) {
                 cbTipoPromocion.setValue(tipoPromociones.get(0)); // Esto seleccionará el primer rol
             }
-            
+
             if (!categorias.isEmpty()) {
                 cbCategorias.setValue(categorias.get(0)); // Esto seleccionará el primer rol
             }
-            
+
             dpFechaInicio.setValue(LocalDate.now());
             dpFechaTermino.setValue(LocalDate.now());
         }
@@ -172,7 +174,7 @@ public class FXMLFormPromocionController implements Initializable {
         }
 
     }
-    
+
     private boolean camposEstanLLenos() {
         return !tfNombre.getText().isEmpty()
                 && !tfDesc.getText().isEmpty()
@@ -184,10 +186,10 @@ public class FXMLFormPromocionController implements Initializable {
                 && cbCategorias.getValue() != null
                 && !tfCupones.getText().isEmpty()
                 && !tfCodigoPromo.getText().isEmpty()
-                && cbEmpresas.getValue() != null
-                && !tfEstatus.getText().isEmpty();
+                && cbEmpresas.getValue() != null;
+        //&& !tfEstatus.getText().isEmpty();
     }
-    
+
     private boolean validarCodigoPromo() {
         String codigoPromo = tfCodigoPromo.getText();
         // Verifica si el código promo cumple con las condiciones: no vacío, alfanumérico, 8 caracteres
@@ -249,7 +251,7 @@ public class FXMLFormPromocionController implements Initializable {
         tfCupones.setEditable(editable);
         tfCodigoPromo.setEditable(editable);
         cbEmpresas.setDisable(!editable);
-        tfEstatus.setEditable(editable);
+        cbEstatus.setDisable(!editable);
     }
 
     private void habilitarFoto(Boolean editable) {
@@ -299,36 +301,36 @@ public class FXMLFormPromocionController implements Initializable {
 
         if (isEdicion) {
             if (camposEstanLLenos()) {
-            if (validarCodigoPromo()) {
-                recuperarDatos();
-                editarPromocion(promocion);
-                if (moduloPromocionController != null) {
-                    moduloPromocionController.obtenerPromociones();
+                if (validarCodigoPromo()) {
+                    recuperarDatos();
+                    editarPromocion(promocion);
+                    if (moduloPromocionController != null) {
+                        moduloPromocionController.obtenerPromociones();
+                    }
+                } else {
+                    // Muestra un mensaje de error si el código promo no cumple con los requisitos
+                    Utilidades.mostrarAlertaSimple("Código de la promocón inválido", "El código promo debe ser alfanumérico y tener 8 caracteres.", Alert.AlertType.WARNING);
                 }
             } else {
-                // Muestra un mensaje de error si el código promo no cumple con los requisitos
-                Utilidades.mostrarAlertaSimple("Código de la promocón inválido", "El código promo debe ser alfanumérico y tener 8 caracteres.", Alert.AlertType.WARNING);
+                // Muestra un mensaje si algún campo está vacío
+                Utilidades.mostrarAlertaSimple("Campos vacíos", "Por favor, completa todos los campos obligatorios.", Alert.AlertType.WARNING);
             }
-        } else {
-            // Muestra un mensaje si algún campo está vacío
-            Utilidades.mostrarAlertaSimple("Campos vacíos", "Por favor, completa todos los campos obligatorios.", Alert.AlertType.WARNING);
-        }
         } else {
             if (camposEstanLLenos()) {
-            if (validarCodigoPromo()) {
-                recuperarDatos();
-                registrarPromocion(promocion);
-                if (moduloPromocionController != null) {
-                    moduloPromocionController.obtenerPromociones();
+                if (validarCodigoPromo()) {
+                    recuperarDatos();
+                    registrarPromocion(promocion);
+                    if (moduloPromocionController != null) {
+                        moduloPromocionController.obtenerPromociones();
+                    }
+                } else {
+                    // Muestra un mensaje de error si el código promo no cumple con los requisitos
+                    Utilidades.mostrarAlertaSimple("Código de la promocón inválido", "El código promo debe ser alfanumérico y tener 8 caracteres.", Alert.AlertType.WARNING);
                 }
             } else {
-                // Muestra un mensaje de error si el código promo no cumple con los requisitos
-                Utilidades.mostrarAlertaSimple("Código de la promocón inválido", "El código promo debe ser alfanumérico y tener 8 caracteres.", Alert.AlertType.WARNING);
+                // Muestra un mensaje si algún campo está vacío
+                Utilidades.mostrarAlertaSimple("Campos vacíos", "Por favor, completa todos los campos obligatorios.", Alert.AlertType.WARNING);
             }
-        } else {
-            // Muestra un mensaje si algún campo está vacío
-            Utilidades.mostrarAlertaSimple("Campos vacíos", "Por favor, completa todos los campos obligatorios.", Alert.AlertType.WARNING);
-        }
         }
 
         if (moduloPromocionController != null) {
@@ -444,17 +446,15 @@ public class FXMLFormPromocionController implements Initializable {
         Empresa empresaSeleccion = empresas.get(cbEmpresas.getSelectionModel().getSelectedIndex());
         promocion.setIdEmpresa(empresaSeleccion.getIdEmpresa());
 
-        String estatusTF = tfEstatus.getText();
-
-        if (estatusTF.equals("Activo")) {
-            isEstatus = true;
+        if (cbEstatus.getValue().equals("Activo")) {
+            promocion.setEstatus(true);
         }
 
-        if (estatusTF.equals("Inactivo")) {
-            isEstatus = false;
+        if (cbEstatus.getValue().equals("Inactivo")) {
+            promocion.setEstatus(false);
         }
-        promocion.setEstatus(isEstatus);
-        System.out.println(isEstatus);
+        
+        System.out.println(cbEstatus.getValue());
     }
 
     private void registrarPromocion(Promocion promocion) {

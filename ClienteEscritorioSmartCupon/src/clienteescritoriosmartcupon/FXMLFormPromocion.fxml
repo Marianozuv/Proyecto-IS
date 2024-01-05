@@ -249,11 +249,7 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="tfEstatus" promptText="Estatus">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
+            <ComboBox fx:id="cbEstatus" prefHeight="35.0" prefWidth="240.0" promptText="Estatus" />
          </children>
       </VBox>
    </children>

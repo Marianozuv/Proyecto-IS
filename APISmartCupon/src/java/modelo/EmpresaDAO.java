@@ -233,7 +233,7 @@ public class EmpresaDAO {
                     }
                 }
             } catch (Exception e) {
-                msj.setMensaje("Error: " + e.getMessage());
+                msj.setMensaje("No se puede eliminar, la empresa tiene sucursales asociadas");
             } finally {
                 conexionDB.close();
             }
