@@ -427,22 +427,6 @@ public class PromocionDAO {
         return mensaje;
     }
 
-    public static List<Promocion> obtenerPromocionByEstatus(boolean estatus) {
-
-        SqlSession sqlSession = MyBatisUtil.getSession();
-        List<Promocion> promociones = null;
-
-        try {
-            promociones = sqlSession.selectList("promociones.obtenerPromocionByEstatus", estatus);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            sqlSession.close();
-        }
-
-        return promociones;
-    }
-
     public static Mensaje desvincularSucursal(PromocionSucursal promocionSucursal) {
         Mensaje mensaje = new Mensaje();
         mensaje.setError(true);
