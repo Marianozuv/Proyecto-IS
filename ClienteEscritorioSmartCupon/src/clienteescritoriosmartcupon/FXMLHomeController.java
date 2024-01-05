@@ -225,18 +225,21 @@ public class FXMLHomeController implements Initializable {
     }
 
     @FXML
-    private void btCerrarSesion(ActionEvent event) throws IOException {
+    private void btCerrarSesion(ActionEvent event) {
 
-        FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLLogin.fxml"));
-        Parent vista = vistaLoad.load();
-
-        FXMLLoginController controller = vistaLoad.getController();
-
-        Stage stage = new Stage();
-        Scene scene = new Scene(vista);
-        stage.setScene(scene);
-        stage.setTitle("Login");
-        stage.initModality(Modality.APPLICATION_MODAL);
+        try {
+            
+            Stage stagePrincipal = (Stage) lbUsuario.getScene().getWindow();
+            FXMLLoader loadVista = new FXMLLoader(getClass().getResource("FXMLLogin.fxml"));
+            Parent vista = loadVista.load();
+            FXMLLoginController controller = loadVista.getController();
+            Scene scene = new Scene(vista);
+            stagePrincipal.setScene(scene);
+            stagePrincipal.show();
+            
+        } catch (Exception e) {
+            Logger.getLogger(FXMLHomeController.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
 }
