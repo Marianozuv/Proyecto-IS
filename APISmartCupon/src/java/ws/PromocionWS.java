@@ -23,6 +23,7 @@ import modelo.pojo.PromocionSucursal;
 import modelo.pojo.Sucursal;
 import modelo.pojo.SucursalPromocion;
 import modelo.pojo.TipoPromocion;
+import validator.PromocionValidator;
 
 @Path("promocion")
 public class PromocionWS {
@@ -75,7 +76,19 @@ public class PromocionWS {
         return PromocionDAO.obtenerTiposPromociones();
 
     }
+    
+    @GET
+    @Path("obtenerByEstatus/{estatus}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Promocion> obtenerPromocionByEstatus(@PathParam("estatus") boolean estatus) {
 
+        if (estatus = true) {
+            return PromocionDAO.obtenerPromocionByEstatus(estatus);
+        } else {
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+    }
+    
     @GET
     @Path("obtenerByEstatus/{estatus}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -156,8 +169,20 @@ public class PromocionWS {
         } else {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
-
     }
+    
+    /*@PUT
+    @Path("editar")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje editar(Promocion promocion){
+        Mensaje mensaje = PromocionValidator.isValid(promocion);
+        if(mensaje.isError()) {
+            return mensaje;
+        }
+        PromocionDAO dao = new PromocionDAO();
+        return dao.editar(promocion);
+    }*/
 
     @DELETE
     @Path("desvincularPromocion")

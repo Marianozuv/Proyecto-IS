@@ -108,6 +108,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE codigoPromocion = #{codigoPromocion}
     </select>
     
+    <select id="obtenerPromocionByEstatus" parameterType="boolean" resultType="modelo.pojo.Promocion">
+        SELECT
+        idPromocion,
+        idEmpresa,
+        nombrePromocion,
+        descripcion,   
+        fechaInicioPromocion,
+        fechaTerminoPromocion,
+        restricciones,
+        idTipoPromocion,
+        porcentaje_Costo,
+        idCategoria,
+        cuponesMaximos,
+        codigoPromocion,
+        estatus
+        FROM promocion
+        WHERE estatus = #{estaus}
+    </select>
+    
     <select id="buscar" parameterType="String" resultType="modelo.pojo.Promocion">
         SELECT
         idPromocion,
@@ -186,8 +205,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         porcentaje_Costo = #{porcentaje_Costo},
         idCategoria = #{idCategoria},
         cuponesMaximos = #{cuponesMaximos},
-        codigoPromocion = #{codigoPromocion},
-        estatus = #{estatus}
+        codigoPromocion = #{codigoPromocion}
         WHERE idPromocion = #{idPromocion}
     </update>
     
@@ -218,14 +236,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <update id="canjearCupon" parameterType="modelo.pojo.Promocion">
-        UPDATE promocion
-        SET cuponesMaximos = 
-        CASE
+        UPDATE promocion SET cuponesMaximos = CASE
         WHEN codigoPromocion = #{codigoPromocion} AND cuponesMaximos > 0 THEN cuponesMaximos - 1
-        ELSE cuponesMaximos
-        END,
-        estatus = 
-        CASE
+        ELSE cuponesMaximos END, estatus = CASE
         WHEN cuponesMaximos = 0 THEN 0
         ELSE estatus
         END
