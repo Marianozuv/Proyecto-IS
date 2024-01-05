@@ -307,7 +307,7 @@ public class FXMLFormPromocionController implements Initializable {
                 }
             } else {
                 // Muestra un mensaje de error si el código promo no cumple con los requisitos
-                Utilidades.mostrarAlertaSimple("Código promo inválido", "El código promo debe ser alfanumérico y tener 8 caracteres.", Alert.AlertType.WARNING);
+                Utilidades.mostrarAlertaSimple("Código de la promocón inválido", "El código promo debe ser alfanumérico y tener 8 caracteres.", Alert.AlertType.WARNING);
             }
         } else {
             // Muestra un mensaje si algún campo está vacío
@@ -323,7 +323,7 @@ public class FXMLFormPromocionController implements Initializable {
                 }
             } else {
                 // Muestra un mensaje de error si el código promo no cumple con los requisitos
-                Utilidades.mostrarAlertaSimple("Código promo inválido", "El código promo debe ser alfanumérico y tener 8 caracteres.", Alert.AlertType.WARNING);
+                Utilidades.mostrarAlertaSimple("Código de la promocón inválido", "El código promo debe ser alfanumérico y tener 8 caracteres.", Alert.AlertType.WARNING);
             }
         } else {
             // Muestra un mensaje si algún campo está vacío
