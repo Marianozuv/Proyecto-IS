@@ -172,6 +172,21 @@ public class FXMLFormPromocionController implements Initializable {
         }
 
     }
+    
+    private boolean camposEstanLLenos() {
+        return !tfNombre.getText().isEmpty()
+                && !tfDesc.getText().isEmpty()
+                && dpFechaInicio.getValue() != null
+                && dpFechaTermino.getValue() != null
+                && !tfRestricciones.getText().isEmpty()
+                && cbTipoPromocion.getValue() != null
+                && !tfPorcentajeCosto.getText().isEmpty()
+                && cbCategorias.getValue() != null
+                && !tfCupones.getText().isEmpty()
+                && !tfCodigoPromo.getText().isEmpty()
+                && cbEmpresas.getValue() != null
+                && !tfEstatus.getText().isEmpty();
+    }
 
     private void rellenarInputs(Promocion promocion) {
 
@@ -277,14 +292,30 @@ public class FXMLFormPromocionController implements Initializable {
     private void btSubirInfromacionPromocion(ActionEvent event) {
 
         if (isEdicion) {
-            recuperarDatos();
-            editarPromocion(promocion);
+            if (camposEstanLLenos()) {
+                recuperarDatos();
+                editarPromocion(promocion);
+                if (moduloPromocionController != null) {
+                    moduloPromocionController.obtenerPromociones();
+                }
+            } else {
+                // Muestra un mensaje de error o realiza alguna acción cuando los campos estén vacíos
+                Utilidades.mostrarAlertaSimple("Campos vacíos", "Por favor, completa todos los campos obligatorios.", Alert.AlertType.WARNING);
+            }
         } else {
-            recuperarDatos();
-            registrarPromocion(promocion);
-            cerrarVentana();
+            if (camposEstanLLenos()) {
+                recuperarDatos();
+                registrarPromocion(promocion);
+                cerrarVentana();
+                if (moduloPromocionController != null) {
+                    moduloPromocionController.obtenerPromociones();
+                }
+            } else {
+                // Muestra un mensaje de error o realiza alguna acción cuando los campos estén vacíos
+                Utilidades.mostrarAlertaSimple("Campos vacíos", "Por favor, completa todos los campos obligatorios.", Alert.AlertType.WARNING);
+            }
         }
-        
+
         if (moduloPromocionController != null) {
             moduloPromocionController.obtenerPromociones();
         }
