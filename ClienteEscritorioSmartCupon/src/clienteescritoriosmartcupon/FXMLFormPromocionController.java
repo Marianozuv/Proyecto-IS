@@ -187,6 +187,12 @@ public class FXMLFormPromocionController implements Initializable {
                 && cbEmpresas.getValue() != null
                 && !tfEstatus.getText().isEmpty();
     }
+    
+    private boolean validarCodigoPromo() {
+        String codigoPromo = tfCodigoPromo.getText();
+        // Verifica si el código promo cumple con las condiciones: no vacío, alfanumérico, 8 caracteres
+        return !codigoPromo.isEmpty() && codigoPromo.matches("\\w{8}");
+    }
 
     private void rellenarInputs(Promocion promocion) {
 
@@ -293,27 +299,36 @@ public class FXMLFormPromocionController implements Initializable {
 
         if (isEdicion) {
             if (camposEstanLLenos()) {
+            if (validarCodigoPromo()) {
                 recuperarDatos();
                 editarPromocion(promocion);
                 if (moduloPromocionController != null) {
                     moduloPromocionController.obtenerPromociones();
                 }
             } else {
-                // Muestra un mensaje de error o realiza alguna acción cuando los campos estén vacíos
-                Utilidades.mostrarAlertaSimple("Campos vacíos", "Por favor, completa todos los campos obligatorios.", Alert.AlertType.WARNING);
+                // Muestra un mensaje de error si el código promo no cumple con los requisitos
+                Utilidades.mostrarAlertaSimple("Código promo inválido", "El código promo debe ser alfanumérico y tener 8 caracteres.", Alert.AlertType.WARNING);
             }
         } else {
+            // Muestra un mensaje si algún campo está vacío
+            Utilidades.mostrarAlertaSimple("Campos vacíos", "Por favor, completa todos los campos obligatorios.", Alert.AlertType.WARNING);
+        }
+        } else {
             if (camposEstanLLenos()) {
+            if (validarCodigoPromo()) {
                 recuperarDatos();
                 registrarPromocion(promocion);
-                cerrarVentana();
                 if (moduloPromocionController != null) {
                     moduloPromocionController.obtenerPromociones();
                 }
             } else {
-                // Muestra un mensaje de error o realiza alguna acción cuando los campos estén vacíos
-                Utilidades.mostrarAlertaSimple("Campos vacíos", "Por favor, completa todos los campos obligatorios.", Alert.AlertType.WARNING);
+                // Muestra un mensaje de error si el código promo no cumple con los requisitos
+                Utilidades.mostrarAlertaSimple("Código promo inválido", "El código promo debe ser alfanumérico y tener 8 caracteres.", Alert.AlertType.WARNING);
             }
+        } else {
+            // Muestra un mensaje si algún campo está vacío
+            Utilidades.mostrarAlertaSimple("Campos vacíos", "Por favor, completa todos los campos obligatorios.", Alert.AlertType.WARNING);
+        }
         }
 
         if (moduloPromocionController != null) {

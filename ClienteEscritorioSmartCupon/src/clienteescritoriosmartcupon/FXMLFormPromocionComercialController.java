@@ -173,6 +173,12 @@ public class FXMLFormPromocionComercialController implements Initializable {
                 && cbEmpresas.getValue() != null
                 && !tfEstatus.getText().isEmpty();
     }
+    
+    private boolean validarCodigoPromo() {
+        String codigoPromo = tfCodigoPromo.getText();
+        // Verifica si el código promo cumple con las condiciones: no vacío, alfanumérico, 8 caracteres
+        return !codigoPromo.isEmpty() && codigoPromo.matches("\\w{8}");
+    }
 
     private void rellenarInputs(Promocion promocion) {
 
