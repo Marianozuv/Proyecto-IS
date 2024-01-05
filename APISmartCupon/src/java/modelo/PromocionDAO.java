@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
+import modelo.pojo.PromocionEmpresa;
 import modelo.pojo.PromocionSucursal;
 import modelo.pojo.Sucursal;
 import modelo.pojo.SucursalPromocion;
@@ -78,10 +79,10 @@ public class PromocionDAO {
         return promociones;
     }
 
-    public static List<Promocion> obtenerPromocionByCategoria(int idCategoria) {
+    public static List<PromocionEmpresa> obtenerPromocionByCategoria(int idCategoria) {
 
         SqlSession sqlSession = MyBatisUtil.getSession();
-        List<Promocion> promociones = null;
+        List<PromocionEmpresa> promociones = null;
 
         try {
             promociones = sqlSession.selectList("promociones.obtenerPromocionByIdCategoria", idCategoria);

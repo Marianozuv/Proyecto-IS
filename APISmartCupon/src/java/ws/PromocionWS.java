@@ -19,6 +19,7 @@ import javax.ws.rs.core.UriInfo;
 import modelo.PromocionDAO;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
+import modelo.pojo.PromocionEmpresa;
 import modelo.pojo.PromocionSucursal;
 import modelo.pojo.Sucursal;
 import modelo.pojo.SucursalPromocion;
@@ -131,7 +132,7 @@ public class PromocionWS {
     @GET
     @Path("listaPromocionPorCategoriaId/{idCategoria}")
     @Produces(MediaType.APPLICATION_JSON)
-    public static List<Promocion> obtenerListaPromocion(@PathParam("idCategoria") Integer idCategoria) {
+    public static List<PromocionEmpresa> obtenerListaPromocion(@PathParam("idCategoria") Integer idCategoria) {
 
         if (idCategoria > 0 && idCategoria != null) {
             return PromocionDAO.obtenerPromocionByCategoria(idCategoria);

@@ -151,9 +151,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE idPromocion = #{idPromocion}
     </select>
     
-    <select id="obtenerPromocionByIdCategoria" parameterType="int" resultType="modelo.pojo.Promocion">
+    <select id="obtenerPromocionByIdCategoria" parameterType="int" resultType="modelo.pojo.PromocionEmpresa">
         SELECT
         p.idPromocion,
+        e.nombre AS empresa,
         e.nombreComercial,
         p.nombrePromocion,
         p.descripcion,   
