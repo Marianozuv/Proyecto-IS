@@ -68,9 +68,13 @@ public class FXMLModuloPromocionComercialController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    }
 
-
-        /*filteredPromocion = new FilteredList<>(promociones, p -> true);
+    public void inicializarInformaciom(int idEmpresa) {
+        this.idEmpresa = idEmpresa;
+        obtenerPromociones(idEmpresa);
+        cargarPromociones();
+        filteredPromocion = new FilteredList<>(promociones, p -> true);
         tvPromociones.setItems(filteredPromocion);
 
         tfBuscador.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -86,13 +90,7 @@ public class FXMLModuloPromocionComercialController implements Initializable {
                         || promocion.getFechaInicioPromocion().toLowerCase().contains(textoBusqueda)
                         || promocion.getFechaTerminoPromocion().toLowerCase().contains(textoBusqueda);
             });
-        });*/
-    }
-
-    public void inicializarInformaciom(int idEmpresa) {
-        this.idEmpresa = idEmpresa;
-        obtenerPromociones(idEmpresa);
-        cargarPromociones();
+        });
     }
 
     void obtenerPromociones(int idEmpresa) {

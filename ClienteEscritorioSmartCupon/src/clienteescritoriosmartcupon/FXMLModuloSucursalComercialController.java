@@ -63,9 +63,14 @@ public class FXMLModuloSucursalComercialController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    }
 
-
-        /*filteredSucursal = new FilteredList<>(sucursales, p -> true);
+    public void inicializarInformaciom(int idEmpresa) {
+        this.idEmpresa = idEmpresa;
+        obtenerSucursales();
+        cargarSucursales();
+        
+        filteredSucursal = new FilteredList<>(sucursales, p -> true);
         tvSucursale.setItems(filteredSucursal);
 
         tfBuscador.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -82,13 +87,7 @@ public class FXMLModuloSucursalComercialController implements Initializable {
                 return sucursal.getNombreSucursal().toLowerCase().contains(textoBusqueda)
                         || sucursal.getDireccion().toLowerCase().contains(textoBusqueda);
             });
-        });*/
-    }
-
-    public void inicializarInformaciom(int idEmpresa) {
-        this.idEmpresa = idEmpresa;
-        obtenerSucursales();
-        cargarSucursales();
+        });
     }
 
     void obtenerSucursales() {
