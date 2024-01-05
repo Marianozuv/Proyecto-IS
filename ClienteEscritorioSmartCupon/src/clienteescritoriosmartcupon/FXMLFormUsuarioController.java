@@ -100,24 +100,39 @@ public class FXMLFormUsuarioController implements Initializable {
             cargarDatos(null, isEdicion);
             cargarInformacionRoles();
             cargarInformacionEmpresas();
+            if (!roles.isEmpty()) {
+                cbRol.setValue(roles.get(0)); // Esto seleccionará el primer rol
+            }
+
+            if (!empresas.isEmpty()) {
+                cbEmpresa.setValue(empresas.get(0)); // Esto seleccionará el primer rol
+            }
         }
     }
     
     private void seleccionarRol(int idRol) {
-        for(Rol rol : cbRol.getItems()){
-            if (rol.getIdRol()== idRol) {
-                cbRol.getSelectionModel().select(rol);
-                break;
+        if (!cbRol.getItems().isEmpty()) {
+            for (Rol rol : cbRol.getItems()) {
+                if (rol.getIdRol() == idRol) {
+                    cbRol.getSelectionModel().select(rol);
+                    return;
+                }
             }
+        }else{
+            Utilidades.mostrarAlertaSimple("Seleccion de Rol", "El Rol no puede ser vacio", Alert.AlertType.ERROR);
         }
     }
     
     private void seleccionarEmpresa(int idEmpresa) {
-        for(Empresa empresa : cbEmpresa.getItems()){
-            if (empresa.getIdEmpresa() == idEmpresa) {
-                cbEmpresa.getSelectionModel().select(empresa);
-                break;
+        if (!cbEmpresa.getItems().isEmpty()) {
+            for (Empresa empresa : cbEmpresa.getItems()) {
+                if (empresa.getIdEmpresa() == idEmpresa) {
+                    cbEmpresa.getSelectionModel().select(empresa);
+                    return;
+                }
             }
+        }else{
+            Utilidades.mostrarAlertaSimple("Seleccion de Empresa", "Empresa no puede ser vacio", Alert.AlertType.ERROR);
         }
     }
 
@@ -130,7 +145,6 @@ public class FXMLFormUsuarioController implements Initializable {
         } else {
             recuperarDatos();
             registrarUsuario(usuario);
-
         }
     }
 
@@ -255,7 +269,7 @@ public class FXMLFormUsuarioController implements Initializable {
         tfNombre.setEditable(editable);
         tfUsername.setEditable(editable);
         tfPassword.setEditable(editable);
-        cbRol.setDisable(editable);
+        cbRol.setDisable(!editable);
         cbEmpresa.setDisable(!editable);
     }
     
@@ -304,7 +318,7 @@ public class FXMLFormUsuarioController implements Initializable {
         }
         return 0;
     }
-    
+
     private void cerrarVentana() {
         Stage stage = (Stage) tfNombre.getScene().getWindow();
         stage.close();

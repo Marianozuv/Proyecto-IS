@@ -151,6 +151,18 @@ public class FXMLFormPromocionController implements Initializable {
             cargarEmpresas();
             cargarCategorias();
             cargarTiposPromociones();
+            
+            if (!empresas.isEmpty()) {
+                cbEmpresas.setValue(empresas.get(0)); // Esto seleccionará el primer rol
+            }
+            
+            if (!tipoPromociones.isEmpty()) {
+                cbTipoPromocion.setValue(tipoPromociones.get(0)); // Esto seleccionará el primer rol
+            }
+            
+            if (!categorias.isEmpty()) {
+                cbCategorias.setValue(categorias.get(0)); // Esto seleccionará el primer rol
+            }
         }
 
     }
