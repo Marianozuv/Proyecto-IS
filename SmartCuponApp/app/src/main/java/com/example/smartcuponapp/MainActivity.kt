@@ -45,6 +45,12 @@ class MainActivity : AppCompatActivity(), NotificacionCategoria {
             startActivity(intent)
         }
 
+        binding.btCerrar.setOnClickListener {
+            val intent = Intent(this@MainActivity, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
     }
 
     fun cargarCategorias(){
@@ -65,7 +71,7 @@ class MainActivity : AppCompatActivity(), NotificacionCategoria {
         val gson = Gson()
         val typeCategoria = object : TypeToken<ArrayList<Categoria>>(){}.type
         categorias = gson.fromJson(json, typeCategoria)
-        Toast.makeText(this@MainActivity, "Categorias: ${categorias.size}", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this@MainActivity, "Categorias: ${categorias.size}", Toast.LENGTH_SHORT).show()
     }
 
     fun mostrarCategorias(){
