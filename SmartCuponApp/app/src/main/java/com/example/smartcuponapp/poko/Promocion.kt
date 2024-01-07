@@ -4,6 +4,7 @@ class Promocion {
     val codigoPromocion: String = ""
     val cuponesMaximos: Int = 0
     val descripcion: String = ""
+    val empresa : String = ""
     val estatus: Boolean = false
     val fechaInicioPromocion: String = ""
     val fechaTerminoPromocion: String = ""

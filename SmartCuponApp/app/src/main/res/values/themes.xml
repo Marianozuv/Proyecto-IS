@@ -1,5 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <style name="Theme.AppSmartCupon" parent="android:Theme.Material.Light.NoActionBar" />
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.SmartCuponApp" parent="Theme.Material3.DayNight">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/oscuro</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/claro</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="colorSurface">@color/oscuro</item>
+        <item name="colorOnSurface">@color/white</item>
+    </style>
 </resources>

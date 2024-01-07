@@ -21,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         val view  = binding.root
         setContentView(view)
-
+3
         supportActionBar!!.hide()
 
         binding.btInciciarSesion.setOnClickListener {
