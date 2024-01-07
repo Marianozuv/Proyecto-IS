@@ -141,7 +141,7 @@ public class FXMLFormEmpresaController implements Initializable {
         } else {
 
             vbBotones.getChildren().clear();
-
+            vbFoto.setVisible(false);
             vbBotones.getChildren().add(btCancelar);
             vbBotones.getChildren().add(btGuradarInfo);
 
@@ -184,7 +184,7 @@ public class FXMLFormEmpresaController implements Initializable {
             }
 
         } else {
-            empresa = new Empresa();
+            empresa = new Empresa();    
             empresa.setCiudad(tfCiudad.getText());
             empresa.setTelefono(tfTelefono.getText());
             empresa.setPaginaWeb(tfPaginaWeb.getText());
@@ -195,7 +195,7 @@ public class FXMLFormEmpresaController implements Initializable {
             empresa.setNombreComercial(tfNombreComercial.getText());
             empresa.setDireccion(tfDireccion.getText());
             empresa.setCodigoPostal(tfCodigoPostal.getText());
-
+            
             registrarEmpresa(empresa);
         }
     }

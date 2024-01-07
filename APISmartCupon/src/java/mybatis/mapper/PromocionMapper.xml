@@ -187,7 +187,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         porcentaje_Costo = #{porcentaje_Costo},
         idCategoria = #{idCategoria},
         cuponesMaximos = #{cuponesMaximos},
-        codigoPromocion = #{codigoPromocion}
+        codigoPromocion = #{codigoPromocion},
+        estatus = #{estatus}
         WHERE idPromocion = #{idPromocion}
     </update>
     

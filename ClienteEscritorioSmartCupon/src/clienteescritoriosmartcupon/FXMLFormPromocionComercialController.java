@@ -7,6 +7,7 @@ package clienteescritoriosmartcupon;
 
 import clienteescritoriosmartcupon.modelo.pojo.Categoria;
 import clienteescritoriosmartcupon.modelo.pojo.Empresa;
+import clienteescritoriosmartcupon.modelo.pojo.Estatus;
 import clienteescritoriosmartcupon.modelo.pojo.Mensaje;
 import clienteescritoriosmartcupon.modelo.pojo.Promocion;
 import clienteescritoriosmartcupon.modelo.pojo.TipoPromocion;
@@ -50,9 +51,9 @@ import javax.imageio.ImageIO;
  */
 public class FXMLFormPromocionComercialController implements Initializable {
 
-
     private boolean isEstatus;
     private ObservableList<Empresa> empresas;
+    private ObservableList<Estatus> estatusList;
     private ObservableList<TipoPromocion> tipoPromociones;
     private ObservableList<Categoria> categorias;
     private boolean isEdicion;
@@ -100,19 +101,27 @@ public class FXMLFormPromocionComercialController implements Initializable {
     @FXML
     private ComboBox<Empresa> cbEmpresas;
     @FXML
-    private TextField tfEstatus;
+    private Label lbEstatus;
+    @FXML
+    private ComboBox<Estatus> cbEstatus;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        estatusList = FXCollections.observableArrayList(
+                new Estatus(true, "Activo"),
+                new Estatus(false, "Inactivo")
+        );
+
+        cbEstatus.setItems(estatusList);
     }
 
     public void setModuloPromocionController(FXMLModuloPromocionComercialController controller) {
         this.moduloPromocionController = controller;
     }
+
 
     public void inicializarInformacion(Promocion promocion, boolean isEdicion) {
 
@@ -127,15 +136,8 @@ public class FXMLFormPromocionComercialController implements Initializable {
             seleccionarCategoria(promocion.getIdCategoria());
             cargarTiposPromociones();
             seleccionarTipoPromocion(promocion.getIdTipoPromocion());
-            if (promocion.isEstatus()) {
-                tfEstatus.setText("Activo");
-            }
 
-            if (!promocion.isEstatus()) {
-                tfEstatus.setText("Inactivo");
-            }
-
-            System.out.println(promocion.isEstatus());
+            cargarEstatus(promocion.isEstatus());
 
         } else {
             this.isEdicion = isEdicion;
@@ -144,6 +146,24 @@ public class FXMLFormPromocionComercialController implements Initializable {
             cargarEmpresas();
             cargarCategorias();
             cargarTiposPromociones();
+            cargarEstatusRegistro();
+            cbEstatus.setVisible(false);
+            lbEstatus.setVisible(false);
+            vbFoto.setVisible(false);
+            if (!empresas.isEmpty()) {
+                cbEmpresas.setValue(empresas.get(0)); // Esto seleccionará el primer rol
+            }
+
+            if (!tipoPromociones.isEmpty()) {
+                cbTipoPromocion.setValue(tipoPromociones.get(0)); // Esto seleccionará el primer rol
+            }
+
+            if (!categorias.isEmpty()) {
+                cbCategorias.setValue(categorias.get(0)); // Esto seleccionará el primer rol
+            }
+
+            dpFechaInicio.setValue(LocalDate.now());
+            dpFechaTermino.setValue(LocalDate.now());
         }
 
     }
@@ -158,7 +178,21 @@ public class FXMLFormPromocionComercialController implements Initializable {
         }
 
     }
-    
+
+    private void cargarEstatus(boolean isEstatus) {
+
+        if (isEstatus) {
+            cbEstatus.setValue(estatusList.get(0));
+        } else {
+            cbEstatus.setValue(estatusList.get(1));
+        }
+
+    }
+
+    private void cargarEstatusRegistro() {
+        cbEstatus.setValue(estatusList.get(0));
+    }
+
     private boolean camposEstanLLenos() {
         return !tfNombre.getText().isEmpty()
                 && !tfDesc.getText().isEmpty()
@@ -169,10 +203,9 @@ public class FXMLFormPromocionComercialController implements Initializable {
                 && !tfPorcentajeCosto.getText().isEmpty()
                 && cbCategorias.getValue() != null
                 && !tfCupones.getText().isEmpty()
-                && cbEmpresas.getValue() != null
-                && !tfEstatus.getText().isEmpty();
+                && cbEmpresas.getValue() != null;
     }
-    
+
     private boolean validarCodigoPromo() {
         String codigoPromo = tfCodigoPromo.getText();
         // Verifica si el código promo cumple con las condiciones: no vacío, alfanumérico, 8 caracteres
@@ -233,7 +266,8 @@ public class FXMLFormPromocionComercialController implements Initializable {
         cbCategorias.setDisable(!editable);
         tfCupones.setEditable(editable);
         tfCodigoPromo.setEditable(editable);
-        tfEstatus.setEditable(editable);
+        cbEstatus.setDisable(!editable);
+
     }
 
     private void habilitarFoto(Boolean editable) {
@@ -286,18 +320,33 @@ public class FXMLFormPromocionComercialController implements Initializable {
                 if (validarCodigoPromo()) {
                     recuperarDatos();
                     editarPromocion(promocion);
+                    if (moduloPromocionController != null) {
+                        moduloPromocionController.obtenerPromociones(promocion.getIdEmpresa());
+                    }
                 } else {
                     // Muestra un mensaje de error si el código promo no cumple con los requisitos
-                    Utilidades.mostrarAlertaSimple("Código de la promoción inválido", "El código promo debe ser alfanumérico y tener 8 caracteres.", Alert.AlertType.WARNING);
+                    Utilidades.mostrarAlertaSimple("Código de la promocón inválido", "El código promo debe ser alfanumérico y tener 8 caracteres.", Alert.AlertType.WARNING);
                 }
             } else {
                 // Muestra un mensaje si algún campo está vacío
                 Utilidades.mostrarAlertaSimple("Campos vacíos", "Por favor, completa todos los campos obligatorios.", Alert.AlertType.WARNING);
             }
         } else {
-            recuperarDatos();
-            registrarPromocion(promocion);
-            cerrarVentana();
+            if (camposEstanLLenos()) {
+                if (validarCodigoPromo()) {
+                    recuperarDatos();
+                    registrarPromocion(promocion);
+                    if (moduloPromocionController != null) {
+                        moduloPromocionController.obtenerPromociones(promocion.getIdEmpresa());
+                    }
+                } else {
+                    // Muestra un mensaje de error si el código promo no cumple con los requisitos
+                    Utilidades.mostrarAlertaSimple("Código de la promocón inválido", "El código promo debe ser alfanumérico y tener 8 caracteres.", Alert.AlertType.WARNING);
+                }
+            } else {
+                // Muestra un mensaje si algún campo está vacío
+                Utilidades.mostrarAlertaSimple("Campos vacíos", "Por favor, completa todos los campos obligatorios.", Alert.AlertType.WARNING);
+            }
         }
 
         if (moduloPromocionController != null) {
@@ -412,17 +461,18 @@ public class FXMLFormPromocionComercialController implements Initializable {
         Empresa empresaSeleccion = empresas.get(cbEmpresas.getSelectionModel().getSelectedIndex());
         promocion.setIdEmpresa(empresaSeleccion.getIdEmpresa());
 
-        String estatusTF = tfEstatus.getText();
+        Estatus estatusSeleccion = estatusList.get(cbEstatus.getSelectionModel().getSelectedIndex());
+        String estatus = estatusSeleccion.getNombreEstado();
+        System.out.println(estatus);
 
-        if (estatusTF.equals("Activo")) {
-            isEstatus = true;
+        if (estatus.equals("Activo")) {
+            promocion.setEstatus(true);
         }
 
-        if (estatusTF.equals("Inactivo")) {
-            isEstatus = false;
+        if (estatus.equals("Inactivo")) {
+            promocion.setEstatus(false);
         }
-        promocion.setEstatus(isEstatus);
-        System.out.println(isEstatus);
+
     }
 
     private void registrarPromocion(Promocion promocion) {

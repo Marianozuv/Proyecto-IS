@@ -7,6 +7,7 @@ package clienteescritoriosmartcupon;
 
 import clienteescritoriosmartcupon.modelo.pojo.Categoria;
 import clienteescritoriosmartcupon.modelo.pojo.Empresa;
+import clienteescritoriosmartcupon.modelo.pojo.Estatus;
 import clienteescritoriosmartcupon.modelo.pojo.Mensaje;
 import clienteescritoriosmartcupon.modelo.pojo.Promocion;
 import clienteescritoriosmartcupon.modelo.pojo.TipoPromocion;
@@ -52,6 +53,7 @@ public class FXMLFormPromocionController implements Initializable {
 
     private boolean isEstatus;
     private ObservableList<Empresa> empresas;
+    private ObservableList<Estatus> estatusList;
     private ObservableList<TipoPromocion> tipoPromociones;
     private ObservableList<Categoria> categorias;
     private boolean isEdicion;
@@ -99,19 +101,21 @@ public class FXMLFormPromocionController implements Initializable {
     @FXML
     private ComboBox<Empresa> cbEmpresas;
     @FXML
-    private ComboBox<String> cbEstatus;
+    private ComboBox<Estatus> cbEstatus;
+    @FXML
+    private Label lbEstatus;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ObservableList<String> items = FXCollections.observableArrayList(
-                "Activo",
-                "Inactivo"
+        estatusList = FXCollections.observableArrayList(
+                new Estatus(true, "Activo"),
+                new Estatus(false, "Inactivo")
         );
 
-        cbEstatus.setItems(items);
+        cbEstatus.setItems(estatusList);
     }
 
     public void setModuloPromocionController(FXMLModuloPromocionController controller) {
@@ -131,13 +135,7 @@ public class FXMLFormPromocionController implements Initializable {
             seleccionarCategoria(promocion.getIdCategoria());
             cargarTiposPromociones();
             seleccionarTipoPromocion(promocion.getIdTipoPromocion());
-            if (promocion.isEstatus()) {
-                cbEstatus.setValue("Activo");
-            } else {
-                cbEstatus.setValue("Inactivo");
-            }
-            System.out.println(promocion.isEstatus());
-
+            cargarEstatus(promocion.isEstatus());
         } else {
             this.isEdicion = isEdicion;
             this.promocion = new Promocion();
@@ -145,7 +143,10 @@ public class FXMLFormPromocionController implements Initializable {
             cargarEmpresas();
             cargarCategorias();
             cargarTiposPromociones();
-
+            cargarEstatusRegistro();
+            cbEstatus.setVisible(false);
+            lbEstatus.setVisible(false);
+            vbFoto.setVisible(false);
             if (!empresas.isEmpty()) {
                 cbEmpresas.setValue(empresas.get(0)); // Esto seleccionará el primer rol
             }
@@ -162,6 +163,20 @@ public class FXMLFormPromocionController implements Initializable {
             dpFechaTermino.setValue(LocalDate.now());
         }
 
+    }
+
+    private void cargarEstatus(boolean isEstatus) {
+
+        if (isEstatus) {
+            cbEstatus.setValue(estatusList.get(0));
+        } else {
+            cbEstatus.setValue(estatusList.get(1));
+        }
+
+    }
+
+    private void cargarEstatusRegistro() {
+            cbEstatus.setValue(estatusList.get(0));   
     }
 
     private void cargarDatos(Promocion promocion, boolean isEdicion) {
@@ -446,15 +461,18 @@ public class FXMLFormPromocionController implements Initializable {
         Empresa empresaSeleccion = empresas.get(cbEmpresas.getSelectionModel().getSelectedIndex());
         promocion.setIdEmpresa(empresaSeleccion.getIdEmpresa());
 
-        if (cbEstatus.getValue().equals("Activo")) {
+        Estatus estatusSeleccion = estatusList.get(cbEstatus.getSelectionModel().getSelectedIndex());
+        String estatus = estatusSeleccion.getNombreEstado();
+        System.out.println(estatus);
+
+        if (estatus.equals("Activo")) {
             promocion.setEstatus(true);
         }
 
-        if (cbEstatus.getValue().equals("Inactivo")) {
+        if (estatus.equals("Inactivo")) {
             promocion.setEstatus(false);
         }
-        
-        System.out.println(cbEstatus.getValue());
+
     }
 
     private void registrarPromocion(Promocion promocion) {

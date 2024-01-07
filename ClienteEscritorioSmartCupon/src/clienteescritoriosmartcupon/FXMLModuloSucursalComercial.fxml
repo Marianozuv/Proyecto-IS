@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="clienteescritoriosmartcupon.FXMLModuloSucursalComercialController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriosmartcupon.FXMLModuloSucursalComercialController">
    <children>
       <ImageView fitHeight="577.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -37,7 +36,7 @@
             <Font size="19.0" />
          </font>
       </TextField>
-      <Button layoutX="420.0" layoutY="90.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btRegistroSucursal" prefHeight="39.0" prefWidth="174.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Registrar" textFill="WHITE" visible="false">
+      <Button layoutX="420.0" layoutY="90.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btRegistroSucursal" prefHeight="39.0" prefWidth="174.0" style="-fx-background-color: green; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: white;" text="Registrar" textFill="WHITE">
          <font>
             <Font size="19.0" />
          </font>

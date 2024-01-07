@@ -14,8 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="clienteescritoriosmartcupon.FXMLFormPromocionComercialController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriosmartcupon.FXMLFormPromocionComercialController">
    <children>
       <ImageView fitHeight="577.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -206,7 +205,7 @@
                </VBox.margin>
             </Label>
             <ComboBox fx:id="cbEmpresas" disable="true" prefHeight="36.0" prefWidth="240.0" promptText="Empresa" />
-            <Label text="Estatus" textFill="WHITE">
+            <Label fx:id="lbEstatus" text="Estatus" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -214,11 +213,7 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="tfEstatus" promptText="Estatus">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
+            <ComboBox fx:id="cbEstatus" prefHeight="34.0" prefWidth="243.0" promptText="Estatus" />
          </children>
       </VBox>
       <HBox fx:id="vbBotones" alignment="TOP_RIGHT" layoutX="130.0" layoutY="484.0" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="43.0" prefWidth="663.0">

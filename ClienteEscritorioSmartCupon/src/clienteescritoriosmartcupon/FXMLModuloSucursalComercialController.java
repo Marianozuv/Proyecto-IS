@@ -113,7 +113,7 @@ public class FXMLModuloSucursalComercialController implements Initializable {
     @FXML
     private void btRegistroSucursal(ActionEvent event) throws IOException {
 
-        Utilidades.mostrarAlertaSimple("Formulario para registro", "Registro para sucursal", Alert.AlertType.INFORMATION);
+       
 
         FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLFormSucursal.fxml"));
         Parent vista = vistaLoad.load();

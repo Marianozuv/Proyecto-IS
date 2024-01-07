@@ -78,7 +78,7 @@ public class SucursalDAO {
                 conexionDB.commit();
                 if (numeroFilasAfectadas > 0) {
                     msj.setError(false);
-                    msj.setMensaje("Sucursal registrada con éxito!!" + numeroFilasAfectadas + "," + sucursal.getNombreSucursal());
+                    msj.setMensaje("Sucursal registrada con éxito!!");
                 } else {
                     msj.setError(true);
                     msj.setMensaje("Lo sentimos, no se pudo registrar la información de la Sucursal.");

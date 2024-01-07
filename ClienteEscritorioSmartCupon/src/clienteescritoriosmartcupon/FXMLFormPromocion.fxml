@@ -241,7 +241,7 @@
                </VBox.margin>
             </Label>
             <ComboBox fx:id="cbEmpresas" prefHeight="36.0" prefWidth="240.0" promptText="Empresa" />
-            <Label text="Estatus" textFill="WHITE">
+            <Label fx:id="lbEstatus" text="Estatus" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>

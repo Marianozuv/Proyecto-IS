@@ -117,7 +117,7 @@ public class FXMLModuloPromocionComercialController implements Initializable {
     @FXML
     private void btRegistroPromocion(ActionEvent event) throws IOException {
 
-        Utilidades.mostrarAlertaSimple("Formulario para registro", "Registro para promocion", Alert.AlertType.INFORMATION);
+        
 
         FXMLLoader vistaLoad = new FXMLLoader(getClass().getResource("FXMLFormPromocion.fxml"));
         Parent vista = vistaLoad.load();

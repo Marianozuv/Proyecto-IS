@@ -101,6 +101,7 @@ public class FXMLFormSucursalComercialController implements Initializable {
             this.sucursal = new Sucursal();
             cargarDatos(null, isEdicion);
             cargarEmpresas();
+            seleccionarEmpresa(sucursal.getIdEmpresa());
         }
 
     }
